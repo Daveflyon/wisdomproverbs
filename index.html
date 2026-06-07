@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Wisdom in Proverbs — A Teaching Series</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  /* Mobile-first base */
+  body {
+    margin: 0;
+    padding: 0 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 400;
+    color: #1c1c1e;
+    background: #ffffff;
+  }
+  @media (min-width: 640px) { body { padding: 0 32px; } }
+  @media (min-width: 900px) { body { max-width: 900px; margin: 0 auto; } }
+
+  /* Title block */
+  .title-block { text-align: center; padding: 40px 0 0; }
+  .series-label { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #1F3864; text-transform: uppercase; margin: 0 0 10px; }
+  h1 { font-size: 28px; font-weight: 700; color: #1F3864; margin: 0 0 6px; line-height: 1.25; }
+  .part-label { font-size: 16px; font-weight: 400; color: #555; margin: 0 0 20px; }
+  .title-rule { border: none; border-top: 2px solid #1F3864; margin: 0 auto; width: 100%; }
+  h2 { font-size: 22px; font-weight: 700; color: #1F3864; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 40px; margin-bottom: 12px; }
+  h4 { font-size: 16px; font-weight: 700; color: #1c1c1e; margin-top: 20px; margin-bottom: 8px; }
+  p { margin-bottom: 16px; }
+  a { color: #1F3864; text-decoration: underline; }
+  a:hover, a:focus { color: #2c54a0; outline: 2px solid #2c54a0; outline-offset: 2px; }
+
+  /* Key verse block */
+  .key-verse {
+    text-align: center;
+    padding: 28px 16px;
+    margin: 24px 0 0;
+    background: #f7f9fc;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+  }
+  @media (min-width: 640px) { .key-verse { padding: 32px 40px; } }
+  .kv-text {
+    font-size: 15px;
+    line-height: 1.85;
+    font-style: italic;
+    color: #1c1c1e;
+    margin: 0 0 14px;
+    text-align: left;
+  }
+  @media (min-width: 640px) { .kv-text { font-size: 17px; text-align: center; } }
+  .kv-ref {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1F3864;
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  /* Proverb feature block */
+  .proverb-feature { margin: 0; }
+  .pf-question-block {
+    background: #1F3864;
+    color: #ffffff;
+    border-radius: 4px 4px 0 0;
+    padding: 24px 20px;
+    text-align: center;
+  }
+  @media (min-width: 640px) { .pf-question-block { padding: 28px 32px; } }
+  .pf-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.72; margin-bottom: 10px; }
+  .pf-question { font-size: 24px; font-weight: 700; margin: 0; line-height: 1.2; }
+  @media (min-width: 640px) { .pf-question { font-size: 26px; } }
+  .pf-definition {
+    border: 1px solid #cccccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 18px 20px;
+    background: #f7f9fc;
+    margin-bottom: 0;
+  }
+  @media (min-width: 640px) { .pf-definition { padding: 20px 24px; } }
+  .pf-definition p { font-size: 15px; line-height: 1.75; color: #1c1c1e; font-style: italic; margin: 0 0 10px; }
+  .pf-definition cite { font-size: 13px; color: #1F3864; font-weight: 700; font-style: normal; }
+
+  /* Bridge note */
+  .bridge-note { border-left: 4px solid #d97706; background: #fffbf0; padding: 12px 16px; margin: 24px 0; }
+  .bridge-note p { margin: 0; font-size: 15px; line-height: 1.65; }
+
+  /* Accordion */
+  .accordion-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: #1F3864;
+    color: #ffffff;
+    border: none;
+    padding: 14px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: left;
+    margin-top: 8px;
+    transition: background 0.15s;
+    min-height: 48px;
+  }
+  .accordion-btn:hover { background: #2c54a0; }
+  .accordion-btn:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
+  .accordion-icon { font-size: 16px; transition: transform 0.25s ease; flex-shrink: 0; margin-left: 12px; }
+  .accordion-btn[aria-expanded="true"] .accordion-icon { transform: rotate(180deg); }
+  .accordion-body {
+    display: none;
+    border: 1px solid #cccccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 18px 16px 16px;
+    background: #f2f2f2;
+    margin-bottom: 28px;
+  }
+  @media (min-width: 640px) { .accordion-body { padding: 20px 20px 16px; } }
+  .accordion-body.open { display: block; }
+  .accordion-body p { font-size: 14px; margin-bottom: 14px; }
+  .accordion-body ul { margin: 6px 0 16px; padding-left: 20px; }
+  .accordion-body ul li { margin-bottom: 8px; font-size: 14px; line-height: 1.55; }
+
+  /* Scripture block inside accordion */
+  .scripture-block-acc {
+    background: #ffffff;
+    border-left: 3px solid #1F3864;
+    padding: 14px 16px;
+    margin: 0 0 16px;
+    border-radius: 0 4px 4px 0;
+  }
+  .sba-text {
+    font-size: 14px;
+    line-height: 1.85;
+    font-style: italic;
+    color: #1c1c1e;
+    margin: 0 0 8px;
+  }
+  .sba-ref {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1F3864;
+    margin: 0;
+    font-style: normal;
+  }
+
+  /* Inner callout */
+  .acc-inner-callout { border-left: 4px solid #1F3864; background: #ffffff; padding: 10px 14px; margin: 14px 0; }
+  .acc-inner-callout-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #1F3864; margin-bottom: 4px; }
+  .acc-inner-callout p { margin: 0; font-size: 13px; }
+
+  /* Attribution */
+  .attribution-note { font-size: 13px; color: #555; border-top: 1px solid #cccccc; padding-top: 12px; margin-top: 12px; font-style: italic; }
+  .who-not { font-size: 14px; margin-bottom: 0; }
+
+  /* Group cards */
+  .group-card { border: 1px solid #cccccc; border-radius: 4px; margin-bottom: 16px; overflow: hidden; }
+  .group-header { background: #1F3864; color: #ffffff; padding: 12px 16px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  @media (min-width: 640px) { .group-header { padding: 13px 18px; gap: 12px; } }
+  .group-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
+  .group-title-text { font-size: 15px; font-weight: 700; line-height: 1.3; }
+  .group-descriptor { font-size: 13px; color: #555; padding: 9px 16px 0; margin: 0; }
+  @media (min-width: 640px) { .group-descriptor { padding: 9px 18px 0; } }
+
+  /* Section list */
+  .section-list { list-style: none; margin: 0; padding: 0; }
+  .section-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 16px;
+    border-top: 1px solid #cccccc;
+    transition: background 0.15s;
+    min-height: 48px;
+  }
+  @media (min-width: 640px) { .section-item { gap: 12px; padding: 12px 18px; } }
+  .section-item:nth-child(odd)  { background: #ffffff; }
+  .section-item:nth-child(even) { background: #f2f2f2; }
+  .section-item:hover { background: #e8eef8; }
+  .section-num { font-size: 11px; font-weight: 700; color: #ffffff; background: #1F3864; border-radius: 3px; padding: 2px 6px; flex-shrink: 0; letter-spacing: 0.04em; }
+  .section-item-body { flex: 1; min-width: 0; }
+  .section-link { color: #1F3864; font-weight: 700; text-decoration: underline; font-size: 14px; display: block; line-height: 1.3; }
+  .section-link:hover, .section-link:focus { color: #2c54a0; }
+  .section-plain { color: #999; font-weight: 700; font-size: 14px; display: block; line-height: 1.3; }
+  .section-desc { font-size: 12px; color: #777; display: block; margin-top: 2px; line-height: 1.4; }
+  .status-badge { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; letter-spacing: 0.04em; white-space: nowrap; flex-shrink: 0; }
+  .status-available { background: #d9ead3; color: #276221; }
+  .status-coming { background: #f2f2f2; color: #999; border: 1px solid #dddddd; }
+
+  /* Footer */
+  .page-footer { font-size: 13px; color: #888; text-align: center; border-top: 1px solid #cccccc; padding: 24px 0 40px; margin-top: 48px; }
+
+  /* Print */
+  @media print {
+    .accordion-body { display: block !important; }
+    .accordion-btn, .pf-question-block, .group-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .key-verse { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TITLE BLOCK -->
+<div class="title-block">
+  <p class="series-label">HiTurn Media Group Presents</p>
+  <h1>Wisdom in Proverbs</h1>
+  <p class="part-label">A Teaching Series from the Book of Proverbs</p>
+</div>
+<hr class="title-rule">
+
+<!-- KEY VERSE BLOCK -->
+<div class="key-verse">
+  <p class="kv-text">"Wisdom is the principal thing; therefore get wisdom. And in all your getting, get understanding."</p>
+  <p class="kv-text">"Exalt her, and she will promote you; she will bring you honor, when you embrace her. She will place on your head an ornament of grace; a crown of glory she will deliver to you."</p>
+  <p class="kv-ref">Proverbs 4:7-9 (NKJV)</p>
+</div>
+
+<!-- WHAT IS A PROVERB -->
+<div class="proverb-feature" style="margin-top:24px;">
+  <div class="pf-question-block">
+    <div class="pf-label">The Question That Opens Everything</div>
+    <p class="pf-question">What is a Proverb?</p>
+  </div>
+  <div class="pf-definition">
+    <p>"A proverb is 'a short pithy saying in frequent and widespread use that expresses a basic truth or practical precept' (American Heritage Dictionary). It is a pithy saying with much more meaning than meets the eye. These proverbs are unchangeable truths that transcend time and culture and should be used by all of us today as benchmarks for conduct and beliefs."</p>
+    <cite>Andrew Wommack's Living Commentary</cite>
+  </div>
+</div>
+
+<!-- BRIDGE NOTE -->
+<div class="bridge-note" style="margin-top:24px;">
+  <p>This series works through eight foundational themes drawn from Proverbs. Each section stands alone as a study unit and links forward across the arc from wisdom's identity through to its full New Testament fulfilment in Christ.</p>
+</div>
+
+<!-- HOW TO USE ACCORDION -->
+<button class="accordion-btn" aria-expanded="false" aria-controls="about-body" id="about-btn">
+  <span>How to Use this Series</span>
+  <span class="accordion-icon" aria-hidden="true">▼</span>
+</button>
+<div class="accordion-body" id="about-body" role="region" aria-labelledby="about-btn">
+
+  <h4 style="margin-top:0; color:#1F3864;">The Book's Own Statement of Purpose</h4>
+  <div class="scripture-block-acc">
+    <p class="sba-text">
+      <sup>1</sup> The proverbs of Solomon the son of David, king of Israel:<br>
+      <sup>2</sup> To know wisdom and instruction,<br>
+      to perceive the words of understanding,<br>
+      <sup>3</sup> to receive the instruction of wisdom,<br>
+      justice, judgment, and equity;<br>
+      <sup>4</sup> to give prudence to the simple,<br>
+      to the young man knowledge and discretion.
+    </p>
+    <p class="sba-ref">Proverbs 1:1-4 (NKJV)</p>
+  </div>
+
+  <h4 style="color:#1F3864;">About Solomon</h4>
+  <p>Solomon wrote not only Proverbs but also Ecclesiastes and the Song of Solomon. First Kings 4:32 tells us he wrote 3,000 proverbs in total, far more than the 800-plus recorded in this book. Proverbs 1-29 represent all the Solomonic proverbs we have in existence today. Proverbs 30-31 were added when Hezekiah's men copied out Solomon's proverbs (Proverbs 25:1), incorporating the words of Agur son of Jakeh and King Lemuel.</p>
+  <p>Solomon was the wisest man who ever lived, and it was by divine inspiration that he received this wisdom (1 Kings 3:12; 4:29-34; 2 Chronicles 1:11-12). That divine origin is not a footnote; it is the reason these sayings carry authority that no human collection can replicate.</p>
+
+  <div class="acc-inner-callout">
+    <div class="acc-inner-callout-label">Translation</div>
+    <p>All scriptures throughout this series are quoted from the New King James Version (NKJV). Each section includes a Scripture Reader with all referenced verses written in full and a Read Aloud feature.</p>
+  </div>
+
+  <h4 style="color:#1F3864;">How the Series Arc Works</h4>
+  <p>The eight sections build in sequence: from the identity and nature of wisdom (Sections 1 and 2) through how wisdom is engaged and what she says (Sections 3 and 4), to what she produces and her contrast with Folly (Sections 5 and 6), her application across every domain of life (Section 7) and the complete New Testament synthesis showing wisdom's fulfilment in Christ (Section 8). Each section can be studied independently, but the arc rewards reading in sequence.</p>
+
+  <h4 style="color:#1F3864;">What Each Section Contains</h4>
+  <ul>
+    <li><strong>Opening Question:</strong> Answer before reading anything else. Surfaces what you already think before the text defines it.</li>
+    <li><strong>Five Things to Know First:</strong> Doctrinal anchors before engaging the detail.</li>
+    <li><strong>Content sections:</strong> Tables with verse snippets, Folly contrasts and teaching notes. Responsive on mobile.</li>
+    <li><strong>NT Connections:</strong> How this section's themes reach forward into the New Testament.</li>
+    <li><strong>Key Discovery Questions:</strong> Individual preparation. Work through these before the group session.</li>
+    <li><strong>Group Discussion Questions:</strong> Open conversation designed for any level of experience.</li>
+    <li><strong>Application:</strong> Specific, named ways to live out what the section teaches.</li>
+    <li><strong>Scripture Reader:</strong> All referenced verses written in full with verse-by-verse Read Aloud.</li>
+  </ul>
+
+  <div class="attribution-note">This series is an original teaching reference developed for HiTurn Media Group. It draws from selected themes in Proverbs and is not a verse-by-verse survey of the book. The proverb definition is drawn from Andrew Wommack's Living Commentary, used here for teaching purposes. All scripture NKJV.</div>
+
+  <hr style="border:none; border-top:1px solid #cccccc; margin:20px 0 16px;">
+  <h4 style="margin-top:0; color:#1F3864;">Who this Series is Not For</h4>
+  <p class="who-not">This series is not a verse-by-verse commentary and is not designed for those seeking critical engagement with the Hebrew text or the history of biblical scholarship. It is a structured teaching and study resource, pastoral in approach and practical in application. Those seeking scholarly depth should treat each section as a starting point and pursue further study from there.</p>
+  <p style="font-size:13px; color:#555; margin-top:14px; margin-bottom:0;">For further details please contact <a href="mailto:david@hiturnmedia.com">david@hiturnmedia.com</a></p>
+
+  <div style="display:flex; justify-content:flex-end; margin-top:18px; padding-top:12px; border-top:1px solid #cccccc;">
+    <button id="about-collapse-btn" style="background:#f2f2f2; border:1px solid #cccccc; color:#555; padding:5px 14px; border-radius:4px; font-size:12px; font-weight:700; cursor:pointer; font-family:Arial,Helvetica,sans-serif; min-height:32px;">&#9650; Minimise</button>
+  </div>
+
+</div>
+
+<!-- THE EIGHT SECTIONS -->
+<h2>The Eight Sections</h2>
+
+<!-- PART 1 -->
+<div class="group-card">
+  <div class="group-header">
+    <span class="group-tag">Part 1</span>
+    <span class="group-title-text">Identity: What Wisdom Is and Has</span>
+  </div>
+  <p class="group-descriptor">The foundation. What wisdom is and has before asking anything of the reader.</p>
+  <ul class="section-list">
+    <li class="section-item">
+      <span class="section-num">S1</span>
+      <div class="section-item-body">
+        <a class="section-link" href="wisdom-proverbs-s1-what-wisdom-is.html">What Wisdom Is. Begin Here.</a>
+        <span class="section-desc">Identity, nature, the Wisdom Portrait (chs. 1 and 8), NT connections, full discussion and application</span>
+      </div>
+    </li>
+    <li class="section-item">
+      <span class="section-num">S2</span>
+      <div class="section-item-body">
+        <a class="section-link" href="wisdom-proverbs-s2-what-wisdom-has.html">What Wisdom Has</a>
+        <span class="section-desc">Resources, authority and attributes that wisdom possesses and offers</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- PART 2 -->
+<div class="group-card">
+  <div class="group-header">
+    <span class="group-tag">Part 2</span>
+    <span class="group-title-text">Engagement: How Wisdom Works</span>
+  </div>
+  <p class="group-descriptor">What wisdom asks of those who would receive her, and what she speaks to those who listen.</p>
+  <ul class="section-list">
+    <li class="section-item">
+      <span class="section-num">S3</span>
+      <div class="section-item-body">
+        <a class="section-link" href="wisdom-proverbs-s3-what-wisdom-requires.html">What Wisdom Requires</a>
+        <span class="section-desc">Entry conditions, prerequisites and the posture wisdom demands</span>
+      </div>
+    </li>
+    <li class="section-item">
+      <span class="section-num">S4</span>
+      <div class="section-item-body">
+        <a class="section-link" href="wisdom-proverbs-s4-what-wisdom-speaks.html">What Wisdom Speaks</a>
+        <span class="section-desc">The public voice, the invitation, the warning and the call</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- PART 3 -->
+<div class="group-card">
+  <div class="group-header">
+    <span class="group-tag">Part 3</span>
+    <span class="group-title-text">Fruit and Contrast: What Wisdom Does</span>
+  </div>
+  <p class="group-descriptor">The outcomes wisdom produces in a life, set against the full portrait of Lady Folly.</p>
+  <ul class="section-list">
+    <li class="section-item">
+      <span class="section-num">S5</span>
+      <div class="section-item-body">
+        <a class="section-link" href="wisdom-proverbs-s5-what-wisdom-gives.html">What Wisdom Gives</a>
+        <span class="section-desc">Fruit in character, relationships, work and legacy</span>
+      </div>
+    </li>
+    <li class="section-item">
+      <span class="section-num">S6</span>
+      <div class="section-item-body">
+        <a class="section-link" href="wisdom-proverbs-s6-folly-contrast.html">The Folly Contrast</a>
+        <span class="section-desc">Lady Folly as a full parallel portrait; the complete two-way comparison</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- PART 4 -->
+<div class="group-card">
+  <div class="group-header">
+    <span class="group-tag">Part 4</span>
+    <span class="group-title-text">Application and Synthesis</span>
+  </div>
+  <p class="group-descriptor">Wisdom across every domain of life, then the complete NT synthesis connecting all themes to Christ.</p>
+  <ul class="section-list">
+    <li class="section-item">
+      <span class="section-num">S7</span>
+      <div class="section-item-body">
+        <a class="section-link" href="wisdom-proverbs-s7-across-domains.html">Wisdom Across Domains</a>
+        <span class="section-desc">Speech, wealth, work, family, friendship, leadership and governance</span>
+      </div>
+    </li>
+    <li class="section-item">
+      <span class="section-num">S8</span>
+      <div class="section-item-body">
+        <a class="section-link" href="wisdom-proverbs-s8-nt-connections.html">NT Connections: Full Synthesis</a>
+        <span class="section-desc">All eight themes connected to Christ; wisdom's fulfilment in the New Testament</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- FOOTER -->
+<div class="page-footer">
+  <p>Wisdom in Proverbs: A Teaching Series from the Book of Proverbs.<br>HiTurn Media Group.</p>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var btn  = document.getElementById('about-btn');
+    var body = document.getElementById('about-body');
+    btn.addEventListener('click', function () {
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      body.classList.toggle('open', !expanded);
+    });
+    var collapseBtn = document.getElementById('about-collapse-btn');
+    if (collapseBtn) {
+      collapseBtn.addEventListener('click', function () {
+        body.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        setTimeout(function () { btn.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+      });
+    }
+  });
+</script>
+</body>                                                

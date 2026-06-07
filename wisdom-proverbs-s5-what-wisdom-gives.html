@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Wisdom in Proverbs: Section 5 — What Wisdom Gives</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; padding: 0 16px; font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.6; font-weight: 400; color: #1c1c1e; background: #ffffff; }
+  @media (min-width: 640px) { body { padding: 0 32px; } }
+  @media (min-width: 900px) { body { max-width: 900px; margin: 0 auto; } }
+
+  /* ── STICKY BAR ── */
+  .sticky-bar { position: fixed; top: 0; left: 0; right: 0; background: #1F3864; color: #ffffff; z-index: 950; box-shadow: 0 2px 6px rgba(0,0,0,0.2); transform: translateY(-100%); transition: transform 0.25s ease; }
+  .sticky-bar.visible { transform: translateY(0); }
+  .sticky-inner { max-width: 900px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  @media (min-width: 640px) { .sticky-inner { padding: 10px 32px; } }
+  .sticky-title { font-size: 15px; font-weight: 700; }
+  .sticky-meta  { font-size: 12px; opacity: 0.7; white-space: nowrap; }
+
+  /* ── TITLE BLOCK ── */
+  .title-block { padding: 32px 0 16px; }
+  .back-link { font-size: 13px; margin-bottom: 12px; }
+  .back-link a { color: #1F3864; text-decoration: underline; font-weight: 700; }
+  .back-link a:hover { color: #2c54a0; }
+  .doc-label { margin-bottom: 8px; }
+  .dl-main { display: block; font-size: 18px; font-weight: 700; color: #1F3864; letter-spacing: 0.01em; line-height: 1.2; }
+  .dl-sub  { display: block; font-size: 13px; font-weight: 700; color: #1F3864; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.75; margin-top: 2px; }
+  @media (max-width: 639px) { .dl-main { font-size: 28px; } }
+  h1 { font-size: 26px; font-weight: 700; color: #1F3864; margin: 6px 0 5px; line-height: 1.2; }
+  @media (min-width: 640px) { h1 { font-size: 28px; } }
+  .subtitle { font-size: 15px; color: #555; margin: 0 0 14px; }
+  .title-rule { border: none; border-top: 2px solid #1F3864; margin: 0 0 20px; }
+  p { margin-bottom: 16px; }
+  a { color: #1F3864; text-decoration: underline; }
+  a:hover, a:focus { color: #2c54a0; outline: 2px solid #2c54a0; outline-offset: 2px; }
+
+  /* ── ARC BAR ── */
+  .arc-bar { display: flex; gap: 5px; margin: 0 0 18px; flex-wrap: wrap; }
+  .arc-step { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.03em; }
+  .arc-step.active  { background: #1F3864; color: #ffffff; box-shadow: 0 2px 5px rgba(31,56,100,0.3); }
+  .arc-step.inactive { background: #f2f2f2; color: #555; border: 1px solid #dddddd; cursor: pointer; }
+  .arc-step.inactive a { color: inherit; text-decoration: none; }
+  @media (max-width: 639px) {
+    .arc-bar { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); grid-auto-flow: column; gap: 7px; }
+    .arc-step { font-size: 12px; text-align: left; padding: 10px 10px; min-height: 44px; border-radius: 6px; display: flex; align-items: center; justify-content: flex-start; }
+    .arc-step.active  { background: #1F3864; color: #ffffff; border: 1.5px solid #1F3864; box-shadow: 0 4px 12px rgba(31,56,100,0.45), 0 2px 4px rgba(31,56,100,0.25); }
+    .arc-step.inactive { background: #ffffff; color: #555; border: 1.5px solid #cccccc; box-shadow: 0 3px 8px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.08); }
+  }
+
+  /* ── UTILITY BAR ── */
+  .util-bar { padding: 10px 14px; background: #f2f2f2; border-radius: 4px; margin: 0 0 22px; }
+  .util-inner { display: flex; gap: 10px; align-items: flex-start; }
+  .util-label { font-size: 12px; font-weight: 700; color: #666; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; padding-top: 7px; flex-shrink: 0; }
+  .util-buttons { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .util-row-1 { display: flex; gap: 8px; }
+  .util-row-1 .util-btn { flex: 1; }
+  .util-row-2 .util-btn { width: 100%; }
+  .util-btn { background: #ffffff; color: #1F3864; border: 1px solid #1F3864; padding: 6px 12px; border-radius: 4px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.15s, color 0.15s; min-height: 36px; }
+  .util-btn:hover { background: #1F3864; color: #ffffff; }
+  .util-btn:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
+  .util-btn.scripture-active { background: #d97706; color: #ffffff; border-color: #d97706; }
+
+  /* ── OPENING QUESTION ── */
+  .opening-question { border: 2px solid #d97706; border-radius: 4px; padding: 20px; margin: 0 0 18px; background: #fffbf0; }
+  @media (min-width: 640px) { .opening-question { padding: 22px 26px; } }
+  .oq-label { margin-bottom: 10px; }
+  .oq-label-primary { display: block; font-size: 15px; font-weight: 700; color: #d97706; letter-spacing: 0.04em; text-transform: uppercase; }
+  .oq-label-secondary { display: block; font-size: 12px; color: #7d5a00; margin-top: 3px; }
+  .oq-text { font-size: 16px; line-height: 1.75; color: #1c1c1e; margin: 0; font-weight: 500; }
+  @media (min-width: 640px) { .oq-text { font-size: 17px; } }
+
+  /* ── KEY SCRIPTURE ── */
+  .key-scripture { border-left: 4px solid #1F3864; background: #f2f2f2; padding: 16px 18px; margin: 0 0 16px; border-radius: 0 4px 4px 0; }
+  .ks-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #1F3864; margin-bottom: 8px; }
+  .ks-ref   { font-size: 14px; font-weight: 700; color: #1F3864; margin-bottom: 6px; }
+  .ks-text  { font-size: 16px; font-style: italic; line-height: 1.7; color: #1c1c1e; margin: 0; }
+
+  /* ── CORE TRUTH ── */
+  .core-truth-box { background: #1F3864; border-radius: 4px; padding: 20px 22px; margin: 0 0 24px; text-align: center; }
+  @media (min-width: 640px) { .core-truth-box { padding: 22px 28px; } }
+  .core-truth-label     { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #d97706; margin: 0 0 12px; }
+  .core-truth-statement { font-size: 16px; font-weight: 700; color: #ffffff; line-height: 1.5; margin: 0; }
+  @media (min-width: 640px) { .core-truth-statement { font-size: 18px; } }
+
+  /* ── GROUP DIVIDERS ── */
+  .group-divider { padding: 24px 0 6px; margin: 0 0 6px; }
+  .group-divider-label { display: block; font-size: 18px; font-weight: 700; color: #1F3864; letter-spacing: 0.07em; text-transform: uppercase; }
+
+  /* ── ACCORDION ── */
+  .acc-unit { margin-bottom: 8px; }
+  .acc-btn { display: flex; align-items: center; gap: 10px; width: 100%; background: #1F3864; color: #ffffff; border: none; padding: 12px 16px; font-family: Arial, Helvetica, sans-serif; cursor: pointer; border-radius: 4px; text-align: left; transition: background 0.15s; min-height: 52px; }
+  @media (min-width: 640px) { .acc-btn { padding: 13px 18px; gap: 12px; } }
+  .acc-btn:hover { background: #2c54a0; }
+  .acc-btn:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
+  .acc-pill { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; background: rgba(255,255,255,0.18); padding: 2px 7px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; text-transform: uppercase; align-self: flex-start; margin-top: 3px; }
+  .acc-title-block { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+  .acc-title { font-size: 14px; font-weight: 700; line-height: 1.3; }
+  @media (min-width: 640px) { .acc-title { font-size: 15px; } }
+  .acc-subtitle { font-size: 12px; font-weight: 400; opacity: 0.78; line-height: 1.3; }
+  .acc-chevron { font-size: 13px; transition: transform 0.25s ease; flex-shrink: 0; margin-left: 4px; align-self: center; }
+  .acc-btn[aria-expanded="true"] .acc-chevron { transform: rotateY(180deg); }
+  .acc-body { display: none; border: 1px solid #cccccc; border-top: none; border-radius: 0 0 4px 4px; padding: 18px 16px 16px; background: #ffffff; margin-bottom: 2px; }
+  @media (min-width: 640px) { .acc-body { padding: 22px 20px 18px; } }
+  .acc-body.open { display: block; }
+
+  /* ── MINIMISE BUTTON ── */
+  .acc-body-footer { display: flex; justify-content: flex-end; margin-top: 16px; padding-top: 12px; border-top: 1px solid #eeeeee; }
+  .acc-collapse-btn { background: #f2f2f2; border: 1px solid #cccccc; color: #555; padding: 5px 12px; border-radius: 4px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: Arial, Helvetica, sans-serif; display: flex; align-items: center; gap: 6px; min-height: 32px; }
+  .acc-collapse-btn:hover { background: #e0e0e0; }
+  .acc-collapse-btn:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
+
+  /* ── CRIB PANEL ── */
+  .crib-inner { border-left: 4px solid #1F3864; background: #f0f4fb; border-radius: 0 4px 4px 0; padding: 14px 16px; }
+  @media (min-width: 640px) { .crib-inner { padding: 16px 18px; } }
+  .crib-inner h3 { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #1F3864; border-bottom: none; padding-bottom: 0; margin-top: 0; margin-bottom: 12px; }
+  .crib-inner ol { margin: 0; padding-left: 20px; }
+  .crib-inner li { margin-bottom: 12px; line-height: 1.65; font-size: 14px; color: #1c1c1e; }
+  @media (min-width: 640px) { .crib-inner li { font-size: 15px; } }
+  .crib-ref { font-size: 12px; color: #1F3864; opacity: 0.65; margin-left: 4px; }
+
+  /* ── TABLES ── */
+  .table-wrap { overflow-x: auto; margin-bottom: 20px; -webkit-overflow-scrolling: touch; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead tr { background: #1F3864; color: #ffffff; }
+  thead th { padding: 10px 12px; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-align: left; border: 1px solid #cccccc; }
+  @media (min-width: 640px) { thead th { padding: 10px 14px; font-size: 14px; } }
+  tbody tr:nth-child(odd)  { background: #ffffff; }
+  tbody tr:nth-child(even) { background: #f2f2f2; }
+  tbody td { padding: 9px 12px; border: 1px solid #cccccc; vertical-align: top; font-size: 13px; }
+  @media (min-width: 640px) { tbody td { padding: 10px 14px; font-size: 14px; } }
+  td.label-cell { background: #f2f2f2; font-weight: 700; }
+  td.verse-cell { background: #f0f4fb !important; border-left: 3px solid #1F3864; }
+  .verse-snippet { font-style: italic; color: #1c1c1e; font-weight: 500; }
+  td.folly-cell { color: #7d3a00; }
+  td.note-cell  { color: #444; }
+
+  @media (max-width: 639px) {
+    .resp-table thead { display: none; }
+    .resp-table tbody tr { display: block; border: 1px solid #cccccc; border-radius: 4px; margin-bottom: 14px; overflow: hidden; }
+    .resp-table tbody td { display: block; border: none; border-bottom: 1px solid #eeeeee; padding: 8px 14px; background: #ffffff !important; font-size: 14px; }
+    .resp-table tbody td:last-child { border-bottom: none; }
+    .resp-table tbody td::before { content: attr(data-label); display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 3px; }
+    .resp-table tbody td.label-cell { background: #dce8f5 !important; color: #1F3864; font-size: 14px; font-weight: 700; padding: 10px 14px; border-left: 4px solid #1F3864; }
+    .resp-table tbody td.label-cell::before { display: none; }
+    .resp-table tbody td.verse-cell { background: #f0f4fb !important; border-left: 3px solid #1F3864; }
+    .resp-table tbody td.folly-cell { background: #f5f5f5 !important; color: #7d3a00; }
+  }
+
+  /* ── CALLOUT BOXES ── */
+  .callout { padding: 12px 14px; margin: 16px 0; }
+  @media (min-width: 640px) { .callout { padding: 12px 16px; } }
+  .callout-note    { border-left: 4px solid #d97706; background: #fffbf0; }
+  .callout-depth   { border-left: 4px solid #1F3864; background: #f0f4fb; }
+  .callout-caution { border-left: 4px solid #8b0000; background: #fdf0f0; }
+  .callout-label { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; margin-bottom: 5px; }
+  .callout-note    .callout-label { color: #7d5a00; }
+  .callout-depth   .callout-label { color: #1F3864; }
+  .callout-caution .callout-label { color: #8b0000; }
+  .callout p { margin: 0; font-size: 14px; line-height: 1.6; }
+
+  /* ── WISDOM SUMMARY ── */
+  .wisdom-summary { border: 1px solid #d97706; border-top: 3px solid #d97706; border-radius: 4px; padding: 16px 18px; margin: 20px 0; background: #ffffff; }
+  @media (min-width: 640px) { .wisdom-summary { padding: 18px 20px; } }
+  .wisdom-summary-heading { font-size: 13px; font-weight: 700; color: #d97706; letter-spacing: 0.07em; text-transform: uppercase; margin: 0 0 12px; }
+  .wisdom-summary ol { margin: 0; padding-left: 20px; }
+  .wisdom-summary li { font-size: 14px; line-height: 1.65; margin-bottom: 8px; color: #1c1c1e; }
+  .wisdom-summary li:last-child { margin-bottom: 0; }
+
+  /* ── KDQ ── */
+  .kdq-block { border: 2px solid #1F3864; border-radius: 4px; overflow: hidden; margin: 6px 0; }
+  .kdq-header { background: #1F3864; color: #ffffff; padding: 12px 16px; }
+  @media (min-width: 640px) { .kdq-header { padding: 12px 20px; } }
+  .kdq-header-title { font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin: 0; }
+  @media (min-width: 640px) { .kdq-header-title { font-size: 14px; } }
+  .kdq-header-sub { font-size: 12px; opacity: 0.78; margin: 3px 0 0; }
+  .kdq-questions { padding: 6px 16px 14px; }
+  @media (min-width: 640px) { .kdq-questions { padding: 8px 20px 16px; } }
+  .kdq-question { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #eeeeee; }
+  @media (min-width: 640px) { .kdq-question { gap: 14px; padding: 14px 0; } }
+  .kdq-question:last-child { border-bottom: none; }
+  .kdq-num { background: #1F3864; color: #ffffff; border-radius: 50%; width: 26px; height: 26px; min-width: 26px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  @media (min-width: 640px) { .kdq-num { width: 28px; height: 28px; min-width: 28px; font-size: 13px; margin-top: 1px; } }
+  .kdq-body { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .kdq-text { font-size: 14px; line-height: 1.65; }
+  @media (min-width: 640px) { .kdq-text { font-size: 15px; } }
+
+  /* ── FILLABLE ANSWERS ── */
+  .fillable { min-height: 56px; outline: none; background: #fffbf0; border-radius: 3px; border: 1px solid #e0d0b0; padding: 6px 8px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.5; color: #1c1c1e; display: block; width: 100%; transition: background 0.15s; }
+  .fillable:focus { background: #fff8e1; outline: 2px solid #d97706; outline-offset: 0; }
+  .fillable:empty::before { content: attr(data-placeholder); color: #bbb; pointer-events: none; font-style: italic; }
+  .answers-toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 16px 16px 4px; padding-bottom: 4px; }
+  @media (min-width: 640px) { .answers-toolbar { margin: 16px 20px 4px; } }
+  .answers-toolbar button { background: #1F3864; color: #ffffff; border: none; border-radius: 4px; padding: 7px 14px; font-size: 13px; font-weight: 700; font-family: Arial, Helvetica, sans-serif; cursor: pointer; min-height: 34px; }
+  .answers-toolbar button:hover { background: #2c54a0; }
+  .answers-toolbar button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
+  .answers-toolbar .clear-btn { background: #ffffff; color: #8b0000; border: 1px solid #8b0000; }
+  .answers-toolbar .clear-btn:hover { background: #fce8e8; }
+  .answers-note { font-size: 12px; color: #777; margin: 4px 16px 0; }
+  @media (min-width: 640px) { .answers-note { margin: 4px 20px 0; } }
+
+  /* ── GDQ ── */
+  .gdq-block { border: 2px solid #0d7377; border-radius: 4px; overflow: hidden; margin: 6px 0; }
+  .gdq-header { background: #0d7377; color: #ffffff; padding: 12px 16px; }
+  @media (min-width: 640px) { .gdq-header { padding: 12px 20px; } }
+  .gdq-header-title { font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin: 0; }
+  @media (min-width: 640px) { .gdq-header-title { font-size: 14px; } }
+  .gdq-header-sub { font-size: 12px; opacity: 0.85; margin: 3px 0 0; }
+  .gdq-questions { padding: 6px 16px 14px; }
+  @media (min-width: 640px) { .gdq-questions { padding: 8px 20px 16px; } }
+  .gdq-question { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #e0f0f0; }
+  @media (min-width: 640px) { .gdq-question { gap: 14px; padding: 14px 0; } }
+  .gdq-question:last-child { border-bottom: none; }
+  .gdq-num { background: #0d7377; color: #ffffff; border-radius: 50%; width: 26px; height: 26px; min-width: 26px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  @media (min-width: 640px) { .gdq-num { width: 28px; height: 28px; min-width: 28px; font-size: 13px; margin-top: 1px; } }
+  .gdq-text { font-size: 14px; line-height: 1.65; }
+  @media (min-width: 640px) { .gdq-text { font-size: 15px; } }
+
+  /* ── APPLICATION ── */
+  .app-intro { font-size: 14px; color: #555; margin: 0 0 14px; font-style: italic; }
+  .app-item { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid #eeeeee; }
+  @media (min-width: 640px) { .app-item { gap: 16px; padding: 16px 0; } }
+  .app-item:last-child { border-bottom: none; }
+  .app-num { background: #1F3864; color: #ffffff; border-radius: 4px; min-width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  @media (min-width: 640px) { .app-num { min-width: 32px; height: 32px; } }
+  .app-body { flex: 1; }
+  .app-title { font-size: 14px; font-weight: 700; color: #1F3864; margin: 0 0 4px; }
+  @media (min-width: 640px) { .app-title { font-size: 15px; } }
+  .app-desc { font-size: 14px; line-height: 1.65; color: #1c1c1e; margin: 0; }
+  .nt-forward-note { font-size: 13px; color: #555; border-top: 1px solid #eeeeee; padding-top: 12px; margin-top: 16px; font-style: italic; }
+
+  /* ── SCRIPTURE READER ── */
+  .scripture-reader-intro { margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid #cccccc; }
+  .scripture-reader-intro p { margin: 0; font-size: 14px; color: #555; line-height: 1.6; }
+  .scripture-reader-intro p { margin: 0; font-size: 14px; color: #555; line-height: 1.6; }
+  .scripture-group-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 18px 0 4px; border-bottom: 2px solid #1F3864; padding-bottom: 5px; }
+  .scripture-group-header .scripture-group-label { margin: 0; border-bottom: none; padding-bottom: 0; }
+  .read-aloud-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; flex-shrink: 0; }
+  .read-aloud-btn { background: #1F3864; color: #ffffff; border: none; padding: 7px 14px; border-radius: 4px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.15s; min-height: 36px; }
+  .read-aloud-btn:hover { background: #2c54a0; }
+  .read-aloud-btn:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
+  .read-aloud-btn.stop { background: #8b0000; }
+  .reading-counter { font-size: 12px; color: #888; display: none; }
+  .reading-counter.visible { display: block; }
+  .scripture-group-label { font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #1F3864; border-bottom: 2px solid #1F3864; padding-bottom: 5px; margin: 22px 0 4px; }
+  .scripture-entry { padding: 12px 0 12px 10px; border-bottom: 1px solid #eeeeee; border-left: 3px solid transparent; transition: background 0.3s, border-left-color 0.3s; }
+  @media (min-width: 640px) { .scripture-entry { padding: 14px 0 14px 12px; } }
+  .scripture-entry:last-child { border-bottom: none; }
+  .scripture-entry.reading-active { background: #f0f4fb; border-left-color: #1F3864; }
+  .scripture-ref  { font-size: 13px; font-weight: 700; color: #1F3864; letter-spacing: 0.03em; margin-bottom: 5px; }
+  .scripture-text { font-size: 15px; line-height: 1.8; color: #1c1c1e; font-style: italic; }
+  @media (min-width: 640px) { .scripture-text { font-size: 16px; } }
+
+  /* ── REVISION CARDS ── */
+  .flashcard-hint { font-size: 12px; color: #888; margin: 0 0 12px; }
+  .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin: 4px 0 16px; }
+  .flashcard { height: 190px; perspective: 1000px; cursor: pointer; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.45s ease; border-radius: 6px; }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 6px; padding: 16px; display: flex; flex-direction: column; justify-content: center; }
+  .flashcard-front { background: #ffffff; border: 2px solid #1F3864; }
+  .flashcard-back  { background: #1F3864; transform: rotateY(180deg); }
+  .fc-prompt { font-size: 14px; font-weight: 700; color: #1F3864; margin: 0 0 8px; line-height: 1.4; }
+  .fc-ref     { font-size: 12px; color: #2c54a0; font-weight: 700; margin: 0; letter-spacing: 0.05em; }
+  .fc-verse   { font-size: 13px; color: #e8e4dc; font-style: italic; margin: 0 0 8px; line-height: 1.5; }
+  .fc-ref-back { font-size: 12px; color: #d97706; font-weight: 700; margin: 0; letter-spacing: 0.04em; }
+
+  /* ── BOTTOM CONTROLS ── */
+  .bottom-controls { padding: 24px 0 0; }
+  .bottom-collapse-btn { width: 100%; background: #f2f2f2; color: #1F3864; border: 1px solid #1F3864; padding: 11px 16px; border-radius: 4px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.15s, color 0.15s; }
+  .bottom-collapse-btn:hover { background: #1F3864; color: #ffffff; }
+
+  /* ── FLOATING TOC ── */
+  #toc-container { position: fixed; bottom: 20px; right: 16px; z-index: 1000; }
+  @media (min-width: 640px) { #toc-container { bottom: 24px; right: 24px; } }
+  #toc-toggle { background: #1F3864; color: #ffffff; border: none; padding: 9px 14px; border-radius: 4px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; min-height: 40px; }
+  @media (max-width: 639px) { #toc-container { bottom: 14px; right: 10px; } #toc-toggle { font-size: 11px; padding: 6px 10px; min-height: 32px; border-radius: 20px; background: rgba(31,56,100,0.9); } }
+  #toc-toggle:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
+  #toc-menu { display: none; background: #1F3864; border-radius: 4px; padding: 8px 0; margin-bottom: 8px; min-width: 220px; max-width: 85vw; max-height: 60vh; overflow-y: auto; }
+  @media (min-width: 640px) { #toc-menu { min-width: 240px; } }
+  #toc-menu a { display: flex; flex-direction: column; justify-content: center; color: #ffffff; text-decoration: none; padding: 9px 14px; font-size: 13px; cursor: pointer; line-height: 1.3; min-height: 44px; }
+  #toc-menu a .toc-sub { font-size: 11px; opacity: 0.7; margin-top: 1px; }
+  #toc-menu a:hover { background: #2c54a0; }
+  .toc-divider { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); padding: 8px 14px 3px; }
+
+  /* ── FOOTER ── */
+  .page-footer { font-size: 13px; color: #888; border-top: 1px solid #cccccc; padding: 18px 0 36px; margin-top: 32px; }
+
+  /* ── PRINT ── */
+  @media print {
+    #toc-container, .util-bar, .read-aloud-controls, .back-link, .arc-bar, .sticky-bar, .acc-body-footer, .bottom-controls, .answers-toolbar { display: none; }
+    .acc-body { display: block !important; }
+    .acc-btn, .crib-inner, .kdq-header, .gdq-header, .core-truth-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .flashcard-front { border: 1px solid #cccccc; }
+    .flashcard-back { background: #f2f2f2 !important; }
+    .fc-verse, .fc-ref-back { color: #1c1c1e !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sticky-bar" id="sticky-bar" aria-hidden="true">
+  <div class="sticky-inner">
+    <span class="sticky-title">What Wisdom Gives</span>
+    <span class="sticky-meta">Section 5 of 8</span>
+  </div>
+</div>
+
+<div class="title-block" id="title-block">
+  <div class="back-link"><a href="index.html">&#8592; Series Index</a></div>
+  <div class="doc-label">
+    <span class="dl-main">Wisdom in Proverbs:</span>
+    <span class="dl-sub">A Teaching Reference Series</span>
+  </div>
+  <h1>What Wisdom Gives</h1>
+  <p class="subtitle">Section 5 of 8. Reward Layer: Preservation, Honour and Vitality</p>
+  <hr class="title-rule">
+</div>
+
+<div class="arc-bar" aria-label="Series progress">
+  <span class="arc-step inactive" title="Go to Section 1"><a href="wisdom-proverbs-s1-what-wisdom-is.html">1. What Wisdom Is</a></span>
+  <span class="arc-step inactive" title="Go to Section 2"><a href="wisdom-proverbs-s2-what-wisdom-has.html">2. What Wisdom Has</a></span>
+  <span class="arc-step inactive" title="Go to Section 3"><a href="wisdom-proverbs-s3-what-wisdom-requires.html">3. What Wisdom Requires</a></span>
+  <span class="arc-step inactive" title="Go to Section 4"><a href="wisdom-proverbs-s4-what-wisdom-speaks.html">4. What Wisdom Speaks</a></span>
+  <span class="arc-step active">5. What Wisdom Gives</span>
+  <span class="arc-step inactive" title="Coming soon">6. Folly Contrast</span>
+  <span class="arc-step inactive" title="Coming soon">7. Across Domains</span>
+  <span class="arc-step inactive" title="Coming soon">8. NT Connections</span>
+</div>
+
+<div class="util-bar">
+  <div class="util-inner">
+    <span class="util-label">View:</span>
+    <div class="util-buttons">
+      <div class="util-row-1">
+        <button class="util-btn" id="btn-expand-all">Expand All</button>
+        <button class="util-btn" id="btn-collapse-all">Collapse All</button>
+      </div>
+      <div class="util-row-2">
+        <button class="util-btn" id="btn-scripture-only">&#128214; Read Scriptures Only</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="opening-question" id="opening-q">
+  <div class="oq-label">
+    <span class="oq-label-primary">Opening Question</span>
+    <span class="oq-label-secondary">Please note your answer and read further.</span>
+  </div>
+  <p class="oq-text">When you seek a gift or reward from God, do you treat it as an external prize to be collected or as an organic extension of a transformed life?</p>
+</div>
+
+<div class="key-scripture">
+  <div class="ks-label">Key Scripture</div>
+  <div class="ks-ref">Proverbs 4:8-9</div>
+  <p class="ks-text">"Exalt her, and she will promote you; She will bring you honor, when you embrace her. She will place on your head an ornament of grace; A crown of glory she will deliver to you."</p>
+</div>
+
+<div class="core-truth-box">
+  <div class="core-truth-label">Core Truth</div>
+  <p class="core-truth-statement">The gifts of wisdom are not external wages; they are organic downstream realities of protection, honour and absolute alignment with life.</p>
+</div>
+
+<div class="group-divider"><span class="group-divider-label">Teaching Content</span></div>
+
+<div class="acc-unit" id="unit-crib">
+  <button class="acc-btn" aria-expanded="true" aria-controls="body-crib" id="btn-crib">
+    <span class="acc-pill">5.1</span>
+    <div class="acc-title-block">
+      <span class="acc-title">Five Things to Know First</span>
+      <span class="acc-subtitle">Doctrinal anchors that hold everything else in place</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body open" id="body-crib" role="region" aria-labelledby="btn-crib">
+    <div class="crib-inner">
+      <h3>Five Foundations</h3>
+      <ol>
+        <li>Wisdom gives organic protection, shielding the student from catastrophic structural errors. <span class="crib-ref">(4:6)</span></li>
+        <li>Absolute promotion and permanent honour are delivered directly when wisdom is embraced. <span class="crib-ref">(4:8)</span></li>
+        <li>Divine guidance operates as a protective gift, clearing path obstacles and preventing stumbles. <span class="crib-ref">(4:12)</span></li>
+        <li>Wisdom dispenses a crown of glory and an ornament of grace, elevating the public standing of her followers. <span class="crib-ref">(4:9)</span></li>
+        <li>Biological vitality and spiritual health are given directly to those who capture her statements. <span class="crib-ref">(4:22)</span></li>
+      </ol>
+    </div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-crib" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<div class="acc-unit" id="unit-identity">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-identity" id="btn-identity">
+    <span class="acc-pill">5.2</span>
+    <div class="acc-title-block">
+      <span class="acc-title">Preservation and Vitality</span>
+      <span class="acc-subtitle">Eight facets of what wisdom gives, set against Folly at every point</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-identity" role="region" aria-labelledby="btn-identity">
+    <div class="callout callout-depth">
+      <div class="callout-label">Depth</div>
+      <p>The payouts of wisdom are structured to compound over time. She does not distribute temporary, volatile items. Her premium yields arrive as structural changes to the environment of the student, ensuring that safety and reputation remain completely insulated from cultural volatility.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="resp-table">
+        <thead>
+          <tr><th>Facet</th><th>Verse Snippet</th><th>Folly Contrast</th><th>Teaching Note</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label-cell" data-label="Facet">Preservation (4:6)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"Do not forsake her, and she will preserve you"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">Folly leaves her victims entirely exposed to immediate ruin (1:32)</td>
+            <td class="note-cell"  data-label="Teaching Note">The protective perimeter of wisdom functions continuously as long as the connection is maintained.</td>
+          </tr>
+          <tr>
+            <td class="label-cell" data-label="Facet">Divine Promotion (4:8)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"Exalt her, and she will promote you"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">Folly degrades her followers into ultimate public shame (3:35)</td>
+            <td class="note-cell"  data-label="Teaching Note">True social and spiritual elevation is a downstream consequence of honouring wisdom.</td>
+          </tr>
+          <tr>
+            <td class="label-cell" data-label="Facet">Structural Honour (4:8)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"She will bring you honor"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">The wicked inherit nothing but permanent historical regret</td>
+            <td class="note-cell"  data-label="Teaching Note">Honour is delivered as an organic weight, replacing the superficial pursuit of human praise.</td>
+          </tr>
+          <tr>
+            <td class="label-cell" data-label="Facet">Aesthetic Grace (4:9)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"an ornament of grace"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">Folly provides a legacy of raw dishonour and degradation</td>
+            <td class="note-cell"  data-label="Teaching Note">Wisdom adds a structural beauty to the character layer, command presence that forces public respect.</td>
+          </tr>
+          <tr>
+            <td class="label-cell" data-label="Facet">Unimpeded Steps (4:12)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"your steps will not be hindered"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">The fool stumbles blindly over obstacles he cannot identify (4:19)</td>
+            <td class="note-cell"  data-label="Teaching Note">Wisdom clears out tactical and logistical path friction, ensuring maximum execution velocity.</td>
+          </tr>
+          <tr>
+            <td class="label-cell" data-label="Facet">Dynamic Vitality (4:22)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"health to all their flesh"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">The path of the wicked rots into decay and early death (10:27)</td>
+            <td class="note-cell"  data-label="Teaching Note">The cognitive alignment delivered by truth impacts physical wellness directly, cutting out stress.</td>
+          </tr>
+          <tr>
+            <td class="label-cell" data-label="Facet">Financial Discretion (3:14)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"The gain from it is better than silver"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">The yield of the foolish terminates in volatile ruin (10:2)</td>
+            <td class="note-cell"  data-label="Teaching Note">The non-material asset classes given by wisdom drastically outperform currency fluctuations.</td>
+          </tr>
+          <tr>
+            <td class="label-cell" data-label="Facet">Ultimate Security (3:23)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"Then you will walk safely in your way"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">The fool walks directly into structural traps of his own making (18:7)</td>
+            <td class="note-cell"  data-label="Teaching Note">A comprehensive security profile that guarantees safe navigation across volatile markets.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="wisdom-summary">
+      <div class="wisdom-summary-heading">In Summary: What Wisdom Gives</div>
+      <ol>
+        <li>She gives deep, permanent preservation from systemic environment errors.</li>
+        <li>She operates a promotional matrix that elevates tracking standing securely.</li>
+        <li>She coordinates permanent honour for the soul layer.</li>
+        <li>She places an undeniable ornament of functional grace upon the character.</li>
+        <li>She guarantees unhindered forward momentum during execution loops.</li>
+        <li>She brings structural health directly down into the flesh layers.</li>
+        <li>She distributes non-depreciating assets superior to fine silver collections.</li>
+        <li>She anchors an absolute profile of safety across dangerous highways.</li>
+      </ol>
+    </div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-identity" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<div class="acc-unit" id="unit-portrait">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-portrait" id="btn-portrait">
+    <span class="acc-pill">5.3</span>
+    <div class="acc-title-block">
+      <span class="acc-title">The Reward Portrait</span>
+      <span class="acc-subtitle">The Adorned Crown versus The Exposed Stumble side by side</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-portrait" role="region" aria-labelledby="btn-portrait">
+    <p>The payouts of tracking alignments define structural identity. Proverbs creates a definitive dual portrait. The Adorned Crown showcases a life where internal discipline has generated public, permanent promotion and absolute safety. The Exposed Stumble illustrates the landscape of folly, where reckless execution paths terminate in a sudden path collapse. Review the table.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>The Adorned Crown</th><th>The Exposed Stumble</th></tr></thead>
+        <tbody>
+          <tr><td>Delivers permanent promotion based on continuous alignment (4:8)</td><td>Suffers instant demotion as hidden moral structural flaws fracture</td></tr>
+          <tr><td>Steps are clear of friction, operating at maximum capacity (4:12)</td><td>Gropes in complete pitch darkness, hitting invisible traps (4:19)</td></tr>
+          <tr><td>Distributes cellular health and vital preservation down into the flesh (4:22)</td><td>Invokes premature organic failure due to unvetted stress vectors</td></tr>
+          <tr><td>Displays an ornament of grace that commands cross-domain respect (4:9)</td><td>Inherits raw public shame that poisons future lineage metrics</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-portrait" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<div class="acc-unit" id="unit-nt">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-nt" id="btn-nt">
+    <span class="acc-pill">5.4</span>
+    <div class="acc-title-block">
+      <span class="acc-title">NT Connections</span>
+      <span class="acc-subtitle">Where the permanent rewards of wisdom move into full verification</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-nt" role="region" aria-labelledby="btn-nt">
+    <p>The crowns and preservation given by wisdom inside Proverbs escape abstract symbolism. The New Testament shifts these asset classes into physical reality, anchoring them securely inside the redemptive workspace of Jesus Christ.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Proverbs Statement</th><th>NT Echo</th><th>NT Reference</th></tr></thead>
+        <tbody>
+          <tr><td class="verse-snippet">"A crown of glory she will deliver to you." (4:9)</td><td>You will receive the crown of glory that does not fade away</td><td style="font-weight:700;color:#1F3864;white-space:nowrap;">1 Pet 5:4</td></tr>
+          <tr><td class="verse-snippet">"When you run, you will not stumble." (4:12)</td><td>To Him who is able to keep you from stumbling</td><td style="font-weight:700;color:#1F3864;white-space:nowrap;">Jude 1:24</td></tr>
+          <tr><td class="verse-snippet">"They are life to those who find them." (4:22)</td><td>I have come that they may have life... more abundantly</td><td style="font-weight:700;color:#1F3864;white-space:nowrap;">John 10:10</td></tr>
+          <tr><td class="verse-snippet">"She will preserve you." (4:6)</td><td>Kept by the power of God through faith for salvation</td><td style="font-weight:700;color:#1F3864;white-space:nowrap;">1 Pet 1:5</td></tr>
+          <tr><td class="verse-snippet">"She will promote you." (4:8)</td><td>Raised us up together, and made us sit together in heavenly places</td><td style="font-weight:700;color:#1F3864;white-space:nowrap;">Eph 2:6</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-depth">
+      <div class="callout-label">Depth</div>
+      <p>Jude 1:24 links directly to the promise of Proverbs 4:12. The structural integrity that keeps a believer upright across dangerous environmental terrain is not self-generated. Christ acts as the execution engine that fulfills the wisdom filter, holding the tracking map that completely bypasses traps.</p>
+    </div>
+    <p class="nt-forward-note">Section 8 of this series provides the complete NT synthesis, connecting all eight wisdom themes to Christ in a single integrated study.</p>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-nt" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<div class="group-divider"><span class="group-divider-label">Discussion and Application</span></div>
+
+<div class="acc-unit" id="unit-kdq">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-kdq" id="btn-kdq">
+    <span class="acc-pill">5.5</span>
+    <div class="acc-title-block">
+      <span class="acc-title">Key Discovery Questions</span>
+      <span class="acc-subtitle">Work through these alone before you come to the group</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-kdq" role="region" aria-labelledby="btn-kdq">
+    <div class="kdq-block">
+      <div class="kdq-header">
+        <div class="kdq-header-title">Key Discovery Questions</div>
+        <div class="kdq-header-sub">Type your answers below. They save automatically and you can download them.</div>
+      </div>
+      <div class="kdq-questions">
+        <div class="kdq-question">
+          <div class="kdq-num">1</div>
+          <div class="kdq-body">
+            <div class="kdq-text">Wisdom promises that she will preserve you if you do not forsake her (4:6). Looking back at your previous major system crash or moral failure, where did you deliberately step out from her protective boundaries?</div>
+            <div class="fillable" contenteditable="true" data-key="wip-s5-q1" data-placeholder="Type your answer here..."></div>
+          </div>
+        </div>
+        <div class="kdq-question">
+          <div class="kdq-num">2</div>
+          <div class="kdq-body">
+            <div class="kdq-text">The text states that wisdom gives an ornament of grace and a crown of glory (4:9). How much do you rely on flashy self-promotion compared to waiting for this quiet, organic authority to manifest?</div>
+            <div class="fillable" contenteditable="true" data-key="wip-s5-q2" data-placeholder="Type your answer here..."></div>
+          </div>
+        </div>
+        <div class="kdq-question">
+          <div class="kdq-num">3</div>
+          <div class="kdq-body">
+            <div class="kdq-text">Proverbs 4:12 guarantees that your steps will not be hindered when you walk. Identify an area where you feel structurally trapped or logistically blocked right now. What compromise is causing that friction?</div>
+            <div class="fillable" contenteditable="true" data-key="wip-s5-q3" data-placeholder="Type your answer here..."></div>
+          </div>
+        </div>
+        <div class="kdq-question">
+          <div class="kdq-num">4</div>
+          <div class="kdq-body">
+            <div class="kdq-text">Truth is explicitly stated to bring health to all your flesh (4:22). Trace the direct relationship between your current anxiety levels, physical symptoms and any hidden adjustments you are making away from total truth.</div>
+            <div class="fillable" contenteditable="true" data-key="wip-s5-q4" data-placeholder="Type your answer here..."></div>
+          </div>
+        </div>
+      </div>
+      <div class="answers-toolbar">
+        <button id="btn-download-answers">&#8681; Download My Answers</button>
+        <button class="clear-btn" id="btn-clear-answers">&#10005; Clear All</button>
+      </div>
+      <p class="answers-note">Your answers are saved automatically in this browser. Download to keep a permanent copy.</p>
+    </div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-kdq" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<div class="acc-unit" id="unit-gdq">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-gdq" id="btn-gdq">
+    <span class="acc-pill">5.6</span>
+    <div class="acc-title-block">
+      <span class="acc-title">Group Discussion Questions</span>
+      <span class="acc-subtitle">Open conversation for the group session; bring your KDQ answers with you</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-gdq" role="region" aria-labelledby="btn-gdq">
+    <div class="gdq-block">
+      <div class="gdq-header">
+        <div class="gdq-header-title">Group Discussion Questions</div>
+        <div class="gdq-header-sub">Designed for open conversation. There are no correct answers, only honest ones.</div>
+      </div>
+      <div class="gdq-questions">
+        <div class="gdq-question"><div class="gdq-num">1</div><div class="gdq-text">If wisdom's promotion comes naturally through exalting her, why do religious communities routinely default to political maneuvering and corporate strategy to elevate leaders? Let's analyze this disconnect.</div></div>
+        <div class="gdq-question"><div class="gdq-num">2</div><div class="gdq-text">Let's debate the promise of health to all their flesh. How do we responsibly teach this metric without sliding into a shallow prosperity gospel framework that isolates suffering members?</div></div>
+        <div class="gdq-question"><div class="gdq-num">3</div><div class="gdq-text">What does an unhindered walk look like inside an environment of intense cultural persecution? How does internal liberty outclass physical restrictions?</div></div>
+        <div class="gdq-question"><div class="gdq-num">4</div><div class="gdq-text">Wisdom preserves those who love her. How do we as a tracking community help protect members who are currently flirting with hazardous, unvetted boundary environments?</div></div>
+      </div>
+    </div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-gdq" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<div class="acc-unit" id="unit-app">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-app" id="btn-app">
+    <span class="acc-pill">5.7</span>
+    <div class="acc-title-block">
+      <span class="acc-title">Application</span>
+      <span class="acc-subtitle">Four specific ways to walk out what this section teaches</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-app" role="region" aria-labelledby="btn-app">
+    <p class="app-intro">Wisdom is not studied and stored; it is walked. One of these taken seriously is worth more than all four noted and forgotten.</p>
+    <div class="app-item"><div class="app-num">1</div><div class="app-body"><div class="app-title">Map Your Perimeter Guard</div><p class="app-desc">Identify the primary moral or financial vulnerability inside your current operation. Erect two specific structural accountability restrictions this afternoon to serve as a preservation guard.</p></div></div>
+    <div class="app-item"><div class="app-num">2</div><div class="app-body"><div class="app-title">Ditch the Hustle Loop</div><p class="app-desc">Locate one project where you are aggressively forcing an outcome through self-promotion. Stop the communication loop for forty-eight hours and deliberately focus on exalting clean wisdom metrics instead.</p></div></div>
+    <div class="app-item"><div class="app-num">3</div><div class="app-body"><div class="app-title">Anchor verse: Proverbs 4:8-9</div><p class="app-desc">Commit this statement to memory: "Exalt her, and she will promote you; She will bring you honor, when you embrace her. She will place on your head an ornament of grace; A crown of glory she will deliver to you." Recite it before executing long-range planning arrays.</p></div></div>
+    <div class="app-item"><div class="app-num">4</div><div class="app-body"><div class="app-title">Execute a Stress Inventory</div><p class="app-desc">Isolate any physical symptom linked to anxiety. Audit whether this stress is caused by tracking human opinions or by carrying unaligned tracking weights that wisdom tells you to drop.</p></div></div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-app" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<div class="group-divider"><span class="group-divider-label">Scriptures</span></div>
+
+<div class="acc-unit" id="unit-scripture">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-scripture" id="btn-scripture">
+    <span class="acc-pill">5.8</span>
+    <div class="acc-title-block">
+      <span class="acc-title">Scripture Reader</span>
+      <span class="acc-subtitle">Every verse written in full; read or listen with verse-by-verse highlighting</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-scripture" role="region" aria-labelledby="btn-scripture">
+    <div class="scripture-reader-intro">
+      <p>All scriptures referenced in Section 5, written in full (NKJV). Designed for reading aloud, personal meditation or group recitation. The current verse highlights as it is read.</p>
+    </div>
+    <div class="scripture-group-header">
+      <span class="scripture-group-label">Proverbs</span>
+      <div class="read-aloud-controls"><span class="reading-counter" id="reading-counter"></span><button class="read-aloud-btn" id="btn-read-aloud">&#9654; Read Aloud</button></div>
+    </div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 1:32</div><div class="scripture-text" data-scripture>"For the turning away of the simple will slay them, And the complacency of fools will destroy them;"</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 3:14</div><div class="scripture-text" data-scripture>"For her proceeds are better than the profits of silver, And her gain than fine gold."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 3:23</div><div class="scripture-text" data-scripture>"Then you will walk safely in your way, And your foot will not stumble."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 3:35</div><div class="scripture-text" data-scripture>"The wise shall inherit glory, But shame shall be the legacy of fools."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 4:6</div><div class="scripture-text" data-scripture>"Do not forsake her, and she will preserve you; Love her, and she will keep you."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 4:8</div><div class="scripture-text" data-scripture>"Exalt her, and she will promote you; She will bring you honor, when you embrace her."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 4:9</div><div class="scripture-text" data-scripture>"She will place on your head an ornament of grace; A crown of glory she will deliver to you."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 4:12</div><div class="scripture-text" data-scripture>"When you walk, your steps will not be hindered, And when you run, you will not stumble."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 4:19</div><div class="scripture-text" data-scripture>"The way of the wicked is like darkness; They do not know what makes them stumble."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 4:22</div><div class="scripture-text" data-scripture>"For they are life to those who find them, And health to all their flesh."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 10:2</div><div class="scripture-text" data-scripture>"Treasures of wickedness profit nothing, But righteousness delivers from death."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 10:27</div><div class="scripture-text" data-scripture>"The fear of the LORD prolongs days, But the years of the wicked will be shortened."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 18:7</div><div class="scripture-text" data-scripture>"A fool’s mouth is his destruction, And his lips are the snare of his soul."</div></div>
+    <div class="scripture-group-header">
+      <span class="scripture-group-label">New Testament</span>
+    </div>
+    <div class="scripture-entry"><div class="scripture-ref">John 10:10</div><div class="scripture-text" data-scripture>"The thief does not come except to steal, and to kill, and to destroy. I have come that they may have life, and that they may have it more abundantly."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Ephesians 2:6</div><div class="scripture-text" data-scripture>"and raised us up together, and made us sit together in the heavenly places in Christ Jesus;"</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">1 Peter 1:5</div><div class="scripture-text" data-scripture>"who are kept by the power of God through faith for salvation ready to be revealed in the last time."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">1 Peter 5:4</div><div class="scripture-text" data-scripture>"and when the Chief Shepherd appears, you will receive the crown of glory that does not fade away."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Jude 1:24</div><div class="scripture-text" data-scripture>"Now to Him who is able to keep you from stumbling, And to present you faultless Before the presence of His glory with exceeding joy,"</div></div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-scripture" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<div class="group-divider"><span class="group-divider-label">Review</span></div>
+
+<div class="acc-unit" id="unit-revision">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-revision" id="btn-revision">
+    <span class="acc-pill">5.9</span>
+    <div class="acc-title-block">
+      <span class="acc-title">Revision Cards</span>
+      <span class="acc-subtitle">Tap each card to reveal the answer</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-revision" role="region" aria-labelledby="btn-revision">
+    <p class="flashcard-hint">Tap or click each card to flip it and reveal the verse.</p>
+    <div class="flashcard-grid">
+
+      <div class="flashcard" role="button" tabindex="0" aria-label="Revision card: What rewards does wisdom explicitly guarantee when she is embraced and exalted?">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <p class="fc-prompt">What rewards does wisdom explicitly guarantee when she is embraced and exalted?</p>
+            <p class="fc-ref">Proverbs 4:8</p>
+          </div>
+          <div class="flashcard-back">
+            <p class="fc-verse">"Exalt her, and she will promote you; She will bring you honor, when you embrace her."</p>
+            <p class="fc-ref-back">Proverbs 4:8 (NKJV)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" role="button" tabindex="0" aria-label="Revision card: What adornment item will wisdom deliver onto the head of the student?">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <p class="fc-prompt">What adornment item will wisdom deliver onto the head of the student?</p>
+            <p class="fc-ref">Proverbs 4:9</p>
+          </div>
+          <div class="flashcard-back">
+            <p class="fc-verse">"She will place on your head an ornament of grace; A crown of glory she will deliver to you."</p>
+            <p class="fc-ref-back">Proverbs 4:9 (NKJV)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" role="button" tabindex="0" aria-label="Revision card: How does the text describe the kinetic safety of active execution?">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <p class="fc-prompt">How does the text describe the kinetic safety of active execution?</p>
+            <p class="fc-ref">Proverbs 4:12</p>
+          </div>
+          <div class="flashcard-back">
+            <p class="fc-verse">"When you walk, your steps will not be hindered, And when you run, you will not stumble."</p>
+            <p class="fc-ref-back">Proverbs 4:12 (NKJV)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" role="button" tabindex="0" aria-label="Revision card: What impact do wisdom's statements have directly upon human biology?">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <p class="fc-prompt">What impact do wisdom's statements have directly upon human biology?</p>
+            <p class="fc-ref">Proverbs 4:22</p>
+          </div>
+          <div class="flashcard-back">
+            <p class="fc-verse">"For they are life to those who find them, And health to all their flesh."</p>
+            <p class="fc-ref-back">Proverbs 4:22 (NKJV)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" role="button" tabindex="0" aria-label="Revision card: What conditional instruction governs the long-term preservation of your tracking network?">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <p class="fc-prompt">What conditional instruction governs the long-term preservation of your tracking network?</p>
+            <p class="fc-ref">Proverbs 4:6</p>
+          </div>
+          <div class="flashcard-back">
+            <p class="fc-verse">"Do not forsake her, and she will preserve you; Love her, and she will keep you."</p>
+            <p class="fc-ref-back">Proverbs 4:6 (NKJV)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" role="button" tabindex="0" aria-label="Revision card: Contrast the visibility layer of the wicked path against secure walking.">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <p class="fc-prompt">Contrast the visibility layer of the wicked path against secure walking.</p>
+            <p class="fc-ref">Proverbs 4:19</p>
+          </div>
+          <div class="flashcard-back">
+            <p class="fc-verse">"The way of the wicked is like darkness; They do not know what makes them stumble."</p>
+            <p class="fc-ref-back">Proverbs 4:19 (NKJV)</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-revision" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-controls">
+  <button class="bottom-collapse-btn" id="btn-bottom-collapse">&#9660; Collapse All Sections</button>
+</div>
+
+<div class="page-footer">
+  Wisdom in Proverbs: Section 5 of 8. HiTurn Media Group. <a href="index.html">Series Index</a>.
+</div>
+
+<div id="toc-container" role="navigation" aria-label="Page navigation">
+  <div id="toc-menu">
+    <div class="toc-divider">Teaching Content</div>
+    <a data-open="body-crib"     href="#unit-crib">5.1 Five Things to Know First<span class="toc-sub">Doctrinal anchors</span></a>
+    <a data-open="body-identity" href="#unit-identity">5.2 Preservation and Vitality<span class="toc-sub">Eight facets with Folly contrast</span></a>
+    <a data-open="body-portrait" href="#unit-portrait">5.3 The Reward Portrait<span class="toc-sub">Crown vs Stumble compared</span></a>
+    <a data-open="body-nt"       href="#unit-nt">5.4 NT Connections<span class="toc-sub">Verification inside the New Covenant</span></a>
+    <div class="toc-divider">Discussion and Application</div>
+    <a data-open="body-kdq" href="#unit-kdq">5.5 Key Discovery Questions<span class="toc-sub">Type and save your answers</span></a>
+    <a data-open="body-gdq" href="#unit-gdq">5.6 Group Discussion Questions<span class="toc-sub">Open group conversation</span></a>
+    <a data-open="body-app" href="#unit-app">5.7 Application<span class="toc-sub">Four ways to walk it out</span></a>
+    <div class="toc-divider">Scriptures</div>
+    <a data-open="body-scripture" href="#unit-scripture">5.8 Scripture Reader<span class="toc-sub">Every verse in full</span></a>
+    <div class="toc-divider">Review</div>
+    <a data-open="body-revision" href="#unit-revision">5.9 Revision Cards<span class="toc-sub">Tap to flip</span></a>
+  </div>
+  <button id="toc-toggle" aria-expanded="false">Contents &#9650;</button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var allBodies = ['body-crib','body-identity','body-portrait','body-nt','body-kdq','body-gdq','body-app','body-scripture','body-revision'];
+
+  function openAcc(id)  { var b=document.getElementById(id),btn=document.querySelector('[aria-controls="'+id+'"]'); if(b&&btn){b.classList.add('open');btn.setAttribute('aria-expanded','true');} }
+  function closeAcc(id) { var b=document.getElementById(id),btn=document.querySelector('[aria-controls="'+id+'"]'); if(b&&btn){b.classList.remove('open');btn.setAttribute('aria-expanded','false');} }
+
+  document.querySelectorAll('.acc-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){ var id=btn.getAttribute('aria-controls'); document.getElementById(id).classList.contains('open')?closeAcc(id):openAcc(id); });
+  });
+  document.getElementById('btn-expand-all').addEventListener('click',   function(){ allBodies.forEach(openAcc);  setScriptureMode(false); });
+  document.getElementById('btn-collapse-all').addEventListener('click', function(){ allBodies.forEach(closeAcc); setScriptureMode(false); });
+
+  document.querySelectorAll('.acc-collapse-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var targetId = btn.getAttribute('data-target');
+      closeAcc(targetId);
+      var accBtn = document.querySelector('[aria-controls="'+targetId+'"]');
+      if(accBtn){ setTimeout(function(){ accBtn.scrollIntoView({behavior:'smooth',block:'start'}); },50); }
+    });
+  });
+
+  document.getElementById('btn-bottom-collapse').addEventListener('click', function(){
+    allBodies.forEach(closeAcc); setScriptureMode(false);
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  var scriptureMode=false, btnSO=document.getElementById('btn-scripture-only');
+  function setScriptureMode(on){ scriptureMode=on; if(on){allBodies.forEach(closeAcc);openAcc('body-scripture');setTimeout(function(){document.getElementById('unit-scripture').scrollIntoView({behavior:'smooth',block:'start'});},80);btnSO.innerHTML='\u2715 Exit Scripture Mode';btnSO.classList.add('scripture-active');}else{btnSO.innerHTML='&#128214; Read Scriptures Only';btnSO.classList.remove('scripture-active');} }
+  btnSO.addEventListener('click',function(){setScriptureMode(!scriptureMode);});
+
+  /* Sticky bar */
+  var titleBlock=document.getElementById('title-block'), stickyBar=document.getElementById('sticky-bar');
+  if(titleBlock&&stickyBar){ window.addEventListener('scroll',function(){ if(titleBlock.getBoundingClientRect().bottom<0){stickyBar.classList.add('visible');stickyBar.setAttribute('aria-hidden','false');}else{stickyBar.classList.remove('visible');stickyBar.setAttribute('aria-hidden','true');} },{passive:true}); }
+
+  /* ── FILLABLE ANSWERS — localStorage save/restore ── */
+  var storageOK = false;
+  try { localStorage.setItem('_wip_test','1'); localStorage.removeItem('_wip_test'); storageOK=true; } catch(e){}
+  var fillables = document.querySelectorAll('.fillable[data-key]');
+  fillables.forEach(function(el){
+    if(storageOK){ var saved=localStorage.getItem(el.getAttribute('data-key')); if(saved){el.innerHTML=saved;} }
+    el.addEventListener('input',function(){ if(storageOK){ localStorage.setItem(el.getAttribute('data-key'),el.innerHTML); } });
+  });
+  document.getElementById('btn-download-answers').addEventListener('click', function(){
+    var questions=document.querySelectorAll('.kdq-question');
+    var lines=['Wisdom in Proverbs: Section 5 — What Wisdom Gives','Key Discovery Questions','HiTurn Media Group',''];
+    questions.forEach(function(q,i){
+      var qText=q.querySelector('.kdq-text')? q.querySelector('.kdq-text').innerText.trim():'';
+      var aText=q.querySelector('.fillable')? q.querySelector('.fillable').innerText.trim():'';
+      lines.push('Q'+(i+1)+': '+qText);
+      lines.push('My Answer: '+(aText||'(no answer entered)'));
+      lines.push('');
+    });
+    var blob=new Blob([lines.join('\n')],{type:'text/plain'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a'); a.href=url; a.download='wip-s5-what-wisdom-gives-answers.txt';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+  });
+  document.getElementById('btn-clear-answers').addEventListener('click', function(){
+    if(!confirm('Clear all your answers for this section? This cannot be undone.')) return;
+    fillables.forEach(function(el){ el.innerHTML=''; if(storageOK){localStorage.removeItem(el.getAttribute('data-key'));} });
+  });
+
+  /* ── FLASHCARD FLIP ── */
+  document.querySelectorAll('.flashcard').forEach(function(card){
+    function flip(){ card.classList.toggle('flipped'); }
+    card.addEventListener('click', flip);
+    card.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();} });
+  });
+
+  /* Read Aloud */
+  var reading=false,readBtn=document.getElementById('btn-read-aloud'),counter=document.getElementById('reading-counter');
+  var entries=Array.from(document.querySelectorAll('.scripture-entry'));
+  function clearHL(){entries.forEach(function(e){e.classList.remove('reading-active');});}
+  function stopReading(){window.speechSynthesis.cancel();reading=false;clearHL();readBtn.textContent='\u25b6 Read Aloud';readBtn.classList.remove('stop');counter.classList.remove('visible');}
+  function readEntry(idx){ if(!reading||idx>=entries.length){stopReading();return;} clearHL();entries[idx].classList.add('reading-active');entries[idx].scrollIntoView({behavior:'smooth',block:'nearest'}); counter.textContent=(idx+1)+' / '+entries.length; var ref=(entries[idx].querySelector('.scripture-ref')||{}).textContent||''; var txt=(entries[idx].querySelector('[data-scripture]')||{}).textContent||''; var utt=new SpeechSynthesisUtterance(ref+'. '+txt); utt.lang='en-GB';utt.rate=0.82; utt.onend=function(){if(reading){setTimeout(function(){readEntry(idx+1);},900);}}; window.speechSynthesis.speak(utt); }
+  readBtn.addEventListener('click',function(){ if(!('speechSynthesis' in window)){alert('Read Aloud is not supported in this browser. Try Chrome or Safari.');return;} if(reading){stopReading();return;} reading=true;readBtn.textContent='\u25a0 Stop';readBtn.classList.add('stop');counter.classList.add('visible');readEntry(0); });
+
+  /* TOC */
+  var tocToggle=document.getElementById('toc-toggle'),tocMenu=document.getElementById('toc-menu');
+  tocToggle.addEventListener('click',function(){ var open=tocMenu.style.display==='block'; tocMenu.style.display=open?'none':'block'; tocToggle.setAttribute('aria-expanded',String(!open)); tocToggle.innerHTML=open?'Contents &#9650;':'Contents &#9660;'; });
+  tocMenu.querySelectorAll('a').forEach(function(link){ link.addEventListener('click',function(e){ e.preventDefault();openAcc(link.getAttribute('data-open')); var el=document.querySelector(link.getAttribute('href')); if(el){setTimeout(function(){el.scrollIntoView({behavior:'smooth',block:'start'});},60);} tocMenu.style.display='none';tocToggle.setAttribute('aria-expanded','false');tocToggle.innerHTML='Contents &#9650;'; }); });
+});
+</script>
+</body>
+</html>

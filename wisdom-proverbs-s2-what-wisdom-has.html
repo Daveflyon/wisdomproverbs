@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Wisdom in Proverbs: Section 2 — What Wisdom Has</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; padding: 0 16px; font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.6; font-weight: 400; color: #1c1c1e; background: #ffffff; }
+  @media (min-width: 640px) { body { padding: 0 32px; } }
+  @media (min-width: 900px) { body { max-width: 900px; margin: 0 auto; } }
+
+  /* ── STICKY BAR ── */
+  .sticky-bar { position: fixed; top: 0; left: 0; right: 0; background: #1F3864; color: #ffffff; z-index: 950; box-shadow: 0 2px 6px rgba(0,0,0,0.2); transform: translateY(-100%); transition: transform 0.25s ease; }
+  .sticky-bar.visible { transform: translateY(0); }
+  .sticky-inner { max-width: 900px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  @media (min-width: 640px) { .sticky-inner { padding: 10px 32px; } }
+  .sticky-title { font-size: 15px; font-weight: 700; }
+  .sticky-meta  { font-size: 12px; opacity: 0.7; white-space: nowrap; }
+
+  /* ── TITLE BLOCK ── */
+  .title-block { padding: 32px 0 16px; }
+  .back-link { font-size: 13px; margin-bottom: 12px; }
+  .back-link a { color: #1F3864; text-decoration: underline; font-weight: 700; }
+  .back-link a:hover { color: #2c54a0; }
+  .doc-label { margin-bottom: 8px; }
+  .dl-main { display: block; font-size: 18px; font-weight: 700; color: #1F3864; letter-spacing: 0.01em; line-height: 1.2; }
+  .dl-sub  { display: block; font-size: 13px; font-weight: 700; color: #1F3864; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.75; margin-top: 2px; }
+  @media (max-width: 639px) { .dl-main { font-size: 28px; } }
+  h1 { font-size: 26px; font-weight: 700; color: #1F3864; margin: 6px 0 5px; line-height: 1.2; }
+  @media (min-width: 640px) { h1 { font-size: 28px; } }
+  .subtitle { font-size: 15px; color: #555; margin: 0 0 14px; }
+  .title-rule { border: none; border-top: 2px solid #1F3864; margin: 0 0 20px; }
+  p { margin-bottom: 16px; }
+  a { color: #1F3864; text-decoration: underline; }
+  a:hover, a:focus { color: #2c54a0; outline: 2px solid #2c54a0; outline-offset: 2px; }
+
+  /* ── ARC BAR ── */
+  .arc-bar { display: flex; gap: 5px; margin: 0 0 18px; flex-wrap: wrap; }
+  .arc-step { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.03em; }
+  .arc-step.active  { background: #1F3864; color: #ffffff; box-shadow: 0 2px 5px rgba(31,56,100,0.3); }
+  .arc-step.inactive { background: #f2f2f2; color: #555; border: 1px solid #dddddd; cursor: pointer; }
+  .arc-step.inactive a { color: inherit; text-decoration: none; }
+  @media (max-width: 639px) {
+    .arc-bar { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); grid-auto-flow: column; gap: 7px; }
+    .arc-step { font-size: 12px; text-align: left; padding: 10px 10px; min-height: 44px; border-radius: 6px; display: flex; align-items: center; justify-content: flex-start; }
+    .arc-step.active  { background: #1F3864; color: #ffffff; border: 1.5px solid #1F3864; box-shadow: 0 4px 12px rgba(31,56,100,0.45), 0 2px 4px rgba(31,56,100,0.25); }
+    .arc-step.inactive { background: #ffffff; color: #555; border: 1.5px solid #cccccc; box-shadow: 0 3px 8px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.08); }
+  }
+
+  /* ── UTILITY BAR ── */
+  .util-bar { padding: 10px 14px; background: #f2f2f2; border-radius: 4px; margin: 0 0 22px; }
+  .util-inner { display: flex; gap: 10px; align-items: flex-start; }
+  .util-label { font-size: 12px; font-weight: 700; color: #666; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; padding-top: 7px; flex-shrink: 0; }
+  .util-buttons { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .util-row-1 { display: flex; gap: 8px; }
+  .util-row-1 .util-btn { flex: 1; }
+  .util-row-2 .util-btn { width: 100%; }
+  .util-btn { background: #ffffff; color: #1F3864; border: 1px solid #1F3864; padding: 6px 12px; border-radius: 4px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.15s, color 0.15s; min-height: 36px; }
+  .util-btn:hover { background: #1F3864; color: #ffffff; }
+  .util-btn:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
+  .util-btn.scripture-active { background: #d97706; color: #ffffff; border-color: #d97706; }
+
+  /* ── OPENING QUESTION ── */
+  .opening-question { border: 2px solid #d97706; border-radius: 4px; padding: 20px; margin: 0 0 18px; background: #fffbf0; }
+  @media (min-width: 640px) { .opening-question { padding: 22px 26px; } }
+  .oq-label { margin-bottom: 10px; }
+  .oq-label-primary { display: block; font-size: 15px; font-weight: 700; color: #d97706; letter-spacing: 0.04em; text-transform: uppercase; }
+  .oq-label-secondary { display: block; font-size: 12px; color: #7d5a00; margin-top: 3px; }
+  .oq-text { font-size: 16px; line-height: 1.75; color: #1c1c1e; margin: 0; font-weight: 500; }
+  @media (min-width: 640px) { .oq-text { font-size: 17px; } }
+
+  /* ── KEY SCRIPTURE ── */
+  .key-scripture { border-left: 4px solid #1F3864; background: #f2f2f2; padding: 16px 18px; margin: 0 0 16px; border-radius: 0 4px 4px 0; }
+  .ks-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #1F3864; margin-bottom: 8px; }
+  .ks-ref   { font-size: 14px; font-weight: 700; color: #1F3864; margin-bottom: 6px; }
+  .ks-text  { font-size: 16px; font-style: italic; line-height: 1.7; color: #1c1c1e; margin: 0; }
+
+  /* ── CORE TRUTH ── */
+  .core-truth-box { background: #1F3864; border-radius: 4px; padding: 20px 22px; margin: 0 0 24px; text-align: center; }
+  @media (min-width: 640px) { .core-truth-box { padding: 22px 28px; } }
+  .core-truth-label     { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #d97706; margin: 0 0 12px; }
+  .core-truth-statement { font-size: 16px; font-weight: 700; color: #ffffff; line-height: 1.5; margin: 0; }
+  @media (min-width: 640px) { .core-truth-statement { font-size: 18px; } }
+
+  /* ── GROUP DIVIDERS ── */
+  .group-divider { padding: 24px 0 6px; margin: 0 0 6px; }
+  .group-divider-label { display: block; font-size: 18px; font-weight: 700; color: #1F3864; letter-spacing: 0.07em; text-transform: uppercase; }
+
+  /* ── ACCORDION ── */
+  .acc-unit { margin-bottom: 8px; }
+  .acc-btn { display: flex; align-items: center; gap: 10px; width: 100%; background: #1F3864; color: #ffffff; border: none; padding: 12px 16px; font-family: Arial, Helvetica, sans-serif; cursor: pointer; border-radius: 4px; text-align: left; transition: background 0.15s; min-height: 52px; }
+  @media (min-width: 640px) { .acc-btn { padding: 13px 18px; gap: 12px; } }
+  .acc-btn:hover { background: #2c54a0; }
+  .acc-btn:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
+  .acc-pill { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; background: rgba(255,255,255,0.18); padding: 2px 7px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; text-transform: uppercase; align-self: flex-start; margin-top: 3px; }
+  .acc-title-block { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+  .acc-title { font-size: 14px; font-weight: 700; line-height: 1.3; }
+  @media (min-width: 640px) { .acc-title { font-size: 15px; } }
+  .acc-subtitle { font-size: 12px; font-weight: 400; opacity: 0.78; line-height: 1.3; }
+  .acc-chevron { font-size: 13px; transition: transform 0.25s ease; flex-shrink: 0; margin-left: 4px; align-self: center; }
+  .acc-btn[aria-expanded="true"] .acc-chevron { transform: rotateY(180deg); }
+  .acc-body { display: none; border: 1px solid #cccccc; border-top: none; border-radius: 0 0 4px 4px; padding: 18px 16px 16px; background: #ffffff; margin-bottom: 2px; }
+  @media (min-width: 640px) { .acc-body { padding: 22px 20px 18px; } }
+  .acc-body.open { display: block; }
+
+  /* ── MINIMISE BUTTON ── */
+  .acc-body-footer { display: flex; justify-content: flex-end; margin-top: 16px; padding-top: 12px; border-top: 1px solid #eeeeee; }
+  .acc-collapse-btn { background: #f2f2f2; border: 1px solid #cccccc; color: #555; padding: 5px 12px; border-radius: 4px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: Arial, Helvetica, sans-serif; display: flex; align-items: center; gap: 6px; min-height: 32px; }
+  .acc-collapse-btn:hover { background: #e0e0e0; }
+  .acc-collapse-btn:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
+
+  /* ── CRIB PANEL ── */
+  .crib-inner { border-left: 4px solid #1F3864; background: #f0f4fb; border-radius: 0 4px 4px 0; padding: 14px 16px; }
+  @media (min-width: 640px) { .crib-inner { padding: 16px 18px; } }
+  .crib-inner h3 { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #1F3864; border-bottom: none; padding-bottom: 0; margin-top: 0; margin-bottom: 12px; }
+  .crib-inner ol { margin: 0; padding-left: 20px; }
+  .crib-inner li { margin-bottom: 12px; line-height: 1.65; font-size: 14px; color: #1c1c1e; }
+  @media (min-width: 640px) { .crib-inner li { font-size: 15px; } }
+  .crib-ref { font-size: 12px; color: #1F3864; opacity: 0.65; margin-left: 4px; }
+
+  /* ── TABLES ── */
+  .table-wrap { overflow-x: auto; margin-bottom: 20px; -webkit-overflow-scrolling: touch; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead tr { background: #1F3864; color: #ffffff; }
+  thead th { padding: 10px 12px; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-align: left; border: 1px solid #cccccc; }
+  @media (min-width: 640px) { thead th { padding: 10px 14px; font-size: 14px; } }
+  tbody tr:nth-child(odd)  { background: #ffffff; }
+  tbody tr:nth-child(even) { background: #f2f2f2; }
+  tbody td { padding: 9px 12px; border: 1px solid #cccccc; vertical-align: top; font-size: 13px; }
+  @media (min-width: 640px) { tbody td { padding: 10px 14px; font-size: 14px; } }
+  td.label-cell { background: #f2f2f2; font-weight: 700; }
+  td.verse-cell { background: #f0f4fb !important; border-left: 3px solid #1F3864; }
+  .verse-snippet { font-style: italic; color: #1c1c1e; font-weight: 500; }
+  td.folly-cell { color: #7d3a00; }
+  td.note-cell  { color: #444; }
+
+  @media (max-width: 639px) {
+    .resp-table thead { display: none; }
+    .resp-table tbody tr { display: block; border: 1px solid #cccccc; border-radius: 4px; margin-bottom: 14px; overflow: hidden; }
+    .resp-table tbody td { display: block; border: none; border-bottom: 1px solid #eeeeee; padding: 8px 14px; background: #ffffff !important; font-size: 14px; }
+    .resp-table tbody td:last-child { border-bottom: none; }
+    .resp-table tbody td::before { content: attr(data-label); display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 3px; }
+    .resp-table tbody td.label-cell { background: #dce8f5 !important; color: #1F3864; font-size: 14px; font-weight: 700; padding: 10px 14px; border-left: 4px solid #1F3864; }
+    .resp-table tbody td.label-cell::before { display: none; }
+    .resp-table tbody td.verse-cell { background: #f0f4fb !important; border-left: 3px solid #1F3864; }
+    .resp-table tbody td.folly-cell { background: #f5f5f5 !important; color: #7d3a00; }
+  }
+
+  /* ── CALLOUT BOXES ── */
+  .callout { padding: 12px 14px; margin: 16px 0; }
+  @media (min-width: 640px) { .callout { padding: 12px 16px; } }
+  .callout-note    { border-left: 4px solid #d97706; background: #fffbf0; }
+  .callout-depth   { border-left: 4px solid #1F3864; background: #f0f4fb; }
+  .callout-caution { border-left: 4px solid #8b0000; background: #fdf0f0; }
+  .callout-label { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; margin-bottom: 5px; }
+  .callout-note    .callout-label { color: #7d5a00; }
+  .callout-depth   .callout-label { color: #1F3864; }
+  .callout-caution .callout-label { color: #8b0000; }
+  .callout p { margin: 0; font-size: 14px; line-height: 1.6; }
+
+  /* ── WISDOM SUMMARY ── */
+  .wisdom-summary { border: 1px solid #d97706; border-top: 3px solid #d97706; border-radius: 4px; padding: 16px 18px; margin: 20px 0; background: #ffffff; }
+  @media (min-width: 640px) { .wisdom-summary { padding: 18px 20px; } }
+  .wisdom-summary-heading { font-size: 13px; font-weight: 700; color: #d97706; letter-spacing: 0.07em; text-transform: uppercase; margin: 0 0 12px; }
+  .wisdom-summary ol { margin: 0; padding-left: 20px; }
+  .wisdom-summary li { font-size: 14px; line-height: 1.65; margin-bottom: 8px; color: #1c1c1e; }
+  .wisdom-summary li:last-child { margin-bottom: 0; }
+
+  /* ── KDQ ── */
+  .kdq-block { border: 2px solid #1F3864; border-radius: 4px; overflow: hidden; margin: 6px 0; }
+  .kdq-header { background: #1F3864; color: #ffffff; padding: 12px 16px; }
+  @media (min-width: 640px) { .kdq-header { padding: 12px 20px; } }
+  .kdq-header-title { font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin: 0; }
+  @media (min-width: 640px) { .kdq-header-title { font-size: 14px; } }
+  .kdq-header-sub { font-size: 12px; opacity: 0.78; margin: 3px 0 0; }
+  .kdq-questions { padding: 6px 16px 14px; }
+  @media (min-width: 640px) { .kdq-questions { padding: 8px 20px 16px; } }
+  .kdq-question { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #eeeeee; }
+  @media (min-width: 640px) { .kdq-question { gap: 14px; padding: 14px 0; } }
+  .kdq-question:last-child { border-bottom: none; }
+  .kdq-num { background: #1F3864; color: #ffffff; border-radius: 50%; width: 26px; height: 26px; min-width: 26px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  @media (min-width: 640px) { .kdq-num { width: 28px; height: 28px; min-width: 28px; font-size: 13px; margin-top: 1px; } }
+  .kdq-body { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .kdq-text { font-size: 14px; line-height: 1.65; }
+  @media (min-width: 640px) { .kdq-text { font-size: 15px; } }
+
+  /* ── FILLABLE ANSWERS ── */
+  .fillable { min-height: 56px; outline: none; background: #fffbf0; border-radius: 3px; border: 1px solid #e0d0b0; padding: 6px 8px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.5; color: #1c1c1e; display: block; width: 100%; transition: background 0.15s; }
+  .fillable:focus { background: #fff8e1; outline: 2px solid #d97706; outline-offset: 0; }
+  .fillable:empty::before { content: attr(data-placeholder); color: #bbb; pointer-events: none; font-style: italic; }
+  .answers-toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 16px 16px 4px; padding-bottom: 4px; }
+  @media (min-width: 640px) { .answers-toolbar { margin: 16px 20px 4px; } }
+  .answers-toolbar button { background: #1F3864; color: #ffffff; border: none; border-radius: 4px; padding: 7px 14px; font-size: 13px; font-weight: 700; font-family: Arial, Helvetica, sans-serif; cursor: pointer; min-height: 34px; }
+  .answers-toolbar button:hover { background: #2c54a0; }
+  .answers-toolbar button:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
+  .answers-toolbar .clear-btn { background: #ffffff; color: #8b0000; border: 1px solid #8b0000; }
+  .answers-toolbar .clear-btn:hover { background: #fce8e8; }
+  .answers-note { font-size: 12px; color: #777; margin: 4px 16px 0; }
+  @media (min-width: 640px) { .answers-note { margin: 4px 20px 0; } }
+
+  /* ── GDQ ── */
+  .gdq-block { border: 2px solid #0d7377; border-radius: 4px; overflow: hidden; margin: 6px 0; }
+  .gdq-header { background: #0d7377; color: #ffffff; padding: 12px 16px; }
+  @media (min-width: 640px) { .gdq-header { padding: 12px 20px; } }
+  .gdq-header-title { font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin: 0; }
+  @media (min-width: 640px) { .gdq-header-title { font-size: 14px; } }
+  .gdq-header-sub { font-size: 12px; opacity: 0.85; margin: 3px 0 0; }
+  .gdq-questions { padding: 6px 16px 14px; }
+  @media (min-width: 640px) { .gdq-questions { padding: 8px 20px 16px; } }
+  .gdq-question { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #e0f0f0; }
+  @media (min-width: 640px) { .gdq-question { gap: 14px; padding: 14px 0; } }
+  .gdq-question:last-child { border-bottom: none; }
+  .gdq-num { background: #0d7377; color: #ffffff; border-radius: 50%; width: 26px; height: 26px; min-width: 26px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  @media (min-width: 640px) { .gdq-num { width: 28px; height: 28px; min-width: 28px; font-size: 13px; margin-top: 1px; } }
+  .gdq-text { font-size: 14px; line-height: 1.65; }
+  @media (min-width: 640px) { .gdq-text { font-size: 15px; } }
+
+  /* ── APPLICATION ── */
+  .app-intro { font-size: 14px; color: #555; margin: 0 0 14px; font-style: italic; }
+  .app-item { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid #eeeeee; }
+  @media (min-width: 640px) { .app-item { gap: 16px; padding: 16px 0; } }
+  .app-item:last-child { border-bottom: none; }
+  .app-num { background: #1F3864; color: #ffffff; border-radius: 4px; min-width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  @media (min-width: 640px) { .app-num { min-width: 32px; height: 32px; } }
+  .app-body { flex: 1; }
+  .app-title { font-size: 14px; font-weight: 700; color: #1F3864; margin: 0 0 4px; }
+  @media (min-width: 640px) { .app-title { font-size: 15px; } }
+  .app-desc { font-size: 14px; line-height: 1.65; color: #1c1c1e; margin: 0; }
+  .nt-forward-note { font-size: 13px; color: #555; border-top: 1px solid #eeeeee; padding-top: 12px; margin-top: 16px; font-style: italic; }
+
+  /* ── SCRIPTURE READER ── */
+  .scripture-reader-intro { margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid #cccccc; }
+  .scripture-reader-intro p { margin: 0; font-size: 14px; color: #555; line-height: 1.6; }
+  .scripture-group-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 18px 0 4px; border-bottom: 2px solid #1F3864; padding-bottom: 5px; }
+  .scripture-group-header .scripture-group-label { margin: 0; border-bottom: none; padding-bottom: 0; }
+  .read-aloud-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; flex-shrink: 0; }
+  .read-aloud-btn { background: #1F3864; color: #ffffff; border: none; padding: 7px 14px; border-radius: 4px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.15s; min-height: 36px; }
+  .read-aloud-btn:hover { background: #2c54a0; }
+  .read-aloud-btn:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
+  .read-aloud-btn.stop { background: #8b0000; }
+  .reading-counter { font-size: 12px; color: #888; display: none; }
+  .reading-counter.visible { display: block; }
+  .scripture-group-label { font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #1F3864; border-bottom: 2px solid #1F3864; padding-bottom: 5px; margin: 22px 0 4px; }
+  .scripture-entry { padding: 12px 0 12px 10px; border-bottom: 1px solid #eeeeee; border-left: 3px solid transparent; transition: background 0.3s, border-left-color 0.3s; }
+  @media (min-width: 640px) { .scripture-entry { padding: 14px 0 14px 12px; } }
+  .scripture-entry:last-child { border-bottom: none; }
+  .scripture-entry.reading-active { background: #f0f4fb; border-left-color: #1F3864; }
+  .scripture-ref  { font-size: 13px; font-weight: 700; color: #1F3864; letter-spacing: 0.03em; margin-bottom: 5px; }
+  .scripture-text { font-size: 15px; line-height: 1.8; color: #1c1c1e; font-style: italic; }
+  @media (min-width: 640px) { .scripture-text { font-size: 16px; } }
+
+  /* ── REVISION CARDS ── */
+  .flashcard-hint { font-size: 12px; color: #888; margin: 0 0 12px; }
+  .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin: 4px 0 16px; }
+  .flashcard { height: 190px; perspective: 1000px; cursor: pointer; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.45s ease; border-radius: 6px; }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 6px; padding: 16px; display: flex; flex-direction: column; justify-content: center; }
+  .flashcard-front { background: #ffffff; border: 2px solid #1F3864; }
+  .flashcard-back  { background: #1F3864; transform: rotateY(180deg); }
+  .fc-prompt { font-size: 14px; font-weight: 700; color: #1F3864; margin: 0 0 8px; line-height: 1.4; }
+  .fc-ref     { font-size: 12px; color: #2c54a0; font-weight: 700; margin: 0; letter-spacing: 0.05em; }
+  .fc-verse   { font-size: 13px; color: #e8e4dc; font-style: italic; margin: 0 0 8px; line-height: 1.5; }
+  .fc-ref-back { font-size: 12px; color: #d97706; font-weight: 700; margin: 0; letter-spacing: 0.04em; }
+
+  /* ── BOTTOM CONTROLS ── */
+  .bottom-controls { padding: 24px 0 0; }
+  .bottom-collapse-btn { width: 100%; background: #f2f2f2; color: #1F3864; border: 1px solid #1F3864; padding: 11px 16px; border-radius: 4px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.15s, color 0.15s; }
+  .bottom-collapse-btn:hover { background: #1F3864; color: #ffffff; }
+
+  /* ── FLOATING TOC ── */
+  #toc-container { position: fixed; bottom: 20px; right: 16px; z-index: 1000; }
+  @media (min-width: 640px) { #toc-container { bottom: 24px; right: 24px; } }
+  #toc-toggle { background: #1F3864; color: #ffffff; border: none; padding: 9px 14px; border-radius: 4px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; min-height: 40px; }
+  @media (max-width: 639px) { #toc-container { bottom: 14px; right: 10px; } #toc-toggle { font-size: 11px; padding: 6px 10px; min-height: 32px; border-radius: 20px; background: rgba(31,56,100,0.9); } }
+  #toc-toggle:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
+  #toc-menu { display: none; background: #1F3864; border-radius: 4px; padding: 8px 0; margin-bottom: 8px; min-width: 220px; max-width: 85vw; max-height: 60vh; overflow-y: auto; }
+  @media (min-width: 640px) { #toc-menu { min-width: 240px; } }
+  #toc-menu a { display: flex; flex-direction: column; justify-content: center; color: #ffffff; text-decoration: none; padding: 9px 14px; font-size: 13px; cursor: pointer; line-height: 1.3; min-height: 44px; }
+  #toc-menu a .toc-sub { font-size: 11px; opacity: 0.7; margin-top: 1px; }
+  #toc-menu a:hover { background: #2c54a0; }
+  .toc-divider { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); padding: 8px 14px 3px; }
+
+  /* ── FOOTER ── */
+  .page-footer { font-size: 13px; color: #888; border-top: 1px solid #cccccc; padding: 18px 0 36px; margin-top: 32px; }
+
+  /* ── PRINT ── */
+  @media print {
+    #toc-container, .util-bar, .read-aloud-controls, .back-link, .arc-bar, .sticky-bar, .acc-body-footer, .bottom-controls, .answers-toolbar { display: none; }
+    .acc-body { display: block !important; }
+    .acc-btn, .crib-inner, .kdq-header, .gdq-header, .core-truth-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .flashcard-front { border: 1px solid #cccccc; }
+    .flashcard-back { background: #f2f2f2 !important; }
+    .fc-verse, .fc-ref-back { color: #1c1c1e !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar" id="sticky-bar" aria-hidden="true">
+  <div class="sticky-inner">
+    <span class="sticky-title">What Wisdom Has</span>
+    <span class="sticky-meta">Section 2 of 8</span>
+  </div>
+</div>
+
+<!-- TITLE BLOCK -->
+<div class="title-block" id="title-block">
+  <div class="back-link"><a href="index.html">&#8592; Series Index</a></div>
+  <div class="doc-label">
+    <span class="dl-main">Wisdom in Proverbs:</span>
+    <span class="dl-sub">A Teaching Reference Series</span>
+  </div>
+  <h1>What Wisdom Has</h1>
+  <p class="subtitle">Section 2 of 8. Foundation Layer: Resources and Authority</p>
+  <hr class="title-rule">
+</div>
+
+<!-- ARC BAR -->
+<div class="arc-bar" aria-label="Series progress">
+  <span class="arc-step inactive" title="Go to Section 1"><a href="wisdom-proverbs-s1-what-wisdom-is.html">1. What Wisdom Is</a></span>
+  <span class="arc-step active">2. What Wisdom Has</span>
+  <span class="arc-step inactive" title="Coming soon">3. What Wisdom Requires</span>
+  <span class="arc-step inactive" title="Coming soon">4. What Wisdom Speaks</span>
+  <span class="arc-step inactive" title="Coming soon">5. What Wisdom Gives</span>
+  <span class="arc-step inactive" title="Coming soon">6. Folly Contrast</span>
+  <span class="arc-step inactive" title="Coming soon">7. Across Domains</span>
+  <span class="arc-step inactive" title="Coming soon">8. NT Connections</span>
+</div>
+
+<!-- UTILITY BAR -->
+<div class="util-bar">
+  <div class="util-inner">
+    <span class="util-label">View:</span>
+    <div class="util-buttons">
+      <div class="util-row-1">
+        <button class="util-btn" id="btn-expand-all">Expand All</button>
+        <button class="util-btn" id="btn-collapse-all">Collapse All</button>
+      </div>
+      <div class="util-row-2">
+        <button class="util-btn" id="btn-scripture-only">&#128214; Read Scriptures Only</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPENING QUESTION -->
+<div class="opening-question" id="opening-q">
+  <div class="oq-label">
+    <span class="oq-label-primary">Opening Question</span>
+    <span class="oq-label-secondary">Please note your answer and read further.</span>
+  </div>
+  <p class="oq-text">When you consider the concepts of wealth, authority and strategic power, do you naturally view them as assets that spiritual wisdom possesses; or do you treat them as secular commodities that exist independently of God?</p>
+</div>
+
+<!-- KEY SCRIPTURE -->
+<div class="key-scripture">
+  <div class="ks-label">Key Scripture</div>
+  <div class="ks-ref">Proverbs 8:14</div>
+  <p class="ks-text">"Counsel is mine, and sound wisdom; I am understanding, I have strength."</p>
+</div>
+
+<!-- CORE TRUTH -->
+<div class="core-truth-box">
+  <div class="core-truth-label">Core Truth</div>
+  <p class="core-truth-statement">Wisdom does not come empty-handed; she possesses the ultimate resources of counsel, sovereign authority and enduring riches, establishing the blueprint for true power and governance.</p>
+</div>
+
+<!-- TEACHING CONTENT GROUP -->
+<div class="group-divider"><span class="group-divider-label">Teaching Content</span></div>
+
+<!-- 2.1 -->
+<div class="acc-unit" id="unit-crib">
+  <button class="acc-btn" aria-expanded="true" aria-controls="body-crib" id="btn-crib">
+    <span class="acc-pill">2.1</span>
+    <div class="acc-title-block">
+      <span class="acc-title">Five Things to Know First</span>
+      <span class="acc-subtitle">Doctrinal anchors that hold everything else in place</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body open" id="body-crib" role="region" aria-labelledby="btn-crib">
+    <div class="crib-inner">
+      <h3>Five Foundations</h3>
+      <ol>
+        <li>Wisdom is the sole proprietor of absolute counsel and sound wisdom; she holds the structural monopoly on strategic insight. <span class="crib-ref">(8:14)</span></li>
+        <li>Legal, political and judicial authorities are structurally dependent on wisdom to execute legitimate justice. <span class="crib-ref">(8:15-16)</span></li>
+        <li>The wealth wisdom possesses outlasts material markets, offering permanent righteousness and durable value. <span class="crib-ref">(8:18-19)</span></li>
+        <li>Wisdom deliberately guides her followers into economic stability and fills their treasuries as an intentional act of love. <span class="crib-ref">(8:20-21)</span></li>
+        <li>Natural longevity, social honour and emotional peace reside securely within the hands of wisdom. <span class="crib-ref">(3:16-17)</span></li>
+      </ol>
+    </div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-crib" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<!-- 2.2 -->
+<div class="acc-unit" id="unit-identity">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-identity" id="btn-identity">
+    <span class="acc-pill">2.2</span>
+    <div class="acc-title-block">
+      <span class="acc-title">Resources and Authority</span>
+      <span class="acc-subtitle">Nine facets of what wisdom has, set against Folly at every point</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-identity" role="region" aria-labelledby="btn-identity">
+    <div class="callout callout-depth">
+      <div class="callout-label">Depth</div>
+      <p>The assets wisdom possesses are not secondary rewards; they are inherent attributes. When wisdom says "Counsel is mine", she uses proprietary language. She does not borrow authority or rent strength; she owns them. Human rulers only govern securely to the exact degree that they draw from her native treasury.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="resp-table">
+        <thead>
+          <tr><th>Facet</th><th>Verse Snippet</th><th>Folly Contrast</th><th>Teaching Note</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label-cell" data-label="Facet">Counsel and sound wisdom (8:14)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"Counsel is mine, and sound wisdom"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">Folly acts blindly without strategic counsel (15:22)</td>
+            <td class="note-cell"  data-label="Teaching Note">True counsel belongs inherently to wisdom; it is an intrinsic asset, not an occasional gift.</td>
+          </tr>
+          <tr>
+            <td class="label-cell" data-label="Facet">Strategic understanding (8:14)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"I am understanding, I have strength"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">The fool relies on his own fragile heart (28:26)</td>
+            <td class="note-cell"  data-label="Teaching Note">Wisdom brings both the perception to see what is required and the structural power to execute it.</td>
+          </tr>
+          <tr>
+            <td class="label-cell" data-label="Facet">Political governance (8:15)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"By me kings reign, and rulers decree justice"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">Ignorant leaders become great oppressors (28:16)</td>
+            <td class="note-cell"  data-label="Teaching Note">Human governance is only legitimate and stable when it operates on the principles of divine wisdom.</td>
+          </tr>
+          <tr>
+            <td class="label-cell" data-label="Facet">Judicial authority (8:16)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"By me princes rule, and nobles, all the judges"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">Wicked judges accept secret bribes to twist justice (17:23)</td>
+            <td class="note-cell"  data-label="Teaching Note">Judicial objectivity requires absolute alignment with wisdom; without it, legal systems collapse.</td>
+          </tr>
+          <tr>
+            <td class="label-cell" data-label="Facet">Enduring wealth (8:18)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"Riches and honor are with me, enduring riches"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">Ill-gotten wealth vanishes quickly in crisis (10:2)</td>
+            <td class="note-cell"  data-label="Teaching Note">Wisdom offers asset classes that do not depreciate; her riches are bound up with permanent righteousness.</td>
+          </tr>
+          <tr>
+            <td class="label-cell" data-label="Facet">Superior yield (8:19)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"My fruit is better than gold... my revenue than choice silver"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">Lying assets produce a fleeting fantasy (21:6)</td>
+            <td class="note-cell"  data-label="Teaching Note">The compound return on pursuing wisdom drastically outperforms any known material commodity market.</td>
+          </tr>
+          <tr>
+            <td class="label-cell" data-label="Facet">Equitable inheritance (8:21)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"That I may cause those who love me to inherit wealth"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">Reckless fools inherit nothing but the wind (11:29)</td>
+            <td class="note-cell"  data-label="Teaching Note">Wealth possessed by wisdom leaves a functional inheritance; it is structured to fill treasuries.</td>
+          </tr>
+          <tr>
+            <td class="label-cell" data-label="Facet">Vital longevity (3:16)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"Length of days is in her right hand"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">The years of the wicked are short and violent (10:27)</td>
+            <td class="note-cell"  data-label="Teaching Note">Wisdom preserves physical life by steering the student clear of hazardous and self-destructive lifestyle traps.</td>
+          </tr>
+          <tr>
+            <td class="label-cell" data-label="Facet">Complete peace (3:17)</td>
+            <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"Her ways are ways of pleasantness, and all her paths are peace"</span></td>
+            <td class="folly-cell" data-label="Folly Contrast">A fool's words enter continually into contention (18:6)</td>
+            <td class="note-cell"  data-label="Teaching Note">The internal climate of wisdom is peaceful; she holds tranquility in her hand alongside honor.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="wisdom-summary">
+      <div class="wisdom-summary-heading">In Summary: What Wisdom Has</div>
+      <ol>
+        <li>She has counsel and sound wisdom as her personal, proprietary property.</li>
+        <li>She holds both the understanding to discern and the strength to execute.</li>
+        <li>She has absolute authority over political governance; kings reign by her blueprint.</li>
+        <li>She acts as the legal anchor for judges and nobles who decree justice.</li>
+        <li>She has durable riches and permanent righteousness that never depreciate.</li>
+        <li>She holds a financial yield that drastically outperforms fine gold and choice silver.</li>
+        <li>She fills the physical and spiritual treasuries of those who love her.</li>
+        <li>She holds natural longevity and vital length of days inside her right hand.</li>
+        <li>She possesses absolute peace and pleasantness, making her paths entirely secure.</li>
+      </ol>
+    </div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-identity" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<!-- 2.3 -->
+<div class="acc-unit" id="unit-portrait">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-portrait" id="btn-portrait">
+    <span class="acc-pill">2.3</span>
+    <div class="acc-title-block">
+      <span class="acc-title">The Resource Portrait</span>
+      <span class="acc-subtitle">Chapters 3 and 8 side by side; the physical hands and the global highway</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-portrait" role="region" aria-labelledby="btn-portrait">
+    <p>Proverbs balances the portrait of wisdom's resources across intimate and global dimensions. Chapter 3 shows her holding life, wealth and peace in her hands to distribute to the individual student. Chapter 8 expands this to the global stage, where she stands on the heights directing world history and political systems. Both scales are essential to understand her treasury.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Chapter 3: The Intimate Hand</th><th>Chapter 8: The Global Highway</th></tr></thead>
+        <tbody>
+          <tr><td>Wisdom holds longevity and honor inside her physical hands for the individual (3:16)</td><td>Wisdom stands on global heights distributing authority to international rulers (8:15-16)</td></tr>
+          <tr><td>Wisdom functions as a protective shield and path of absolute personal peace (3:17)</td><td>Wisdom actively walks down public highways to fill the treasuries of her friends (8:20-21)</td></tr>
+          <tr><td>Wisdom is valued far higher than silver, fine gold or rubies (3:14-15)</td><td>Wisdom produces a premium yield that explicitly outclasses choice currency (8:19)</td></tr>
+          <tr><td>Wisdom acts as a tree of life restoring ultimate vitality to students</td><td>Wisdom operates as the central repository of counsel, insight and strength</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-portrait" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<!-- 2.4 -->
+<div class="acc-unit" id="unit-nt">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-nt" id="btn-nt">
+    <span class="acc-pill">2.4</span>
+    <div class="acc-title-block">
+      <span class="acc-title">NT Connections</span>
+      <span class="acc-subtitle">Where the wealth and authority of wisdom reach their full execution</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-nt" role="region" aria-labelledby="btn-nt">
+    <p>The vast resources and sovereign authority that wisdom possesses in Proverbs find their ultimate, historical expression in the person of Jesus Christ. The New Testament does not treat these assets as abstract concepts; it declares that they are fully stored within Him.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Proverbs Statement</th><th>NT Echo</th><th>NT Reference</th></tr></thead>
+        <tbody>
+          <tr><td class="verse-snippet">"Counsel is mine... I am understanding, I have strength." (8:14)</td><td>In Him are hidden all the treasures of wisdom and knowledge</td><td style="font-weight:700;color:#1F3864;white-space:nowrap;">Col 2:3</td></tr>
+          <tr><td class="verse-snippet">"Riches and honor are with me, enduring riches." (8:18)</td><td>The unsearchable riches of Christ made accessible to believers</td><td style="font-weight:700;color:#1F3864;white-space:nowrap;">Eph 3:8</td></tr>
+          <tr><td class="verse-snippet">"By me kings reign, and rulers decree justice." (8:15)</td><td>Jesus Christ as the ruler over the kings of the earth</td><td style="font-weight:700;color:#1F3864;white-space:nowrap;">Rev 1:5</td></tr>
+          <tr><td class="verse-snippet">"That I may fill their treasuries." (8:21)</td><td>Seek first His kingdom, and all these things shall be added</td><td style="font-weight:700;color:#1F3864;white-space:nowrap;">Matt 6:33</td></tr>
+          <tr><td class="verse-snippet">"Length of days is in her right hand." (3:16)</td><td>The provision of abundant, indestructible and eternal life</td><td style="font-weight:700;color:#1F3864;white-space:nowrap;">John 10:10</td></tr>
+          <tr><td>Wisdom receives supreme honour and holds universal power</td><td>The Lamb is worthy to receive power, riches, wisdom and strength</td><td style="font-weight:700;color:#1F3864;white-space:nowrap;">Rev 5:12</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-depth">
+      <div class="callout-label">Depth</div>
+      <p>When the Apostle Paul asserts that all treasures of wisdom and knowledge are hidden "in Christ" (Colossians 2:3), he uses explicit architectural language. He is declaring that the proprietary treasury claimed by wisdom in Proverbs 8 has a physical location. Christ does not merely give good counsel; He is the source code of all strategic power.</p>
+    </div>
+    <p class="nt-forward-note">Section 8 of this series provides the complete NT synthesis, connecting all eight wisdom themes to Christ in a single integrated study.</p>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-nt" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<!-- DISCUSSION AND APPLICATION GROUP -->
+<div class="group-divider"><span class="group-divider-label">Discussion and Application</span></div>
+
+<!-- 2.5 KDQ — FILLABLE -->
+<div class="acc-unit" id="unit-kdq">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-kdq" id="btn-kdq">
+    <span class="acc-pill">2.5</span>
+    <div class="acc-title-block">
+      <span class="acc-title">Key Discovery Questions</span>
+      <span class="acc-subtitle">Work through these alone before you come to the group</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-kdq" role="region" aria-labelledby="btn-kdq">
+    <div class="kdq-block">
+      <div class="kdq-header">
+        <div class="kdq-header-title">Key Discovery Questions</div>
+        <div class="kdq-header-sub">Type your answers below. They save automatically and you can download them.</div>
+      </div>
+      <div class="kdq-questions">
+        <div class="kdq-question">
+          <div class="kdq-num">1</div>
+          <div class="kdq-body">
+            <div class="kdq-text">If true authority and judicial justice are assets held directly by wisdom (8:15-16), how should this modify the way you view and pray for political and legal systems? What occurs when institutional power is completely separated from her?</div>
+            <div class="fillable" contenteditable="true" data-key="wip-s2-q1" data-placeholder="Type your answer here..."></div>
+          </div>
+        </div>
+        <div class="kdq-question">
+          <div class="kdq-num">2</div>
+          <div class="kdq-body">
+            <div class="kdq-text">Wisdom claims to possess "enduring riches" that outlast fine gold (8:18). In your current financial priorities and anxieties, how much do you count on these durable spiritual assets compared to material bank balances?</div>
+            <div class="fillable" contenteditable="true" data-key="wip-s2-q2" data-placeholder="Type your answer here..."></div>
+          </div>
+        </div>
+        <div class="kdq-question">
+          <div class="kdq-num">3</div>
+          <div class="kdq-body">
+            <div class="kdq-text">Proverbs 3:17 states that all of wisdom's paths are peace. Think of a current path in your life that is full of anxiety or conflict. If you allowed wisdom's counsel to dictate your next step, what would shift?</div>
+            <div class="fillable" contenteditable="true" data-key="wip-s2-q3" data-placeholder="Type your answer here..."></div>
+          </div>
+        </div>
+        <div class="kdq-question">
+          <div class="kdq-num">4</div>
+          <div class="kdq-body">
+            <div class="kdq-text">Wisdom states she fills the treasuries of those who love her (8:21). What does your current definition of a "full life" consist of; and how does it differ from the specific treasury that wisdom promises to fill?</div>
+            <div class="fillable" contenteditable="true" data-key="wip-s2-q4" data-placeholder="Type your answer here..."></div>
+          </div>
+        </div>
+      </div>
+      <div class="answers-toolbar">
+        <button id="btn-download-answers">&#8681; Download My Answers</button>
+        <button class="clear-btn" id="btn-clear-answers">&#10005; Clear All</button>
+      </div>
+      <p class="answers-note">Your answers are saved automatically in this browser. Download to keep a permanent copy.</p>
+    </div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-kdq" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<!-- 2.6 GDQ -->
+<div class="acc-unit" id="unit-gdq">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-gdq" id="btn-gdq">
+    <span class="acc-pill">2.6</span>
+    <div class="acc-title-block">
+      <span class="acc-title">Group Discussion Questions</span>
+      <span class="acc-subtitle">Open conversation for the group session; bring your KDQ answers with you</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-gdq" role="region" aria-labelledby="btn-gdq">
+    <div class="gdq-block">
+      <div class="gdq-header">
+        <div class="gdq-header-title">Group Discussion Questions</div>
+        <div class="gdq-header-sub">Designed for open conversation. There are no correct answers, only honest ones.</div>
+      </div>
+      <div class="gdq-questions">
+        <div class="gdq-question"><div class="gdq-num">1</div><div class="gdq-text">Wisdom says, "By me kings reign." Do we actually believe that secular leaders are dependent on divine wisdom to govern well; or do we treat political success as purely a matter of human strategy and power? Let's discuss our real attitudes.</div></div>
+        <div class="gdq-question"><div class="gdq-num">2</div><div class="gdq-text">How do we differentiate between volatile material wealth and the "enduring riches and righteousness" that wisdom possesses? What does a group member look like who is wealthy in wisdom but modest in material assets?</div></div>
+        <div class="gdq-question"><div class="gdq-num">3</div><div class="gdq-text">Wisdom holds length of days in her right hand and riches/honour in her left (3:16). Why does the text choose to frame wisdom as someone holding physical rewards rather than just internal, invisible virtues?</div></div>
+        <div class="gdq-question"><div class="gdq-num">4</div><div class="gdq-text">In a culture that values quick execution and independent hustle, how can our group help one another slow down to draw from the "counsel and sound wisdom" that belongs to her? What habits must we form together?</div></div>
+      </div>
+    </div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-gdq" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<!-- 2.7 APPLICATION -->
+<div class="acc-unit" id="unit-app">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-app" id="btn-app">
+    <span class="acc-pill">2.7</span>
+    <div class="acc-title-block">
+      <span class="acc-title">Application</span>
+      <span class="acc-subtitle">Four specific ways to walk out what this section teaches</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-app" role="region" aria-labelledby="btn-app">
+    <p class="app-intro">Wisdom is not studied and stored; it is walked. One of these taken seriously is worth more than all four noted and forgotten.</p>
+    <div class="app-item"><div class="app-num">1</div><div class="app-body"><div class="app-title">Conduct a Resource Audit</div><p class="app-desc">Review your calendar and financial outgoings this week. Identify where you are spending primary energy on volatile, fleeting assets versus investing in the enduring counsel and spiritual wisdom that she has.</p></div></div>
+    <div class="app-item"><div class="app-num">2</div><div class="app-body"><div class="app-title">Pray for Governors</div><p class="app-desc">Choose one specific local or national leader. Pray explicitly that they would be granted the precise judicial assets described in Proverbs 8:15-16 to decree true equity and reject corrupt compromise.</p></div></div>
+    <div class="app-item"><div class="app-num">3</div><div class="app-body"><div class="app-title">Anchor verse: Proverbs 8:14</div><p class="app-desc">Commit this to memory: "Counsel is mine, and sound wisdom; I am understanding, I have strength." Carry this statement daily to remind yourself where your ultimate strategic assets reside. Memorise it word-perfect before the next session.</p></div></div>
+    <div class="app-item"><div class="app-num">4</div><div class="app-body"><div class="app-title">The Counsel Pause</div><p class="app-desc">Before making any significant financial purchase or professional commitment this week, pause intentionally for twenty-four hours to ask for the strategic insight that wisdom possesses rather than rushing forward.</p></div></div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-app" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPTURES GROUP -->
+<div class="group-divider"><span class="group-divider-label">Scriptures</span></div>
+
+<!-- 2.8 SCRIPTURE READER -->
+<div class="acc-unit" id="unit-scripture">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-scripture" id="btn-scripture">
+    <span class="acc-pill">2.8</span>
+    <div class="acc-title-block">
+      <span class="acc-title">Scripture Reader</span>
+      <span class="acc-subtitle">Every verse written in full; read or listen with verse-by-verse highlighting</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-scripture" role="region" aria-labelledby="btn-scripture">
+    <div class="scripture-reader-intro">
+      <p>All scriptures referenced in Section 2, written in full (NKJV). Designed for reading aloud, personal meditation or group recitation. The current verse highlights as it is read.</p>
+    </div>
+    <div class="scripture-group-header">
+      <span class="scripture-group-label">Proverbs</span>
+      <div class="read-aloud-controls"><span class="reading-counter" id="reading-counter"></span><button class="read-aloud-btn" id="btn-read-aloud">&#9654; Read Aloud</button></div>
+    </div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 3:16</div><div class="scripture-text" data-scripture>"Length of days is in her right hand, In her left hand riches and honor."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 3:17</div><div class="scripture-text" data-scripture>"Her ways are ways of pleasantness, And all her paths are peace."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 3:35</div><div class="scripture-text" data-scripture>"The wise shall inherit glory, But shame shall be the legacy of fools."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 8:14</div><div class="scripture-text" data-scripture>"Counsel is mine, and sound wisdom; I am understanding, I have strength."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 8:15</div><div class="scripture-text" data-scripture>"By me kings reign, And rulers decree justice."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 8:16</div><div class="scripture-text" data-scripture>"By me princes rule, and nobles, All the judges of the earth."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 8:18</div><div class="scripture-text" data-scripture>"Riches and honor are with me, Enduring riches and righteousness."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 8:19</div><div class="scripture-text" data-scripture>"My fruit is better than gold, yes, than fine gold, And my revenue than choice silver."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 8:20</div><div class="scripture-text" data-scripture>"I traverse the way of righteousness, In the midst of the paths of justice,"</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 8:21</div><div class="scripture-text" data-scripture>"That I may cause those who love me to inherit wealth, That I may fill their treasuries."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 10:2</div><div class="scripture-text" data-scripture>"Treasures of wickedness profit nothing, But righteousness delivers from death."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 10:27</div><div class="scripture-text" data-scripture>"The fear of the LORD prolongs days, But the years of the wicked will be shortened."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 11:29</div><div class="scripture-text" data-scripture>"He who troubles his own house will inherit the wind, And the fool will be servant to the wise of heart."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 15:22</div><div class="scripture-text" data-scripture>"Without counsel, plans go awry, But in the multitude of counselors they are established."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 17:23</div><div class="scripture-text" data-scripture>"A wicked man accepts a bribe behind the back To pervert the ways of justice."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 18:6</div><div class="scripture-text" data-scripture>"A fool’s lips enter into contention, And his mouth calls for blows."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 21:6</div><div class="scripture-text" data-scripture>"Getting treasures by a lying tongue Is the fleeting fantasy of those who seek death."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 28:16</div><div class="scripture-text" data-scripture>"A ruler who lacks understanding is a great oppressor, But he who hates covetousness will prolong his days."</div></div>
+    <div class="scripture-group-header">
+      <span class="scripture-group-label">New Testament</span>
+    </div>
+    <div class="scripture-entry"><div class="scripture-ref">Matthew 6:33</div><div class="scripture-text" data-scripture>"But seek first the kingdom of God and His righteousness, and all these things shall be added to you."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Ephesians 3:8</div><div class="scripture-text" data-scripture>"To me, who am less than the least of all the saints, this grace was given, that I should preach among the Gentiles the unsearchable riches of Christ,"</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Colossians 2:3</div><div class="scripture-text" data-scripture>"in whom are hidden all the treasures of wisdom and knowledge."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Revelation 1:5</div><div class="scripture-text" data-scripture>"and from Jesus Christ, the faithful witness, the firstborn from the dead, and the ruler over the kings of the earth. To Him who loved us and washed us from our sins in His own blood."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Revelation 5:12</div><div class="scripture-text" data-scripture>"saying with a loud voice: Worthy is the Lamb who was slain To receive power and riches and wisdom, And strength and honor and glory and blessing!"</div></div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-scripture" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEW GROUP -->
+<div class="group-divider"><span class="group-divider-label">Review</span></div>
+
+<!-- 2.9 REVISION CARDS -->
+<div class="acc-unit" id="unit-revision">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-revision" id="btn-revision">
+    <span class="acc-pill">2.9</span>
+    <div class="acc-title-block">
+      <span class="acc-title">Revision Cards</span>
+      <span class="acc-subtitle">Tap each card to reveal the answer</span>
+    </div>
+    <span class="acc-chevron" aria-hidden="true">▼</span>
+  </button>
+  <div class="acc-body" id="body-revision" role="region" aria-labelledby="btn-revision">
+    <p class="flashcard-hint">Tap or click each card to flip it and reveal the verse.</p>
+    <div class="flashcard-grid">
+
+      <div class="flashcard" role="button" tabindex="0" aria-label="Revision card: What strategic resources does wisdom claim to own exclusively in Proverbs 8:14?">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <p class="fc-prompt">What strategic resources does wisdom claim to own exclusively in Proverbs 8:14?</p>
+            <p class="fc-ref">Proverbs 8:14</p>
+          </div>
+          <div class="flashcard-back">
+            <p class="fc-verse">"Counsel is mine, and sound wisdom; I am understanding, I have strength."</p>
+            <p class="fc-ref-back">Proverbs 8:14 (NKJV)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" role="button" tabindex="0" aria-label="Revision card: Who depends directly on wisdom to govern and execute justice globally?">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <p class="fc-prompt">Who depends directly on wisdom to govern and execute justice globally?</p>
+            <p class="fc-ref">Proverbs 8:15-16</p>
+          </div>
+          <div class="flashcard-back">
+            <p class="fc-verse">"By me kings reign, and rulers decree justice. By me princes rule, and nobles, all the judges of the earth."</p>
+            <p class="fc-ref-back">Proverbs 8:15-16 (NKJV)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" role="button" tabindex="0" aria-label="Revision card: How does wisdom describe the durability of her financial assets?">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <p class="fc-prompt">How does wisdom describe the durability of her financial assets?</p>
+            <p class="fc-ref">Proverbs 8:18</p>
+          </div>
+          <div class="flashcard-back">
+            <p class="fc-verse">"Riches and honor are with me, enduring riches and righteousness."</p>
+            <p class="fc-ref-back">Proverbs 8:18 (NKJV)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" role="button" tabindex="0" aria-label="Revision card: What is the quality of wisdom's return compared to fine gold?">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <p class="fc-prompt">What is the quality of wisdom's return compared to fine gold?</p>
+            <p class="fc-ref">Proverbs 8:19</p>
+          </div>
+          <div class="flashcard-back">
+            <p class="fc-verse">"My fruit is better than gold, yes, than fine gold, And my revenue than choice silver."</p>
+            <p class="fc-ref-back">Proverbs 8:19 (NKJV)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" role="button" tabindex="0" aria-label="Revision card: What two rewards does wisdom hold inside her right and left hands?">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <p class="fc-prompt">What two rewards does wisdom hold inside her right and left hands?</p>
+            <p class="fc-ref">Proverbs 3:16</p>
+          </div>
+          <div class="flashcard-back">
+            <p class="fc-verse">"Length of days is in her right hand, In her left hand riches and honor."</p>
+            <p class="fc-ref-back">Proverbs 3:16 (NKJV)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" role="button" tabindex="0" aria-label="Revision card: How does Proverbs describe the paths and climate of wisdom's ways?">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <p class="fc-prompt">How does Proverbs describe the paths and climate of wisdom's ways?</p>
+            <p class="fc-ref">Proverbs 3:17</p>
+          </div>
+          <div class="flashcard-back">
+            <p class="fc-verse">"Her ways are ways of pleasantness, and all her paths are peace."</p>
+            <p class="fc-ref-back">Proverbs 3:17 (NKJV)</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="acc-body-footer">
+      <button class="acc-collapse-btn" data-target="body-revision" aria-label="Minimise this section">&#9650; Minimise</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM COLLAPSE ALL -->
+<div class="bottom-controls">
+  <button class="bottom-collapse-btn" id="btn-bottom-collapse">&#9660; Collapse All Sections</button>
+</div>
+
+<div class="page-footer">
+  Wisdom in Proverbs: Section 2 of 8. HiTurn Media Group. <a href="index.html">Series Index</a>.
+</div>
+
+<!-- FLOATING TOC -->
+<div id="toc-container" role="navigation" aria-label="Page navigation">
+  <div id="toc-menu">
+    <div class="toc-divider">Teaching Content</div>
+    <a data-open="body-crib"     href="#unit-crib">2.1 Five Things to Know First<span class="toc-sub">Doctrinal anchors</span></a>
+    <a data-open="body-identity" href="#unit-identity">2.2 Resources and Authority<span class="toc-sub">Nine facets with Folly contrast</span></a>
+    <a data-open="body-portrait" href="#unit-portrait">2.3 The Resource Portrait<span class="toc-sub">Chapters 3 and 8 compared</span></a>
+    <a data-open="body-nt"       href="#unit-nt">2.4 NT Connections<span class="toc-sub">Treasures hidden in Christ</span></a>
+    <div class="toc-divider">Discussion and Application</div>
+    <a data-open="body-kdq" href="#unit-kdq">2.5 Key Discovery Questions<span class="toc-sub">Type and save your answers</span></a>
+    <a data-open="body-gdq" href="#unit-gdq">2.6 Group Discussion Questions<span class="toc-sub">Open group conversation</span></a>
+    <a data-open="body-app" href="#unit-app">2.7 Application<span class="toc-sub">Four ways to walk it out</span></a>
+    <div class="toc-divider">Scriptures</div>
+    <a data-open="body-scripture" href="#unit-scripture">2.8 Scripture Reader<span class="toc-sub">Every verse in full</span></a>
+    <div class="toc-divider">Review</div>
+    <a data-open="body-revision" href="#unit-revision">2.9 Revision Cards<span class="toc-sub">Tap to flip</span></a>
+  </div>
+  <button id="toc-toggle" aria-expanded="false">Contents &#9650;</button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var allBodies = ['body-crib','body-identity','body-portrait','body-nt','body-kdq','body-gdq','body-app','body-scripture','body-revision'];
+
+  function openAcc(id)  { var b=document.getElementById(id),btn=document.querySelector('[aria-controls="'+id+'"]'); if(b&&btn){b.classList.add('open');btn.setAttribute('aria-expanded','true');} }
+  function closeAcc(id) { var b=document.getElementById(id),btn=document.querySelector('[aria-controls="'+id+'"]'); if(b&&btn){b.classList.remove('open');btn.setAttribute('aria-expanded','false');} }
+
+  document.querySelectorAll('.acc-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){ var id=btn.getAttribute('aria-controls'); document.getElementById(id).classList.contains('open')?closeAcc(id):openAcc(id); });
+  });
+  document.getElementById('btn-expand-all').addEventListener('click',   function(){ allBodies.forEach(openAcc);  setScriptureMode(false); });
+  document.getElementById('btn-collapse-all').addEventListener('click', function(){ allBodies.forEach(closeAcc); setScriptureMode(false); });
+
+  document.querySelectorAll('.acc-collapse-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var targetId = btn.getAttribute('data-target');
+      closeAcc(targetId);
+      var accBtn = document.querySelector('[aria-controls="'+targetId+'"]');
+      if(accBtn){ setTimeout(function(){ accBtn.scrollIntoView({behavior:'smooth',block:'start'}); },50); }
+    });
+  });
+
+  document.getElementById('btn-bottom-collapse').addEventListener('click', function(){
+    allBodies.forEach(closeAcc); setScriptureMode(false);
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  var scriptureMode=false, btnSO=document.getElementById('btn-scripture-only');
+  function setScriptureMode(on){ scriptureMode=on; if(on){allBodies.forEach(closeAcc);openAcc('body-scripture');setTimeout(function(){document.getElementById('unit-scripture').scrollIntoView({behavior:'smooth',block:'start'});},80);btnSO.innerHTML='\u2715 Exit Scripture Mode';btnSO.classList.add('scripture-active');}else{btnSO.innerHTML='&#128214; Read Scriptures Only';btnSO.classList.remove('scripture-active');} }
+  btnSO.addEventListener('click',function(){setScriptureMode(!scriptureMode);});
+
+  /* Sticky bar */
+  var titleBlock=document.getElementById('title-block'), stickyBar=document.getElementById('sticky-bar');
+  if(titleBlock&&stickyBar){ window.addEventListener('scroll',function(){ if(titleBlock.getBoundingClientRect().bottom<0){stickyBar.classList.add('visible');stickyBar.setAttribute('aria-hidden','false');}else{stickyBar.classList.remove('visible');stickyBar.setAttribute('aria-hidden','true');} },{passive:true}); }
+
+  /* ── FILLABLE ANSWERS — localStorage save/restore ── */
+  var storageOK = false;
+  try { localStorage.setItem('_wip_test','1'); localStorage.removeItem('_wip_test'); storageOK=true; } catch(e){}
+  var fillables = document.querySelectorAll('.fillable[data-key]');
+  fillables.forEach(function(el){
+    if(storageOK){ var saved=localStorage.getItem(el.getAttribute('data-key')); if(saved){el.innerHTML=saved;} }
+    el.addEventListener('input',function(){ if(storageOK){ localStorage.setItem(el.getAttribute('data-key'),el.innerHTML); } });
+  });
+  document.getElementById('btn-download-answers').addEventListener('click', function(){
+    var questions=document.querySelectorAll('.kdq-question');
+    var lines=['Wisdom in Proverbs: Section 2 — What Wisdom Has','Key Discovery Questions','HiTurn Media Group',''];
+    questions.forEach(function(q,i){
+      var qText=q.querySelector('.kdq-text')?q.querySelector('.kdq-text').innerText.trim():'';
+      var aText=q.querySelector('.fillable')?q.querySelector('.fillable').innerText.trim():'';
+      lines.push('Q'+(i+1)+': '+qText);
+      lines.push('My Answer: '+(aText||'(no answer entered)'));
+      lines.push('');
+    });
+    var blob=new Blob([lines.join('\n')],{type:'text/plain'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a'); a.href=url; a.download='wip-s2-what-wisdom-has-answers.txt';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+  });
+  document.getElementById('btn-clear-answers').addEventListener('click', function(){
+    if(!confirm('Clear all your answers for this section? This cannot be undone.')) return;
+    fillables.forEach(function(el){ el.innerHTML=''; if(storageOK){localStorage.removeItem(el.getAttribute('data-key'));} });
+  });
+
+  /* ── FLASHCARD FLIP ── */
+  document.querySelectorAll('.flashcard').forEach(function(card){
+    function flip(){ card.classList.toggle('flipped'); }
+    card.addEventListener('click', flip);
+    card.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();} });
+  });
+
+  /* Read Aloud */
+  var reading=false,readBtn=document.getElementById('btn-read-aloud'),counter=document.getElementById('reading-counter');
+  var entries=Array.from(document.querySelectorAll('.scripture-entry'));
+  function clearHL(){entries.forEach(function(e){e.classList.remove('reading-active');});}
+  function stopReading(){window.speechSynthesis.cancel();reading=false;clearHL();readBtn.textContent='\u25b6 Read Aloud';readBtn.classList.remove('stop');counter.classList.remove('visible');}
+  function readEntry(idx){ if(!reading||idx>=entries.length){stopReading();return;} clearHL();entries[idx].classList.add('reading-active');entries[idx].scrollIntoView({behavior:'smooth',block:'nearest'}); counter.textContent=(idx+1)+' / '+entries.length; var ref=(entries[idx].querySelector('.scripture-ref')||{}).textContent||''; var txt=(entries[idx].querySelector('[data-scripture]')||{}).textContent||''; var utt=new SpeechSynthesisUtterance(ref+'. '+txt); utt.lang='en-GB';utt.rate=0.82; utt.onend=function(){if(reading){setTimeout(function(){readEntry(idx+1);},900);}}; window.speechSynthesis.speak(utt); }
+  readBtn.addEventListener('click',function(){ if(!('speechSynthesis' in window)){alert('Read Aloud is not supported in this browser. Try Chrome or Safari.');return;} if(reading){stopReading();return;} reading=true;readBtn.textContent='\u25a0 Stop';readBtn.classList.add('stop');counter.classList.add('visible');readEntry(0); });
+
+  /* TOC */
+  var tocToggle=document.getElementById('toc-toggle'),tocMenu=document.getElementById('toc-menu');
+  tocToggle.addEventListener('click',function(){ var open=tocMenu.style.display==='block'; tocMenu.style.display=open?'none':'block'; tocToggle.setAttribute('aria-expanded',String(!open)); tocToggle.innerHTML=open?'Contents &#9650;':'Contents &#9660;'; });
+  tocMenu.querySelectorAll('a').forEach(function(link){ link.addEventListener('click',function(e){ e.preventDefault();openAcc(link.getAttribute('data-open')); var el=document.querySelector(link.getAttribute('href')); if(el){setTimeout(function(){el.scrollIntoView({behavior:'smooth',block:'start'});},60);} tocMenu.style.display='none';tocToggle.setAttribute('aria-expanded','false');tocToggle.innerHTML='Contents &#9650;'; }); });
+});
+</script>
+</body>
+</html>
