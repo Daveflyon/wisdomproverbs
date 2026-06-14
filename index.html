@@ -204,6 +204,45 @@
     .key-verse { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
     #pf-toggle[aria-expanded="true"] #pf-chevron { transform: rotate(180deg); }
+
+  /* -- AUDIO PANEL (INDEX) -- */
+  .audio-panel { background: #ffffff; border-bottom: 2px solid #1F3864; padding: 10px 14px;
+    margin: 0 0 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 4px; }
+  .audio-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+  .audio-label { font-size: 11px; font-weight: 700; color: #1F3864; text-transform: uppercase;
+    letter-spacing: 0.08em; flex-shrink: 0; }
+  .audio-btn { display: inline-flex; align-items: center; gap: 6px; font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px; font-weight: 700; padding: 7px 14px; border-radius: 4px; border: none; cursor: pointer;
+    transition: background 0.15s; }
+  .audio-btn:focus { outline: 2px solid #d97706; outline-offset: 2px; }
+  .btn-play-all { background: #1F3864; color: #ffffff; }
+  .btn-play-all:hover { background: #2c54a0; }
+  .btn-play-all.paused { background: #d97706; }
+  .btn-stop { background: #f2f2f2; color: #1c1c1e; border: 1px solid #cccccc; }
+  .btn-stop:hover:not(:disabled) { background: #e0e0e0; }
+  .btn-stop:disabled { opacity: 0.4; cursor: default; }
+  .audio-speed-group { display: flex; gap: 2px; align-items: center; }
+  .audio-speed-label { font-size: 11px; color: #777; margin-right: 4px; }
+  .audio-speed-btn { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: 700;
+    padding: 5px 9px; border: 1px solid #cccccc; background: #f2f2f2; color: #555;
+    cursor: pointer; border-radius: 2px; transition: background 0.1s; }
+  .audio-speed-btn:hover { background: #e0e0e0; }
+  .audio-speed-btn.active { background: #1F3864; color: #ffffff; border-color: #1F3864; }
+  .audio-speed-btn:focus { outline: 2px solid #d97706; outline-offset: 1px; }
+  .audio-progress { font-size: 12px; color: #888; margin-left: auto; white-space: nowrap; }
+
+  /* -- PER-SECTION LISTEN BUTTON -- */
+  .sec-listen-btn { display: inline-flex; align-items: center; gap: 5px;
+    background: #1F3864; color: #ffffff; border: none;
+    border-radius: 3px; padding: 5px 10px; font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap;
+    flex-shrink: 0; transition: background 0.15s; min-height: 32px; }
+  .sec-listen-btn:hover { background: #2c54a0; }
+  .sec-listen-btn.btn-active { background: #d97706; }
+  .sec-listen-btn:focus { outline: 2px solid #d97706; outline-offset: 2px; }
+  .section-item.sec-playing { background: #e8eef8; }
+
+  @media print { .audio-panel { display: none; } .sec-listen-btn { display: none; } }
 </style>
 </head>
 <body>
@@ -301,6 +340,29 @@
     <button id="about-collapse-btn" style="background:#f2f2f2; border:1px solid #cccccc; color:#555; padding:5px 14px; border-radius:4px; font-size:12px; font-weight:700; cursor:pointer; font-family:Arial,Helvetica,sans-serif; min-height:32px;">&#9650; Minimise</button>
   </div>
 
+</div>
+
+<!-- AUDIO PANEL -->
+<div class="audio-panel" role="region" aria-label="Audio controls" style="margin-top:28px;">
+  <div class="audio-inner">
+    <span class="audio-label">Audio</span>
+    <button class="audio-btn btn-play-all" id="btn-play-all" aria-label="Play all sections">
+      <svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg>
+      Play All
+    </button>
+    <button class="audio-btn btn-stop" id="btn-stop" aria-label="Stop playback" disabled>
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><rect width="10" height="10" rx="1"/></svg>
+      Stop
+    </button>
+    <div class="audio-speed-group" aria-label="Playback speed">
+      <span class="audio-speed-label">Speed:</span>
+      <button class="audio-speed-btn" data-rate="1" aria-label="Normal speed">1x</button>
+      <button class="audio-speed-btn active" data-rate="1.5" aria-label="1.5x speed">1.5x</button>
+      <button class="audio-speed-btn" data-rate="1.75" aria-label="1.75x speed">1.75x</button>
+      <button class="audio-speed-btn" data-rate="2" aria-label="2x speed">2x</button>
+    </div>
+    <span class="audio-progress" id="audio-progress" aria-live="polite"></span>
+  </div>
 </div>
 
 <!-- THE EIGHT SECTIONS -->
@@ -440,5 +502,194 @@
       });
     }
   });
+
+  /* -- AUDIO: Index page Play All + per-section Listen -- */
+  (function(){
+    var synth = window.speechSynthesis;
+    if (!synth) return;
+
+    var SERIES_INTRO = 'Welcome to Wisdom in Proverbs, a teaching series from the Book of Proverbs, produced by Hiturn Media Group. This series works through eight foundational themes drawn from Proverbs. Each section stands alone as a study unit and links forward across the arc from wisdom's identity through to its full New Testament fulfilment in Christ.';
+
+    var SECTIONS = [
+      { title: 'Series Introduction', text: SERIES_INTRO, item: null },
+      { title: 'Section 1: What Wisdom Is', text: 'Section 1: What Wisdom Is. Begin Here. Identity, nature, the Wisdom Portrait from Proverbs chapters 1 and 8, New Testament connections, full discussion and application.', item: null },
+      { title: 'Section 2: What Wisdom Has', text: 'Section 2: What Wisdom Has. Resources, authority and attributes that wisdom possesses and offers.', item: null },
+      { title: 'Section 3: What Wisdom Requires', text: 'Section 3: What Wisdom Requires. Entry conditions, prerequisites and the posture wisdom demands.', item: null },
+      { title: 'Section 4: What Wisdom Speaks', text: 'Section 4: What Wisdom Speaks. The public voice, the invitation, the warning and the call.', item: null },
+      { title: 'Section 5: What Wisdom Gives', text: 'Section 5: What Wisdom Gives. Fruit in character, relationships, work and legacy.', item: null },
+      { title: 'Section 6: The Folly Contrast', text: 'Section 6: The Folly Contrast. Lady Folly as a full parallel portrait; the complete two-way comparison.', item: null },
+      { title: 'Section 7: Wisdom Across Domains', text: 'Section 7: Wisdom Across Domains. Speech, wealth, work, family, friendship, leadership and governance.', item: null },
+      { title: 'Section 8: NT Connections', text: 'Section 8: NT Connections: Full Synthesis. All eight themes connected to Christ; wisdom's fulfilment in the New Testament.', item: null }
+    ];
+
+    var currentRate = 1.5;
+    var currentSec = null;
+    var playAllActive = false;
+    var playAllIndex = 0;
+    var isPaused = false;
+
+    var I_PLAY  = '<svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg>';
+    var I_PAUSE = '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="4" height="10" rx="0.5"/><rect x="7" y="1" width="4" height="10" rx="0.5"/></svg>';
+
+    var playAllBtn = document.getElementById('btn-play-all');
+    var stopBtn    = document.getElementById('btn-stop');
+    var progressEl = document.getElementById('audio-progress');
+
+    // Wire up section items to SECTIONS[1..8]
+    function linkItems() {
+      var items = document.querySelectorAll('.section-item');
+      items.forEach(function(item, i) {
+        if (SECTIONS[i + 1]) SECTIONS[i + 1].item = item;
+      });
+    }
+
+    function updateAllUI() {
+      var isActive = !!currentSec;
+      if (stopBtn) stopBtn.disabled = !isActive;
+
+      if (playAllBtn) {
+        if (!isActive) {
+          playAllBtn.innerHTML = I_PLAY + ' Play All';
+          playAllBtn.classList.remove('paused');
+          playAllBtn.setAttribute('aria-label', 'Play all sections');
+        } else if (playAllActive && !isPaused) {
+          playAllBtn.innerHTML = I_PAUSE + ' Pause';
+          playAllBtn.classList.remove('paused');
+          playAllBtn.setAttribute('aria-label', 'Pause');
+        } else if (playAllActive && isPaused) {
+          playAllBtn.innerHTML = I_PLAY + ' Resume';
+          playAllBtn.classList.add('paused');
+          playAllBtn.setAttribute('aria-label', 'Resume');
+        } else {
+          playAllBtn.innerHTML = I_PLAY + ' Play All';
+          playAllBtn.classList.remove('paused');
+          playAllBtn.setAttribute('aria-label', 'Play all sections');
+        }
+      }
+
+      if (progressEl) {
+        if (!isActive) { progressEl.textContent = ''; }
+        else {
+          var idx = SECTIONS.indexOf(currentSec);
+          var base = playAllActive ? (idx + 1) + ' of ' + SECTIONS.length : currentSec.title;
+          progressEl.textContent = isPaused ? 'Paused: ' + base : 'Playing: ' + base;
+        }
+      }
+
+      SECTIONS.forEach(function(sec) {
+        if (!sec.listenBtn) return;
+        if (currentSec === sec) {
+          sec.listenBtn.innerHTML = isPaused ? (I_PLAY + ' Resume') : (I_PAUSE + ' Pause');
+          sec.listenBtn.classList.add('btn-active');
+          if (sec.item) sec.item.classList.add('sec-playing');
+        } else {
+          sec.listenBtn.innerHTML = I_PLAY + ' Listen';
+          sec.listenBtn.classList.remove('btn-active');
+          if (sec.item) sec.item.classList.remove('sec-playing');
+        }
+      });
+    }
+
+    function speakText(text, onEnd) {
+      synth.cancel();
+      isPaused = false;
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-GB';
+      u.rate = currentRate;
+      u.onend = function() { if (onEnd) onEnd(); };
+      u.onerror = function(e) { if (e.error !== 'interrupted' && onEnd) onEnd(); };
+      synth.speak(u);
+    }
+
+    function pauseResume() {
+      if (!currentSec) return;
+      if (isPaused) { synth.resume(); isPaused = false; }
+      else { synth.pause(); isPaused = true; }
+      updateAllUI();
+    }
+
+    function stopAll() {
+      synth.cancel();
+      playAllActive = false;
+      isPaused = false;
+      currentSec = null;
+      playAllIndex = 0;
+      updateAllUI();
+    }
+
+    function playSection(sec, onDone) {
+      currentSec = sec;
+      if (sec.item) {
+        setTimeout(function() { sec.item.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 80);
+      }
+      updateAllUI();
+      speakText(sec.text, function() {
+        if (!playAllActive) { currentSec = null; updateAllUI(); }
+        if (onDone) onDone();
+      });
+    }
+
+    function playNext() {
+      if (!playAllActive || playAllIndex >= SECTIONS.length) { stopAll(); return; }
+      var sec = SECTIONS[playAllIndex];
+      playAllIndex++;
+      playSection(sec, function() {
+        if (playAllActive && !isPaused) setTimeout(playNext, 600);
+      });
+    }
+
+    function injectListenButtons() {
+      SECTIONS.slice(1).forEach(function(sec) {
+        if (!sec.item) return;
+        var listenBtn = document.createElement('button');
+        listenBtn.className = 'sec-listen-btn';
+        listenBtn.setAttribute('aria-label', 'Listen to ' + sec.title);
+        listenBtn.innerHTML = I_PLAY + ' Listen';
+        sec.listenBtn = listenBtn;
+        sec.item.appendChild(listenBtn);
+        (function(s) {
+          listenBtn.addEventListener('click', function() {
+            if (currentSec === s) { pauseResume(); }
+            else {
+              stopAll();
+              setTimeout(function() {
+                playSection(s, function() { currentSec = null; updateAllUI(); });
+              }, 60);
+            }
+          });
+        })(sec);
+      });
+    }
+
+    if (playAllBtn) {
+      playAllBtn.addEventListener('click', function() {
+        if (playAllActive && !isPaused) {
+          pauseResume();
+        } else if (playAllActive && isPaused) {
+          pauseResume();
+        } else {
+          stopAll();
+          setTimeout(function() { playAllActive = true; playAllIndex = 0; playNext(); }, 60);
+        }
+      });
+    }
+
+    if (stopBtn) {
+      stopBtn.addEventListener('click', function() { stopAll(); });
+    }
+
+    document.querySelectorAll('.audio-speed-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.audio-speed-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        currentRate = parseFloat(btn.dataset.rate);
+      });
+    });
+
+    linkItems();
+    injectListenButtons();
+    updateAllUI();
+  })();
+
 </script>
 </body>    

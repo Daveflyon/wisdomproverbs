@@ -290,6 +290,21 @@
   /* ── FOOTER ── */
   .page-footer { font-size: 13px; color: #888; border-top: 1px solid #cccccc; padding: 18px 0 36px; margin-top: 32px; }
 
+
+  /* -- PER-SECTION LISTEN BUTTONS -- */
+  .acc-head-row { display: flex; gap: 6px; align-items: stretch; margin-bottom: 2px; }
+  .acc-head-row .acc-btn { flex: 1; margin-bottom: 0; }
+  .acc-listen-btn { display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+    background: rgba(255,255,255,0.15); color: #ffffff; border: 1.5px solid rgba(255,255,255,0.35);
+    border-radius: 4px; padding: 0 12px; font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap;
+    flex-shrink: 0; transition: background 0.15s; min-height: 52px; min-width: 72px; }
+  .acc-listen-btn:hover { background: rgba(255,255,255,0.28); }
+  .acc-listen-btn.btn-active { background: #d97706; border-color: #d97706; }
+  .acc-listen-btn:focus { outline: 2px solid #d97706; outline-offset: 2px; }
+  .acc-unit.section-playing .acc-head-row { box-shadow: 0 0 0 3px #d97706; border-radius: 4px; }
+  .btn-play-all.paused { background: #d97706; }
+
   /* ── PRINT ── */
   @media print {
     #toc-container, .util-bar, .read-aloud-controls, .back-link, .arc-bar, .sticky-bar, .acc-body-footer, .bottom-controls, .answers-toolbar, .audio-panel { display: none; }
@@ -305,10 +320,10 @@
   .audio-label { font-size: 11px; font-weight: 700; color: #1F3864; text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; }
   .audio-btn { display: inline-flex; align-items: center; gap: 6px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700; padding: 7px 14px; border-radius: 4px; border: none; cursor: pointer; transition: background 0.15s; }
   .audio-btn:focus { outline: 2px solid #d97706; outline-offset: 2px; }
-  .btn-play-intro { background: #1F3864; color: #ffffff; }
-  .btn-play-intro:hover { background: #2c54a0; }
-  .btn-play-intro.paused { background: #d97706; }
-  .btn-play-intro.paused:hover { background: #b45309; }
+  .btn-play-all { background: #1F3864; color: #ffffff; }
+  .btn-play-all:hover { background: #2c54a0; }
+  .btn-play-all.paused { background: #d97706; }
+  .btn-play-all.paused:hover { background: #b45309; }
   .btn-stop-intro { background: #f2f2f2; color: #1c1c1e; border: 1px solid #cccccc; }
   .btn-stop-intro:hover:not(:disabled) { background: #e0e0e0; }
   .btn-stop-intro:disabled { opacity: 0.4; cursor: default; }
@@ -359,9 +374,9 @@
 <div class="audio-panel" role="region" aria-label="Audio controls">
   <div class="audio-inner">
     <span class="audio-label">Audio</span>
-    <button class="audio-btn btn-play-intro" id="btn-play-intro" aria-label="Play introduction">
+    <button class="audio-btn btn-play-all" id="btn-play-all" aria-label="Play all sections">
       <svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg>
-      Play Introduction
+      Play All
     </button>
     <button class="audio-btn btn-stop-intro" id="btn-stop-intro" aria-label="Stop playback" disabled>
       <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><rect width="10" height="10" rx="1"/></svg>
@@ -936,81 +951,230 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  /* ── AUDIO INTRO ── */
+  /* -- AUDIO: Play All + per-section Listen -- */
   (function(){
     var synth = window.speechSynthesis;
     var INTRO_TEXT = "Welcome to Section Eight: NT Connections. This is the section everything has been building toward. If you have worked through the previous seven, you have met wisdom as identity, as resource, as demand, as speech, as gift, as contrast and as daily practice. Proverbs planted each of those themes deliberately. The New Testament writers knew exactly what they were doing when they used the same language. In this section you will see that the person Proverbs called wisdom; present at creation, calling aloud, setting her table, offering life; is not an abstract concept that Jesus illustrates. He is the fulfilment she was pointing at. Section eight does not add a new idea. It names the one the entire series has been approaching from the beginning. It is my prayer that the God of our Lord Jesus Christ, the Father of glory, may give you the Spirit of wisdom and of revelation in the knowledge of him as you study to apply His preserved book of Wisdom.";
     var currentRate = 1.5;
-    var isPlaying = false;
+    var allSections = [];
+    var currentSec = null;
+    var playAllActive = false;
+    var playAllIndex = 0;
     var isPaused = false;
 
     var I_PLAY  = '<svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg>';
     var I_PAUSE = '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="4" height="10" rx="0.5"/><rect x="7" y="1" width="4" height="10" rx="0.5"/></svg>';
 
-    var playBtn = document.getElementById('btn-play-intro');
-    var stopBtn = document.getElementById('btn-stop-intro');
+    var playAllBtn = document.getElementById('btn-play-all');
+    var stopBtn    = document.getElementById('btn-stop-intro');
     var progressEl = document.getElementById('audio-progress');
 
-    if (!playBtn || !synth) return;
-
-    function updateUI() {
-      if (stopBtn) stopBtn.disabled = !isPlaying;
-      if (progressEl) {
-        if (!isPlaying) { progressEl.textContent = ''; }
-        else if (isPaused) { progressEl.textContent = 'Paused: Introduction'; }
-        else { progressEl.textContent = 'Playing: Introduction'; }
-      }
-      if (!isPlaying) {
-        playBtn.innerHTML = I_PLAY + ' Play Introduction';
-        playBtn.classList.remove('paused');
-        playBtn.setAttribute('aria-label', 'Play introduction');
-      } else if (isPaused) {
-        playBtn.innerHTML = I_PLAY + ' Resume';
-        playBtn.classList.add('paused');
-        playBtn.setAttribute('aria-label', 'Resume introduction');
-      } else {
-        playBtn.innerHTML = I_PAUSE + ' Pause';
-        playBtn.classList.remove('paused');
-        playBtn.setAttribute('aria-label', 'Pause introduction');
-      }
+    function getBodyText(unit) {
+      var body = unit ? unit.querySelector('.acc-body') : null;
+      if (!body) return '';
+      var clone = body.cloneNode(true);
+      clone.querySelectorAll('button, select, input, .acc-body-footer, .answers-toolbar, .answers-note, .read-aloud-controls, .flashcard-back, .flashcard-hint').forEach(function(el) { el.remove(); });
+      var txt = (clone.textContent || clone.innerText || '').replace(/\s+/g, ' ').trim();
+      return txt.length > 4000 ? txt.substring(0, 4000) + '.' : txt;
     }
 
-    function speakIntro() {
+    function buildSections() {
+      allSections = [{ title: 'Introduction', getText: function() { return INTRO_TEXT; }, unit: null, listenBtn: null }];
+      document.querySelectorAll('.acc-unit').forEach(function(unit) {
+        var titleEl = unit.querySelector('.acc-title');
+        var t = titleEl ? titleEl.textContent.trim() : 'Section';
+        (function(u, title) {
+          allSections.push({ title: title, getText: function() { return getBodyText(u); }, unit: u, listenBtn: null });
+        })(unit, t);
+      });
+    }
+
+    function updateAllUI() {
+      var isActive = !!currentSec;
+      if (stopBtn) stopBtn.disabled = !isActive;
+
+      if (playAllBtn) {
+        if (!isActive) {
+          playAllBtn.innerHTML = I_PLAY + ' Play All';
+          playAllBtn.classList.remove('paused');
+          playAllBtn.setAttribute('aria-label', 'Play all sections');
+        } else if (playAllActive && !isPaused) {
+          playAllBtn.innerHTML = I_PAUSE + ' Pause';
+          playAllBtn.classList.remove('paused');
+          playAllBtn.setAttribute('aria-label', 'Pause');
+        } else if (playAllActive && isPaused) {
+          playAllBtn.innerHTML = I_PLAY + ' Resume';
+          playAllBtn.classList.add('paused');
+          playAllBtn.setAttribute('aria-label', 'Resume');
+        } else {
+          playAllBtn.innerHTML = I_PLAY + ' Play All';
+          playAllBtn.classList.remove('paused');
+          playAllBtn.setAttribute('aria-label', 'Play all sections');
+        }
+      }
+
+      if (progressEl) {
+        if (!isActive) { progressEl.textContent = ''; }
+        else {
+          var idx = allSections.indexOf(currentSec);
+          var base = playAllActive
+            ? (idx + 1) + ' of ' + allSections.length
+            : currentSec.title;
+          progressEl.textContent = isPaused ? 'Paused: ' + base : 'Playing: ' + base;
+        }
+      }
+
+      allSections.forEach(function(sec) {
+        if (!sec.listenBtn) return;
+        if (currentSec === sec) {
+          sec.listenBtn.innerHTML = isPaused ? (I_PLAY + ' Resume') : (I_PAUSE + ' Pause');
+          sec.listenBtn.classList.add('btn-active');
+          if (sec.unit) sec.unit.classList.add('section-playing');
+        } else {
+          sec.listenBtn.innerHTML = I_PLAY + ' Listen';
+          sec.listenBtn.classList.remove('btn-active');
+          if (sec.unit) sec.unit.classList.remove('section-playing');
+        }
+      });
+    }
+
+    function speakText(text, onEnd) {
       synth.cancel();
       isPaused = false;
-      var u = new SpeechSynthesisUtterance(INTRO_TEXT);
+      var u = new SpeechSynthesisUtterance(text);
       u.lang = 'en-GB';
       u.rate = currentRate;
-      u.onend = function() { isPlaying = false; isPaused = false; updateUI(); };
-      u.onerror = function(e) { if (e.error !== 'interrupted') { isPlaying = false; isPaused = false; updateUI(); } };
+      u.onend = function() { if (onEnd) onEnd(); };
+      u.onerror = function(e) { if (e.error !== 'interrupted' && onEnd) onEnd(); };
       synth.speak(u);
     }
 
-    playBtn.addEventListener('click', function() {
-      if (!isPlaying) {
-        isPlaying = true; isPaused = false; updateUI(); speakIntro();
-      } else if (isPaused) {
-        synth.resume(); isPaused = false; updateUI();
-      } else {
-        synth.pause(); isPaused = true; updateUI();
+    function openSection(unit) {
+      if (!unit) return;
+      var btn = unit.querySelector('.acc-btn');
+      var bodyId = btn ? btn.getAttribute('aria-controls') : null;
+      if (!bodyId) return;
+      var body = document.getElementById(bodyId);
+      if (body && !body.classList.contains('open')) {
+        body.classList.add('open');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
       }
-    });
+    }
 
-    if (stopBtn) {
-      stopBtn.addEventListener('click', function() {
-        synth.cancel(); isPlaying = false; isPaused = false; updateUI();
+    function pauseResume() {
+      if (!currentSec) return;
+      if (isPaused) { synth.resume(); isPaused = false; }
+      else { synth.pause(); isPaused = true; }
+      updateAllUI();
+    }
+
+    function stopAll() {
+      synth.cancel();
+      playAllActive = false;
+      isPaused = false;
+      currentSec = null;
+      playAllIndex = 0;
+      updateAllUI();
+    }
+
+    function playSection(sec, onDone) {
+      currentSec = sec;
+      if (sec.unit) {
+        openSection(sec.unit);
+        setTimeout(function() { sec.unit.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 80);
+      }
+      updateAllUI();
+      speakText(sec.getText(), function() {
+        if (!playAllActive) { currentSec = null; updateAllUI(); }
+        if (onDone) onDone();
       });
     }
 
-    document.querySelectorAll('.audio-speed-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.audio-speed-btn').forEach(function(b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-        currentRate = parseFloat(btn.dataset.rate);
+    function playNext() {
+      if (!playAllActive || playAllIndex >= allSections.length) { stopAll(); return; }
+      var sec = allSections[playAllIndex];
+      playAllIndex++;
+      playSection(sec, function() {
+        if (playAllActive && !isPaused) setTimeout(playNext, 600);
       });
-    });
+    }
 
-    updateUI();
+    function injectListenButtons() {
+      document.querySelectorAll('.acc-unit').forEach(function(unit, i) {
+        var accBtn = unit.querySelector('.acc-btn');
+        if (!accBtn || unit.querySelector('.acc-head-row')) return;
+
+        var wrapper = document.createElement('div');
+        wrapper.className = 'acc-head-row';
+        unit.insertBefore(wrapper, accBtn);
+        wrapper.appendChild(accBtn);
+
+        var listenBtn = document.createElement('button');
+        listenBtn.className = 'acc-listen-btn';
+        var sec = allSections[i + 1];
+        listenBtn.setAttribute('aria-label', 'Listen to ' + (sec ? sec.title : 'section'));
+        listenBtn.innerHTML = I_PLAY + ' Listen';
+        wrapper.appendChild(listenBtn);
+
+        if (sec) {
+          sec.listenBtn = listenBtn;
+          (function(s) {
+            listenBtn.addEventListener('click', function() {
+              if (currentSec === s) { pauseResume(); }
+              else {
+                stopAll();
+                setTimeout(function() {
+                  playSection(s, function() { currentSec = null; updateAllUI(); });
+                }, 60);
+              }
+            });
+          })(sec);
+        }
+      });
+    }
+
+    function initControls() {
+      if (playAllBtn) {
+        playAllBtn.addEventListener('click', function() {
+          if (playAllActive && !isPaused) {
+            pauseResume();
+          } else if (playAllActive && isPaused) {
+            pauseResume();
+          } else {
+            stopAll();
+            setTimeout(function() { playAllActive = true; playAllIndex = 0; playNext(); }, 60);
+          }
+        });
+      }
+
+      if (stopBtn) {
+        stopBtn.addEventListener('click', function() { stopAll(); });
+      }
+
+      document.querySelectorAll('.audio-speed-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.audio-speed-btn').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          currentRate = parseFloat(btn.dataset.rate);
+        });
+      });
+    }
+
+    if (!window.speechSynthesis) {
+      var inner = document.querySelector('.audio-inner');
+      if (inner) {
+        var note = document.createElement('p');
+        note.style.cssText = 'font-size:12px;color:#8b0000;margin:0 0 0 auto;';
+        note.textContent = 'Audio not supported. Try Chrome or Edge.';
+        inner.appendChild(note);
+      }
+      return;
+    }
+
+    buildSections();
+    injectListenButtons();
+    initControls();
+    updateAllUI();
   })();
 
   var allBodies = ['body-crib','body-identity','body-portrait','body-nt','body-kdq','body-gdq','body-app','body-scripture','body-revision'];
