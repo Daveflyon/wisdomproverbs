@@ -242,6 +242,7 @@
   .read-aloud-btn:hover { background: #2c54a0; }
   .read-aloud-btn:focus { outline: 2px solid #2c54a0; outline-offset: 2px; }
   .read-aloud-btn.stop { background: #8b0000; }
+  .read-aloud-btn.paused { background: #d97706; }
   .reading-counter { font-size: 12px; color: #888; display: none; }
   .reading-counter.visible { display: block; }
   .scripture-group-label { font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #1F3864; border-bottom: 2px solid #1F3864; padding-bottom: 5px; margin: 22px 0 4px; }
@@ -765,7 +766,7 @@
     </div>
     <div class="scripture-group-header">
       <span class="scripture-group-label">Proverbs</span>
-      <div class="read-aloud-controls" style="gap:12px;"><span class="reading-counter" id="reading-counter"></span><button class="read-aloud-btn" id="btn-read-aloud">&#9654; Read Aloud</button><div style="display:flex;align-items:center;gap:6px;"><label for="read-aloud-speed" style="font-size:12px;font-weight:700;color:#1F3864;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;">Speed</label><select id="read-aloud-speed" aria-label="Read aloud speed" style="font-size:13px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;background:#fff;color:#1c1c1e;"><option value="0.5">0.5x</option><option value="1.0">1.0x</option><option value="1.5" selected>1.5x</option><option value="1.75">1.75x</option><option value="2.0">2.0x</option></select></div></div>
+      <div class="read-aloud-controls" style="gap:12px;"><span class="reading-counter" id="reading-counter"></span><button class="read-aloud-btn" id="btn-read-aloud"><svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg> Play Scriptures</button><div style="display:flex;align-items:center;gap:6px;"><label for="read-aloud-speed" style="font-size:12px;font-weight:700;color:#1F3864;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;">Speed</label><select id="read-aloud-speed" aria-label="Read aloud speed" style="font-size:13px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;background:#fff;color:#1c1c1e;"><option value="0.5">0.5x</option><option value="1.0">1.0x</option><option value="1.5" selected>1.5x</option><option value="1.75">1.75x</option><option value="2.0">2.0x</option></select></div></div>
     </div>
     <div class="scripture-entry"><div class="scripture-ref">Proverbs 3:16</div><div class="scripture-text" data-scripture>"Length of days is in her right hand, In her left hand riches and honor."</div></div>
     <div class="scripture-entry"><div class="scripture-ref">Proverbs 3:17</div><div class="scripture-text" data-scripture>"Her ways are ways of pleasantness, And all her paths are peace."</div></div>
@@ -1023,14 +1024,14 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       allSections.forEach(function(sec) {
-        if (!sec.listenBtn) return;
         if (currentSec === sec) {
-          sec.listenBtn.innerHTML = isPaused ? (I_PLAY + ' Resume') : (I_PAUSE + ' Pause');
-          sec.listenBtn.classList.add('btn-active');
+          var label = isPaused ? (I_PLAY + ' Resume') : (I_PAUSE + ' Pause');
+          if (sec.listenBtn) { sec.listenBtn.innerHTML = label; sec.listenBtn.classList.add('btn-active'); }
+          if (sec.bodyPlayBtn) { sec.bodyPlayBtn.innerHTML = label; sec.bodyPlayBtn.classList.add('btn-active'); }
           if (sec.unit) sec.unit.classList.add('section-playing');
         } else {
-          sec.listenBtn.innerHTML = I_PLAY + ' Listen';
-          sec.listenBtn.classList.remove('btn-active');
+          if (sec.listenBtn) { sec.listenBtn.innerHTML = I_PLAY + ' Listen'; sec.listenBtn.classList.remove('btn-active'); }
+          if (sec.bodyPlayBtn) { sec.bodyPlayBtn.innerHTML = I_PLAY + ' Play this section'; sec.bodyPlayBtn.classList.remove('btn-active'); }
           if (sec.unit) sec.unit.classList.remove('section-playing');
         }
       });
@@ -1102,6 +1103,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var accBtn = unit.querySelector('.acc-btn');
         if (!accBtn || unit.querySelector('.acc-head-row')) return;
 
+        // Wrap header button with listen button alongside it
         var wrapper = document.createElement('div');
         wrapper.className = 'acc-head-row';
         unit.insertBefore(wrapper, accBtn);
@@ -1114,7 +1116,31 @@ document.addEventListener('DOMContentLoaded', function () {
         listenBtn.innerHTML = I_PLAY + ' Listen';
         wrapper.appendChild(listenBtn);
 
-        if (sec) {
+        // Also inject a play button inside the acc-body (top, before content)
+        var body = unit.querySelector('.acc-body');
+        if (body && !body.querySelector('.body-play-btn')) {
+          var bodyPlayBtn = document.createElement('button');
+          bodyPlayBtn.className = 'body-play-btn';
+          bodyPlayBtn.innerHTML = I_PLAY + ' Play this section';
+          body.insertBefore(bodyPlayBtn, body.firstChild);
+          if (sec) {
+            (function(s, hBtn, bBtn) {
+              function handlePlay() {
+                if (currentSec === s) { pauseResume(); }
+                else {
+                  stopAll();
+                  setTimeout(function() {
+                    playSection(s, function() { currentSec = null; updateAllUI(); });
+                  }, 60);
+                }
+              }
+              hBtn.addEventListener('click', handlePlay);
+              bBtn.addEventListener('click', handlePlay);
+            })(sec, listenBtn, bodyPlayBtn);
+            sec.listenBtn = listenBtn;
+            sec.bodyPlayBtn = bodyPlayBtn;
+          }
+        } else if (sec) {
           sec.listenBtn = listenBtn;
           (function(s) {
             listenBtn.addEventListener('click', function() {
@@ -1248,9 +1274,9 @@ document.addEventListener('DOMContentLoaded', function () {
   var reading=false,readBtn=document.getElementById('btn-read-aloud'),counter=document.getElementById('reading-counter');
   var entries=Array.from(document.querySelectorAll('.scripture-entry'));
   function clearHL(){entries.forEach(function(e){e.classList.remove('reading-active');});}
-  function stopReading(){window.speechSynthesis.cancel();reading=false;clearHL();readBtn.textContent='\u25b6 Read Aloud';readBtn.classList.remove('stop');counter.classList.remove('visible');}
+  var raIsPaused=false;var I_RA_PLAY='<svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg>';var I_RA_PAUSE='<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="4" height="10" rx="0.5"/><rect x="7" y="1" width="4" height="10" rx="0.5"/></svg>';function stopReading(){window.speechSynthesis.cancel();reading=false;raIsPaused=false;clearHL();readBtn.innerHTML=I_RA_PLAY+' Play Scriptures';readBtn.classList.remove('stop','paused');counter.classList.remove('visible');}
   function readEntry(idx){ if(!reading){stopReading();return;} if(idx>=entries.length){var _sum=document.getElementById('scripture-summary-block');if(_sum&&!_sum._wasRead){_sum._wasRead=true;_sum.classList.add('reading-active');_sum.scrollIntoView({behavior:'smooth',block:'nearest'});var _h=(_sum.querySelector('.wisdom-summary-heading')||{}).textContent||'';var _it=Array.from(_sum.querySelectorAll('li')).map(function(li,i){return (i+1)+'. '+li.textContent;}).join('. ');var _u=new SpeechSynthesisUtterance(_h+'. '+_it);_u.lang='en-GB';_u.rate=raSpeedSel?parseFloat(raSpeedSel.value):1.0;_u.onend=function(){_sum.classList.remove('reading-active');_sum._wasRead=false;stopReading();};window.speechSynthesis.speak(_u);}else{stopReading();}return;} clearHL();entries[idx].classList.add('reading-active');entries[idx].scrollIntoView({behavior:'smooth',block:'nearest'}); counter.textContent=(idx+1)+' / '+entries.length; var ref=(entries[idx].querySelector('.scripture-ref')||{}).textContent||''; var txt=(entries[idx].querySelector('[data-scripture]')||{}).textContent||''; var utt=new SpeechSynthesisUtterance(ref+'. '+txt); utt.lang='en-GB';utt.rate=raSpeedSel?parseFloat(raSpeedSel.value):1.0; utt.onend=function(){if(reading){setTimeout(function(){readEntry(idx+1);},900);}}; window.speechSynthesis.speak(utt); }
-  readBtn.addEventListener('click',function(){ if(!('speechSynthesis' in window)){alert('Read Aloud is not supported in this browser. Try Chrome or Safari.');return;} if(reading){stopReading();return;} reading=true;readBtn.textContent='\u25a0 Stop';readBtn.classList.add('stop');counter.classList.add('visible');readEntry(0); });
+  readBtn.addEventListener('click',function(){if(!('speechSynthesis' in window)){alert('Audio is not supported in this browser. Try Chrome or Edge.');return;}if(!reading && !raIsPaused){reading=true;raIsPaused=false;readBtn.innerHTML=I_RA_PAUSE+' Pause';readBtn.classList.add('stop');readBtn.classList.remove('paused');counter.classList.add('visible');readEntry(0);} else if(reading && !raIsPaused){window.speechSynthesis.pause();raIsPaused=true;reading=false;readBtn.innerHTML=I_RA_PLAY+' Resume';readBtn.classList.remove('stop');readBtn.classList.add('paused');} else if(raIsPaused){window.speechSynthesis.resume();raIsPaused=false;reading=true;readBtn.innerHTML=I_RA_PAUSE+' Pause';readBtn.classList.add('stop');readBtn.classList.remove('paused');}});
 
   /* TOC */
   var tocToggle=document.getElementById('toc-toggle'),tocMenu=document.getElementById('toc-menu');
