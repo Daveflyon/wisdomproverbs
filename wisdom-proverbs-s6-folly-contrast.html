@@ -38,7 +38,7 @@
 
   /* ── ARC BAR ── */
   .arc-bar { display: flex; gap: 5px; margin: 0 0 18px; flex-wrap: wrap; }
-  .arc-step { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.03em; }
+  .arc-step { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.03em; text-align: left; }
   .arc-step.active  { background: #1F3864; color: #ffffff; box-shadow: 0 2px 5px rgba(31,56,100,0.3); }
   .arc-step.inactive { background: #f2f2f2; color: #555; border: 1px solid #dddddd; cursor: pointer; }
   .arc-step.inactive a { color: inherit; text-decoration: none; }
@@ -51,12 +51,13 @@
   }
 
   /* ── UTILITY BAR ── */
-  .util-bar { padding: 10px 14px; background: #f2f2f2; border-radius: 4px; margin: 0 0 22px; }
+  .util-bar { padding: 10px 14px; background: #f2f2f2; border-radius: 4px; margin: 0 0 18px; }
   .util-inner { display: flex; gap: 10px; align-items: flex-start; }
   .util-label { font-size: 12px; font-weight: 700; color: #666; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; padding-top: 7px; flex-shrink: 0; }
   .util-buttons { display: flex; flex-direction: column; gap: 8px; flex: 1; }
   .util-row-1 { display: flex; gap: 8px; }
   .util-row-1 .util-btn { flex: 1; }
+  .util-row-2 { display: flex; flex-direction: column; gap: 8px; }
   .util-row-2 .util-btn { width: 100%; }
   .util-btn { background: #ffffff; color: #1F3864; border: 1px solid #1F3864; padding: 6px 12px; border-radius: 4px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.15s, color 0.15s; min-height: 36px; }
   .util-btn:hover { background: #1F3864; color: #ffffff; }
@@ -79,7 +80,7 @@
   .ks-text  { font-size: 16px; font-style: italic; line-height: 1.7; color: #1c1c1e; margin: 0; }
 
   /* ── CORE TRUTH ── */
-  .core-truth-box { background: #1F3864; border-radius: 4px; padding: 20px 22px; margin: 0 0 24px; text-align: center; }
+  .core-truth-box { background: #1F3864; border-radius: 4px; padding: 20px 22px; margin: 0 0 24px; text-align: left; }
   @media (min-width: 640px) { .core-truth-box { padding: 22px 28px; } }
   .core-truth-label     { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #d97706; margin: 0 0 12px; }
   .core-truth-statement { font-size: 16px; font-weight: 700; color: #ffffff; line-height: 1.5; margin: 0; }
@@ -247,6 +248,8 @@
   .scripture-entry { padding: 12px 0 12px 10px; border-bottom: 1px solid #eeeeee; border-left: 3px solid transparent; transition: background 0.3s, border-left-color 0.3s; }
   @media (min-width: 640px) { .scripture-entry { padding: 14px 0 14px 12px; } }
   .scripture-entry:last-child { border-bottom: none; }
+  
+  #scripture-summary-block.reading-active { background: #f0f4fb; border-left: 3px solid #1F3864; padding-left: 10px; transition: background 0.3s; }
   .scripture-entry.reading-active { background: #f0f4fb; border-left-color: #1F3864; }
   .scripture-ref  { font-size: 13px; font-weight: 700; color: #1F3864; letter-spacing: 0.03em; margin-bottom: 5px; }
   .scripture-text { font-size: 15px; line-height: 1.8; color: #1c1c1e; font-style: italic; }
@@ -289,14 +292,34 @@
 
   /* ── PRINT ── */
   @media print {
-    #toc-container, .util-bar, .read-aloud-controls, .back-link, .arc-bar, .sticky-bar, .acc-body-footer, .bottom-controls, .answers-toolbar { display: none; }
+    #toc-container, .util-bar, .read-aloud-controls, .back-link, .arc-bar, .sticky-bar, .acc-body-footer, .bottom-controls, .answers-toolbar, .audio-panel { display: none; }
     .acc-body { display: block !important; }
     .acc-btn, .crib-inner, .kdq-header, .gdq-header, .core-truth-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .flashcard-front { border: 1px solid #cccccc; }
     .flashcard-back { background: #f2f2f2 !important; }
     .fc-verse, .fc-ref-back { color: #1c1c1e !important; }
   }
-</style>
+  /* ── AUDIO PANEL ── */
+  .audio-panel { background: #ffffff; border-bottom: 2px solid #1F3864; padding: 10px 14px; margin: 0 0 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 4px; }
+  .audio-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+  .audio-label { font-size: 11px; font-weight: 700; color: #1F3864; text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; }
+  .audio-btn { display: inline-flex; align-items: center; gap: 6px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700; padding: 7px 14px; border-radius: 4px; border: none; cursor: pointer; transition: background 0.15s; }
+  .audio-btn:focus { outline: 2px solid #d97706; outline-offset: 2px; }
+  .btn-play-intro { background: #1F3864; color: #ffffff; }
+  .btn-play-intro:hover { background: #2c54a0; }
+  .btn-play-intro.paused { background: #d97706; }
+  .btn-play-intro.paused:hover { background: #b45309; }
+  .btn-stop-intro { background: #f2f2f2; color: #1c1c1e; border: 1px solid #cccccc; }
+  .btn-stop-intro:hover:not(:disabled) { background: #e0e0e0; }
+  .btn-stop-intro:disabled { opacity: 0.4; cursor: default; }
+  .audio-speed-group { display: flex; gap: 2px; align-items: center; }
+  .audio-speed-label { font-size: 11px; color: #777; margin-right: 4px; }
+  .audio-speed-btn { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: 700; padding: 5px 9px; border: 1px solid #cccccc; background: #f2f2f2; color: #555; cursor: pointer; border-radius: 2px; transition: background 0.1s; }
+  .audio-speed-btn:hover { background: #e0e0e0; }
+  .audio-speed-btn.active { background: #1F3864; color: #ffffff; border-color: #1F3864; }
+  .audio-speed-btn:focus { outline: 2px solid #d97706; outline-offset: 1px; }
+  .audio-progress { font-size: 12px; color: #888; margin-left: auto; white-space: nowrap; }
+  </style>
 </head>
 <body>
 
@@ -314,7 +337,7 @@
     <span class="dl-sub">A Teaching Reference Series</span>
   </div>
   <h1>Folly Contrast</h1>
-  <p class="subtitle">Section 6 of 8. Structural Inversion Layer: The Blueprint of Ruin</p>
+  <p class="subtitle">Section 6 of 8.<br>Structural Inversion Layer: The Blueprint of Ruin</p>
   <hr class="title-rule">
 </div>
 
@@ -329,6 +352,29 @@
   <span class="arc-step inactive" title="Go to Section 8"><a href="wisdom-proverbs-s8-nt-connections.html">8. NT Connections</a></span>
 </div>
 
+<!-- AUDIO PANEL -->
+<div class="audio-panel" role="region" aria-label="Audio controls">
+  <div class="audio-inner">
+    <span class="audio-label">Audio</span>
+    <button class="audio-btn btn-play-intro" id="btn-play-intro" aria-label="Play introduction">
+      <svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg>
+      Play Introduction
+    </button>
+    <button class="audio-btn btn-stop-intro" id="btn-stop-intro" aria-label="Stop playback" disabled>
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><rect width="10" height="10" rx="1"/></svg>
+      Stop
+    </button>
+    <div class="audio-speed-group" aria-label="Playback speed">
+      <span class="audio-speed-label">Speed:</span>
+      <button class="audio-speed-btn" data-rate="1" aria-label="Normal speed">1x</button>
+      <button class="audio-speed-btn active" data-rate="1.5" aria-label="1.5x speed">1.5x</button>
+      <button class="audio-speed-btn" data-rate="1.75" aria-label="1.75x speed">1.75x</button>
+      <button class="audio-speed-btn" data-rate="2" aria-label="2x speed">2x</button>
+    </div>
+    <span class="audio-progress" id="audio-progress" aria-live="polite"></span>
+  </div>
+</div>
+<!-- UTILITY BAR -->
 <div class="util-bar">
   <div class="util-inner">
     <span class="util-label">View:</span>
@@ -338,12 +384,11 @@
         <button class="util-btn" id="btn-collapse-all">Collapse All</button>
       </div>
       <div class="util-row-2">
-        <button class="util-btn" id="btn-scripture-only">&#128214; Read Scriptures Only</button>
+        <button class="util-btn" id="btn-scripture-only">&#128214; Read Scriptures and Summary</button>
       </div>
     </div>
   </div>
 </div>
-
 <div class="opening-question" id="opening-q">
   <div class="oq-label">
     <span class="oq-label-primary">Opening Question</span>
@@ -366,7 +411,7 @@
 <div class="group-divider"><span class="group-divider-label">Teaching Content</span></div>
 
 <div class="acc-unit" id="unit-crib">
-  <button class="acc-btn" aria-expanded="true" aria-controls="body-crib" id="btn-crib">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-crib" id="btn-crib">
     <span class="acc-pill">6.1</span>
     <div class="acc-title-block">
       <span class="acc-title">Five Things to Know First</span>
@@ -374,7 +419,7 @@
     </div>
     <span class="acc-chevron" aria-hidden="true">▼</span>
   </button>
-  <div class="acc-body open" id="body-crib" role="region" aria-labelledby="btn-crib">
+  <div class="acc-body" id="body-crib" role="region" aria-labelledby="btn-crib">
     <div class="crib-inner">
       <h3>Five Foundations</h3>
       <ol>
@@ -385,6 +430,22 @@
         <li>The final legacy of unvetted management choices is absolute bankruptcy; the fool ultimately becomes a structural servant to the wise. <span class="crib-ref">(11:29)</span></li>
       </ol>
     </div>
+    <div style="border-top:2px solid #1F3864;margin:28px 0 0;padding-top:20px;">
+      <div class="wisdom-summary">
+      <div class="wisdom-summary-heading">In Summary: The Inversion Principles</div>
+      <ol>
+        <li>Folly relies on high-decibel emotionalism to choke out systemic scrutiny.</li>
+        <li>It cuts off informational input loops; it values opinion expression above data.</li>
+        <li>It interprets raw emotional rage as execution authority.</li>
+        <li>It templates alternate moral strategies that hide terminal hazards.</li>
+        <li>It deploys uncurated vocabulary that functions as a structural snare.</li>
+        <li>It extracts short-range wealth through manipulative operations.</li>
+        <li>It treats correction and institutional instruction as a personal hostile strike.</li>
+        <li>It dissolves the safety boundaries of the home layer, yielding total bankruptcy.</li>
+      </ol>
+    </div>
+    </div>
+
     <div class="acc-body-footer">
       <button class="acc-collapse-btn" data-target="body-crib" aria-label="Minimise this section">&#9650; Minimise</button>
     </div>
@@ -657,18 +718,18 @@
   <button class="acc-btn" aria-expanded="false" aria-controls="body-scripture" id="btn-scripture">
     <span class="acc-pill">6.8</span>
     <div class="acc-title-block">
-      <span class="acc-title">Scripture Reader</span>
+      <span class="acc-title">Scripture Reader and Summary</span>
       <span class="acc-subtitle">Every verse written in full; read or listen with verse-by-verse highlighting</span>
     </div>
     <span class="acc-chevron" aria-hidden="true">▼</span>
   </button>
   <div class="acc-body" id="body-scripture" role="region" aria-labelledby="btn-scripture">
     <div class="scripture-reader-intro">
-      <p>All scriptures referenced in Section 6, written in full (NKJV). Designed for reading aloud, personal meditation or group recitation. The current verse highlights as it is read.</p>
+      <p>All scriptures referenced in Section 6, written in full. Designed for reading aloud, personal meditation or group recitation. The current verse highlights as it is read.</p>
     </div>
     <div class="scripture-group-header">
       <span class="scripture-group-label">Proverbs</span>
-      <div class="read-aloud-controls"><span class="reading-counter" id="reading-counter"></span><button class="read-aloud-btn" id="btn-read-aloud">&#9654; Read Aloud</button></div>
+      <div class="read-aloud-controls" style="gap:12px;"><span class="reading-counter" id="reading-counter"></span><button class="read-aloud-btn" id="btn-read-aloud">&#9654; Read Aloud</button><div style="display:flex;align-items:center;gap:6px;"><label for="read-aloud-speed" style="font-size:12px;font-weight:700;color:#1F3864;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;">Speed</label><select id="read-aloud-speed" aria-label="Read aloud speed" style="font-size:13px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;background:#fff;color:#1c1c1e;"><option value="0.5">0.5x</option><option value="1.0">1.0x</option><option value="1.5" selected>1.5x</option><option value="1.75">1.75x</option><option value="2.0">2.0x</option></select></div></div>
     </div>
     <div class="scripture-entry"><div class="scripture-ref">Proverbs 1:7</div><div class="scripture-text" data-scripture>"The fear of the LORD is the beginning of knowledge, But fools despise wisdom and instruction."</div></div>
     <div class="scripture-entry"><div class="scripture-ref">Proverbs 1:22</div><div class="scripture-text" data-scripture>"How long, you simple ones, will you love simplicity? For scorners delight in their scorning, And fools hate knowledge."</div></div>
@@ -695,6 +756,22 @@
     <div class="scripture-entry"><div class="scripture-ref">1 Corinthians 1:18</div><div class="scripture-text" data-scripture>"For the preaching of the cross is foolishness to those who are perishing, but to us who are being saved it is the power of God."</div></div>
     <div class="scripture-entry"><div class="scripture-ref">Ephesians 2:1</div><div class="scripture-text" data-scripture>"And you He made alive, who were dead in trespasses and sins,"</div></div>
     <div class="scripture-entry"><div class="scripture-ref">Ephesians 5:15</div><div class="scripture-text" data-scripture>"See then that you walk circumspectly, not as fools but as wise,"</div></div>
+
+    <div style="border-top:2px solid #1F3864;margin:28px 0 0;padding-top:20px;" id="scripture-summary-block">
+      <div class="wisdom-summary">
+        <div class="wisdom-summary-heading">In Summary: The Inversion Principles</div>
+        <ol>
+        <li>Folly relies on high-decibel emotionalism to choke out systemic scrutiny.</li>
+        <li>It cuts off informational input loops; it values opinion expression above data.</li>
+        <li>It interprets raw emotional rage as execution authority.</li>
+        <li>It templates alternate moral strategies that hide terminal hazards.</li>
+        <li>It deploys uncurated vocabulary that functions as a structural snare.</li>
+        <li>It extracts short-range wealth through manipulative operations.</li>
+        <li>It treats correction and institutional instruction as a personal hostile strike.</li>
+        <li>It dissolves the safety boundaries of the home layer, yielding total bankruptcy.</li>
+      </ol>
+      </div>
+    </div>
     <div class="acc-body-footer">
       <button class="acc-collapse-btn" data-target="body-scripture" aria-label="Minimise this section">&#9650; Minimise</button>
     </div>
@@ -724,7 +801,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"There is a way which seems right to a man, But its end is the way of death."</p>
-            <p class="fc-ref-back">Proverbs 14:12 (NKJV)</p>
+            <p class="fc-ref-back">Proverbs 14:12</p>
           </div>
         </div>
       </div>
@@ -737,7 +814,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"A wise man fears and departs from evil, But a fool rages and is self-confident."</p>
-            <p class="fc-ref-back">Proverbs 14:16 (NKJV)</p>
+            <p class="fc-ref-back">Proverbs 14:16</p>
           </div>
         </div>
       </div>
@@ -750,7 +827,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"A fool has no delight in understanding, But only that his heart may express itself."</p>
-            <p class="fc-ref-back">Proverbs 18:2 (NKJV)</p>
+            <p class="fc-ref-back">Proverbs 18:2</p>
           </div>
         </div>
       </div>
@@ -763,7 +840,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"A fool’s mouth is his destruction, And his lips are the snare of his soul."</p>
-            <p class="fc-ref-back">Proverbs 18:7 (NKJV)</p>
+            <p class="fc-ref-back">Proverbs 18:7</p>
           </div>
         </div>
       </div>
@@ -776,7 +853,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"Stolen water is sweet, And bread eaten in secret is pleasant."</p>
-            <p class="fc-ref-back">Proverbs 9:17 (NKJV)</p>
+            <p class="fc-ref-back">Proverbs 9:17</p>
           </div>
         </div>
       </div>
@@ -789,7 +866,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"But he does not know that the dead are there, That her guests are in the depths of hell."</p>
-            <p class="fc-ref-back">Proverbs 9:18 (NKJV)</p>
+            <p class="fc-ref-back">Proverbs 9:18</p>
           </div>
         </div>
       </div>
@@ -806,7 +883,7 @@
 </div>
 
 <div class="page-footer">
-  Wisdom in Proverbs: Section 6 of 8. HiTurn Media Group. <a href="index.html">Series Index</a>.
+  Wisdom in Proverbs: Section 6 of 8.<br>Hiturn Media Group. <a href="index.html">Series Index</a>.
 </div>
 
 <div id="toc-container" role="navigation" aria-label="Page navigation">
@@ -830,6 +907,83 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  /* ── AUDIO INTRO ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var INTRO_TEXT = "Welcome to Section Six: The Folly Contrast. Let\'s start with something uncomfortable. Most of what this section describes will not feel like foolishness from the inside. It rarely does. Folly is not stupidity. It is a system. It has its own logic, its own voice and a destination that only becomes clear at the end. Proverbs does not leave it unnamed. In this section you will meet folly in structural terms; how she calls, who she targets, what she promises and what she delivers. You will also see that folly mimics wisdom closely enough to be mistaken for it. The contrast in this section is not comfortable. It is designed to make you look at your own patterns before the end becomes visible. Section six will ask you which system you are actually building. It is my prayer that the God of our Lord Jesus Christ, the Father of glory, may give you the Spirit of wisdom and of revelation in the knowledge of him as you study to apply His preserved book of Wisdom.";
+    var currentRate = 1.5;
+    var isPlaying = false;
+    var isPaused = false;
+
+    var I_PLAY  = '<svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg>';
+    var I_PAUSE = '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="4" height="10" rx="0.5"/><rect x="7" y="1" width="4" height="10" rx="0.5"/></svg>';
+
+    var playBtn = document.getElementById('btn-play-intro');
+    var stopBtn = document.getElementById('btn-stop-intro');
+    var progressEl = document.getElementById('audio-progress');
+
+    if (!playBtn || !synth) return;
+
+    function updateUI() {
+      if (stopBtn) stopBtn.disabled = !isPlaying;
+      if (progressEl) {
+        if (!isPlaying) { progressEl.textContent = ''; }
+        else if (isPaused) { progressEl.textContent = 'Paused: Introduction'; }
+        else { progressEl.textContent = 'Playing: Introduction'; }
+      }
+      if (!isPlaying) {
+        playBtn.innerHTML = I_PLAY + ' Play Introduction';
+        playBtn.classList.remove('paused');
+        playBtn.setAttribute('aria-label', 'Play introduction');
+      } else if (isPaused) {
+        playBtn.innerHTML = I_PLAY + ' Resume';
+        playBtn.classList.add('paused');
+        playBtn.setAttribute('aria-label', 'Resume introduction');
+      } else {
+        playBtn.innerHTML = I_PAUSE + ' Pause';
+        playBtn.classList.remove('paused');
+        playBtn.setAttribute('aria-label', 'Pause introduction');
+      }
+    }
+
+    function speakIntro() {
+      synth.cancel();
+      isPaused = false;
+      var u = new SpeechSynthesisUtterance(INTRO_TEXT);
+      u.lang = 'en-GB';
+      u.rate = currentRate;
+      u.onend = function() { isPlaying = false; isPaused = false; updateUI(); };
+      u.onerror = function(e) { if (e.error !== 'interrupted') { isPlaying = false; isPaused = false; updateUI(); } };
+      synth.speak(u);
+    }
+
+    playBtn.addEventListener('click', function() {
+      if (!isPlaying) {
+        isPlaying = true; isPaused = false; updateUI(); speakIntro();
+      } else if (isPaused) {
+        synth.resume(); isPaused = false; updateUI();
+      } else {
+        synth.pause(); isPaused = true; updateUI();
+      }
+    });
+
+    if (stopBtn) {
+      stopBtn.addEventListener('click', function() {
+        synth.cancel(); isPlaying = false; isPaused = false; updateUI();
+      });
+    }
+
+    document.querySelectorAll('.audio-speed-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.audio-speed-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        currentRate = parseFloat(btn.dataset.rate);
+      });
+    });
+
+    updateUI();
+  })();
+
   var allBodies = ['body-crib','body-identity','body-portrait','body-nt','body-kdq','body-gdq','body-app','body-scripture','body-revision'];
 
   function openAcc(id)  { var b=document.getElementById(id),btn=document.querySelector('[aria-controls="'+id+'"]'); if(b&&btn){b.classList.add('open');btn.setAttribute('aria-expanded','true');} }
@@ -856,7 +1010,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   var scriptureMode=false, btnSO=document.getElementById('btn-scripture-only');
-  function setScriptureMode(on){ scriptureMode=on; if(on){allBodies.forEach(closeAcc);openAcc('body-scripture');setTimeout(function(){document.getElementById('unit-scripture').scrollIntoView({behavior:'smooth',block:'start'});},80);btnSO.innerHTML='\u2715 Exit Scripture Mode';btnSO.classList.add('scripture-active');}else{btnSO.innerHTML='&#128214; Read Scriptures Only';btnSO.classList.remove('scripture-active');} }
+  function setScriptureMode(on){ scriptureMode=on; if(on){allBodies.forEach(closeAcc);openAcc('body-scripture');setTimeout(function(){document.getElementById('unit-scripture').scrollIntoView({behavior:'smooth',block:'start'});},80);btnSO.innerHTML='\u2715 Exit Scripture Mode';btnSO.classList.add('scripture-active');}else{btnSO.innerHTML='&#128214; Read Scriptures and Summary';btnSO.classList.remove('scripture-active');} }
   btnSO.addEventListener('click',function(){setScriptureMode(!scriptureMode);});
 
   /* Sticky bar */
@@ -873,7 +1027,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   document.getElementById('btn-download-answers').addEventListener('click', function(){
     var questions=document.querySelectorAll('.kdq-question');
-    var lines=['Wisdom in Proverbs: Section 6 — Folly Contrast','Key Discovery Questions','HiTurn Media Group',''];
+    var lines=['Wisdom in Proverbs: Section 6 — Folly Contrast','Key Discovery Questions','Hiturn Media Group',''];
     questions.forEach(function(q,i){
       var qText=q.querySelector('.kdq-text')? q.querySelector('.kdq-text').innerText.trim():'';
       var aText=q.querySelector('.fillable')? q.querySelector('.fillable').innerText.trim():'';
@@ -899,11 +1053,12 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   /* Read Aloud */
+  var raSpeedSel=document.getElementById('read-aloud-speed');
   var reading=false,readBtn=document.getElementById('btn-read-aloud'),counter=document.getElementById('reading-counter');
   var entries=Array.from(document.querySelectorAll('.scripture-entry'));
   function clearHL(){entries.forEach(function(e){e.classList.remove('reading-active');});}
   function stopReading(){window.speechSynthesis.cancel();reading=false;clearHL();readBtn.textContent='\u25b6 Read Aloud';readBtn.classList.remove('stop');counter.classList.remove('visible');}
-  function readEntry(idx){ if(!reading||idx>=entries.length){stopReading();return;} clearHL();entries[idx].classList.add('reading-active');entries[idx].scrollIntoView({behavior:'smooth',block:'nearest'}); counter.textContent=(idx+1)+' / '+entries.length; var ref=(entries[idx].querySelector('.scripture-ref')||{}).textContent||''; var txt=(entries[idx].querySelector('[data-scripture]')||{}).textContent||''; var utt=new SpeechSynthesisUtterance(ref+'. '+txt); utt.lang='en-GB';utt.rate=0.82; utt.onend=function(){if(reading){setTimeout(function(){readEntry(idx+1);},900);}}; window.speechSynthesis.speak(utt); }
+  function readEntry(idx){ if(!reading){stopReading();return;} if(idx>=entries.length){var _sum=document.getElementById('scripture-summary-block');if(_sum&&!_sum._wasRead){_sum._wasRead=true;_sum.classList.add('reading-active');_sum.scrollIntoView({behavior:'smooth',block:'nearest'});var _h=(_sum.querySelector('.wisdom-summary-heading')||{}).textContent||'';var _it=Array.from(_sum.querySelectorAll('li')).map(function(li,i){return (i+1)+'. '+li.textContent;}).join('. ');var _u=new SpeechSynthesisUtterance(_h+'. '+_it);_u.lang='en-GB';_u.rate=raSpeedSel?parseFloat(raSpeedSel.value):1.0;_u.onend=function(){_sum.classList.remove('reading-active');_sum._wasRead=false;stopReading();};window.speechSynthesis.speak(_u);}else{stopReading();}return;} clearHL();entries[idx].classList.add('reading-active');entries[idx].scrollIntoView({behavior:'smooth',block:'nearest'}); counter.textContent=(idx+1)+' / '+entries.length; var ref=(entries[idx].querySelector('.scripture-ref')||{}).textContent||''; var txt=(entries[idx].querySelector('[data-scripture]')||{}).textContent||''; var utt=new SpeechSynthesisUtterance(ref+'. '+txt); utt.lang='en-GB';utt.rate=raSpeedSel?parseFloat(raSpeedSel.value):1.0; utt.onend=function(){if(reading){setTimeout(function(){readEntry(idx+1);},900);}}; window.speechSynthesis.speak(utt); }
   readBtn.addEventListener('click',function(){ if(!('speechSynthesis' in window)){alert('Read Aloud is not supported in this browser. Try Chrome or Safari.');return;} if(reading){stopReading();return;} reading=true;readBtn.textContent='\u25a0 Stop';readBtn.classList.add('stop');counter.classList.add('visible');readEntry(0); });
 
   /* TOC */

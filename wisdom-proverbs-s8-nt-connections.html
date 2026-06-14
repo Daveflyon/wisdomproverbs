@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<title>Wisdom in Proverbs: Section 8 — NT Connections: Full Synthesis</title>
+<title>Wisdom in Proverbs: Section 8. NT Connections: Full Synthesis</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   body { margin: 0; padding: 0 16px; font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.6; font-weight: 400; color: #1c1c1e; background: #ffffff; }
@@ -38,7 +38,7 @@
 
   /* ── ARC BAR ── */
   .arc-bar { display: flex; gap: 5px; margin: 0 0 18px; flex-wrap: wrap; }
-  .arc-step { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.03em; }
+  .arc-step { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.03em; text-align: left; }
   .arc-step.active  { background: #1F3864; color: #ffffff; box-shadow: 0 2px 5px rgba(31,56,100,0.3); }
   .arc-step.inactive { background: #f2f2f2; color: #aaa; border: 1px solid #dddddd; cursor: not-allowed; }
   .arc-step.inactive a { color: #555; text-decoration: none; }
@@ -52,12 +52,13 @@
   }
 
   /* ── UTILITY BAR ── */
-  .util-bar { padding: 10px 14px; background: #f2f2f2; border-radius: 4px; margin: 0 0 22px; }
+  .util-bar { padding: 10px 14px; background: #f2f2f2; border-radius: 4px; margin: 0 0 18px; }
   .util-inner { display: flex; gap: 10px; align-items: flex-start; }
   .util-label { font-size: 12px; font-weight: 700; color: #666; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; padding-top: 7px; flex-shrink: 0; }
   .util-buttons { display: flex; flex-direction: column; gap: 8px; flex: 1; }
   .util-row-1 { display: flex; gap: 8px; }
   .util-row-1 .util-btn { flex: 1; }
+  .util-row-2 { display: flex; flex-direction: column; gap: 8px; }
   .util-row-2 .util-btn { width: 100%; }
   .util-btn { background: #ffffff; color: #1F3864; border: 1px solid #1F3864; padding: 6px 12px; border-radius: 4px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.15s, color 0.15s; min-height: 36px; }
   .util-btn:hover { background: #1F3864; color: #ffffff; }
@@ -80,7 +81,7 @@
   .ks-text  { font-size: 16px; font-style: italic; line-height: 1.7; color: #1c1c1e; margin: 0; }
 
   /* ── CORE TRUTH ── */
-  .core-truth-box { background: #1F3864; border-radius: 4px; padding: 20px 22px; margin: 0 0 24px; text-align: center; }
+  .core-truth-box { background: #1F3864; border-radius: 4px; padding: 20px 22px; margin: 0 0 24px; text-align: left; }
   @media (min-width: 640px) { .core-truth-box { padding: 22px 28px; } }
   .core-truth-label     { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #d97706; margin: 0 0 12px; }
   .core-truth-statement { font-size: 16px; font-weight: 700; color: #ffffff; line-height: 1.5; margin: 0; }
@@ -247,6 +248,8 @@
   .scripture-entry { padding: 12px 0 12px 10px; border-bottom: 1px solid #eeeeee; border-left: 3px solid transparent; transition: background 0.3s, border-left-color 0.3s; }
   @media (min-width: 640px) { .scripture-entry { padding: 14px 0 14px 12px; } }
   .scripture-entry:last-child { border-bottom: none; }
+  
+  #scripture-summary-block.reading-active { background: #f0f4fb; border-left: 3px solid #1F3864; padding-left: 10px; transition: background 0.3s; }
   .scripture-entry.reading-active { background: #f0f4fb; border-left-color: #1F3864; }
   .scripture-ref  { font-size: 13px; font-weight: 700; color: #1F3864; letter-spacing: 0.03em; margin-bottom: 5px; }
   .scripture-text { font-size: 15px; line-height: 1.8; color: #1c1c1e; font-style: italic; }
@@ -289,14 +292,34 @@
 
   /* ── PRINT ── */
   @media print {
-    #toc-container, .util-bar, .read-aloud-controls, .back-link, .arc-bar, .sticky-bar, .acc-body-footer, .bottom-controls, .answers-toolbar { display: none; }
+    #toc-container, .util-bar, .read-aloud-controls, .back-link, .arc-bar, .sticky-bar, .acc-body-footer, .bottom-controls, .answers-toolbar, .audio-panel { display: none; }
     .acc-body { display: block !important; }
     .acc-btn, .crib-inner, .kdq-header, .gdq-header, .core-truth-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .flashcard-front { border: 1px solid #cccccc; }
     .flashcard-back { background: #f2f2f2 !important; }
     .fc-verse, .fc-ref-back { color: #1c1c1e !important; }
   }
-</style>
+  /* ── AUDIO PANEL ── */
+  .audio-panel { background: #ffffff; border-bottom: 2px solid #1F3864; padding: 10px 14px; margin: 0 0 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 4px; }
+  .audio-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+  .audio-label { font-size: 11px; font-weight: 700; color: #1F3864; text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; }
+  .audio-btn { display: inline-flex; align-items: center; gap: 6px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700; padding: 7px 14px; border-radius: 4px; border: none; cursor: pointer; transition: background 0.15s; }
+  .audio-btn:focus { outline: 2px solid #d97706; outline-offset: 2px; }
+  .btn-play-intro { background: #1F3864; color: #ffffff; }
+  .btn-play-intro:hover { background: #2c54a0; }
+  .btn-play-intro.paused { background: #d97706; }
+  .btn-play-intro.paused:hover { background: #b45309; }
+  .btn-stop-intro { background: #f2f2f2; color: #1c1c1e; border: 1px solid #cccccc; }
+  .btn-stop-intro:hover:not(:disabled) { background: #e0e0e0; }
+  .btn-stop-intro:disabled { opacity: 0.4; cursor: default; }
+  .audio-speed-group { display: flex; gap: 2px; align-items: center; }
+  .audio-speed-label { font-size: 11px; color: #777; margin-right: 4px; }
+  .audio-speed-btn { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: 700; padding: 5px 9px; border: 1px solid #cccccc; background: #f2f2f2; color: #555; cursor: pointer; border-radius: 2px; transition: background 0.1s; }
+  .audio-speed-btn:hover { background: #e0e0e0; }
+  .audio-speed-btn.active { background: #1F3864; color: #ffffff; border-color: #1F3864; }
+  .audio-speed-btn:focus { outline: 2px solid #d97706; outline-offset: 1px; }
+  .audio-progress { font-size: 12px; color: #888; margin-left: auto; white-space: nowrap; }
+  </style>
 </head>
 <body>
 
@@ -316,7 +339,7 @@
     <span class="dl-sub">A Teaching Reference Series</span>
   </div>
   <h1>NT Connections: Full Synthesis</h1>
-  <p class="subtitle">Section 8 of 8. Synthesis Layer: All Eight Wisdom Themes and Their Fulfilment in Christ</p>
+  <p class="subtitle">Section 8 of 8.<br>Synthesis Layer: All Eight Wisdom Themes and Their Fulfilment in Christ</p>
   <hr class="title-rule">
 </div>
 
@@ -332,6 +355,28 @@
   <span class="arc-step active">8. NT Connections</span>
 </div>
 
+<!-- AUDIO PANEL -->
+<div class="audio-panel" role="region" aria-label="Audio controls">
+  <div class="audio-inner">
+    <span class="audio-label">Audio</span>
+    <button class="audio-btn btn-play-intro" id="btn-play-intro" aria-label="Play introduction">
+      <svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg>
+      Play Introduction
+    </button>
+    <button class="audio-btn btn-stop-intro" id="btn-stop-intro" aria-label="Stop playback" disabled>
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><rect width="10" height="10" rx="1"/></svg>
+      Stop
+    </button>
+    <div class="audio-speed-group" aria-label="Playback speed">
+      <span class="audio-speed-label">Speed:</span>
+      <button class="audio-speed-btn" data-rate="1" aria-label="Normal speed">1x</button>
+      <button class="audio-speed-btn active" data-rate="1.5" aria-label="1.5x speed">1.5x</button>
+      <button class="audio-speed-btn" data-rate="1.75" aria-label="1.75x speed">1.75x</button>
+      <button class="audio-speed-btn" data-rate="2" aria-label="2x speed">2x</button>
+    </div>
+    <span class="audio-progress" id="audio-progress" aria-live="polite"></span>
+  </div>
+</div>
 <!-- UTILITY BAR -->
 <div class="util-bar">
   <div class="util-inner">
@@ -341,12 +386,6 @@
         <button class="util-btn" id="btn-expand-all">Expand All</button>
         <button class="util-btn" id="btn-collapse-all">Collapse All</button>
       </div>
-      <div class="util-row-2">
-        <button class="util-btn" id="btn-scripture-only">&#128214; Read Scriptures Only</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- OPENING QUESTION -->
 <div class="opening-question" id="opening-q">
@@ -354,7 +393,7 @@
     <span class="oq-label-primary">Opening Question</span>
     <span class="oq-label-secondary">Please note your answer and read further.</span>
   </div>
-  <p class="oq-text">Before reading this section: having worked through the previous seven, which of the wisdom themes — identity, resources, entry conditions, speech, gifts, the folly contrast, or daily domains — do you find it hardest to connect directly to Jesus? What makes that connection feel distant?</p>
+  <p class="oq-text">Before reading this section: having worked through the previous seven, which of the wisdom themes: identity, resources, entry conditions, speech, gifts, the folly contrast, or daily domains; do you find it hardest to connect directly to Jesus? What makes that connection feel distant?</p>
 </div>
 
 <!-- KEY SCRIPTURE -->
@@ -367,7 +406,7 @@
 <!-- CORE TRUTH -->
 <div class="core-truth-box">
   <div class="core-truth-label">Core Truth</div>
-  <p class="core-truth-statement">Every wisdom theme in Proverbs — identity, resources, entry conditions, speech, gifts, the contrast with Folly, and domain-level application — finds its complete expression in one person: Jesus Christ, the wisdom and power of God.</p>
+  <p class="core-truth-statement">Every wisdom theme in Proverbs; identity, resources, entry conditions, speech, gifts, the contrast with Folly, and domain-level application; finds its complete expression in one person: Jesus Christ, the wisdom and power of God.</p>
 </div>
 
 <!-- TEACHING CONTENT GROUP -->
@@ -375,7 +414,7 @@
 
 <!-- 8.1 -->
 <div class="acc-unit" id="unit-crib">
-  <button class="acc-btn" aria-expanded="true" aria-controls="body-crib" id="btn-crib">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-crib" id="btn-crib">
     <span class="acc-pill">8.1</span>
     <div class="acc-title-block">
       <span class="acc-title">Five Things to Know First</span>
@@ -383,17 +422,33 @@
     </div>
     <span class="acc-chevron" aria-hidden="true">▼</span>
   </button>
-  <div class="acc-body open" id="body-crib" role="region" aria-labelledby="btn-crib">
+  <div class="acc-body" id="body-crib" role="region" aria-labelledby="btn-crib">
     <div class="crib-inner">
       <h3>Five Foundations</h3>
       <ol>
-        <li>The NT writers do not simply quote Proverbs; they inhabit its logic. When Paul says Christ is "the wisdom of God" (1 Corinthians 1:24), he is not using a metaphor. He is making a claim about the person Proverbs 8 describes. The synthesis here is not interpretation — it is completion. <span class="crib-ref">(1 Cor 1:24, 30)</span></li>
+        <li>The NT writers do not simply quote Proverbs; they inhabit its logic. When Paul says Christ is "the wisdom of God" (1 Corinthians 1:24), he is not using a metaphor. He is making a claim about the person Proverbs 8 describes. The synthesis here is not interpretation; it is completion. <span class="crib-ref">(1 Cor 1:24, 30)</span></li>
         <li>Wisdom in Proverbs was present at creation, called aloud and was rejected, invited people to her table, offered life to those who found her, and was mocked by the foolish. The Gospels narrate every one of those movements in the life of Jesus. The pattern is not a coincidence; it is a design. <span class="crib-ref">(John 1:1-14; Matt 23:37)</span></li>
         <li>Hebrews 1:1-3 identifies Christ as the one through whom God made the worlds and who upholds all things by the word of his power. This is creation-by-wisdom language (Proverbs 3:19; 8:30) applied directly to the Son. The connection is explicit, not allegorical. <span class="crib-ref">(Heb 1:2-3; Prov 3:19)</span></li>
-        <li>The invitation structure of Proverbs — wisdom setting a table, calling the simple to eat and live (9:1-6) — is directly echoed by Jesus: "I am the bread of life" (John 6:35); "Come to Me" (Matthew 11:28). The invitation has become incarnate. <span class="crib-ref">(Prov 9:1-6; John 6:35; Matt 11:28)</span></li>
+        <li>The invitation structure of Proverbs: wisdom setting a table, calling the simple to eat and live (9:1-6); this is directly echoed by Jesus: "I am the bread of life" (John 6:35); "Come to Me" (Matthew 11:28). The invitation has become incarnate. <span class="crib-ref">(Prov 9:1-6; John 6:35; Matt 11:28)</span></li>
         <li>Completing this synthesis is not optional for the student who has worked through Sections 1 to 7. To study wisdom in Proverbs without arriving at Christ is to study a preparation without meeting the one being prepared for. The arc demands the destination. <span class="crib-ref">(Col 2:2-3; 1 Cor 1:30)</span></li>
       </ol>
     </div>
+    <div style="border-top:2px solid #1F3864;margin:28px 0 0;padding-top:20px;">
+      <div class="wisdom-summary">
+      <div class="wisdom-summary-heading">In Summary: The Eight Themes and Christ</div>
+      <ol>
+        <li>What wisdom is: Christ is the eternal Word, present at creation, through whom all things were made.</li>
+        <li>What wisdom has: in Christ are hidden all the treasures of wisdom and knowledge.</li>
+        <li>What wisdom requires: entry is through poverty of spirit, not achievement; Christ is the end of self-sufficiency.</li>
+        <li>What wisdom speaks: the Word became flesh, called aloud, and was largely rejected.</li>
+        <li>What wisdom gives: Christ gives life, abundantly and eternally, to all who find him.</li>
+        <li>The folly contrast: the cross defeats the works of Folly; wisdom wins at Calvary.</li>
+        <li>Wisdom across domains: Christ is Lord over every arena; the domain structure is now lived under his lordship.</li>
+        <li>Full synthesis: the tree of life, first offered in Eden, refused in Proverbs, and now restored in Revelation.</li>
+      </ol>
+    </div>
+    </div>
+
     <div class="acc-body-footer">
       <button class="acc-collapse-btn" data-target="body-crib" aria-label="Minimise this section">&#9650; Minimise</button>
     </div>
@@ -460,13 +515,13 @@
           <tr>
             <td class="label-cell" data-label="Wisdom Theme">Wisdom Across Domains (S7)</td>
             <td class="verse-cell" data-label="Proverbs Statement"><span class="verse-snippet">"In all your ways acknowledge Him." (3:6)</span></td>
-            <td class="note-cell" data-label="Fulfilment in Christ">Christ is Lord over every domain; whatever you do, do it as to the Lord — the domain structure of Proverbs is sanctified under his lordship</td>
+            <td class="note-cell" data-label="Fulfilment in Christ">Christ is Lord over every domain; whatever you do, do it as to the Lord; the domain structure of Proverbs is sanctified under his lordship</td>
             <td class="folly-cell" data-label="NT Reference" style="color:#1F3864;font-weight:700;">Col 3:17; Col 3:23</td>
           </tr>
           <tr>
             <td class="label-cell" data-label="Wisdom Theme">The Full Synthesis (S8)</td>
             <td class="verse-cell" data-label="Proverbs Statement"><span class="verse-snippet">"She is a tree of life to those who take hold of her." (3:18)</span></td>
-            <td class="note-cell" data-label="Fulfilment in Christ">The tree of life restored — in the new creation, the tree of life bears fruit for the healing of the nations</td>
+            <td class="note-cell" data-label="Fulfilment in Christ">The tree of life restored: in the new creation, the tree of life bears fruit for the healing of the nations</td>
             <td class="folly-cell" data-label="NT Reference" style="color:#1F3864;font-weight:700;">Rev 22:2</td>
           </tr>
         </tbody>
@@ -475,14 +530,14 @@
     <div class="wisdom-summary">
       <div class="wisdom-summary-heading">In Summary: The Eight Themes and Christ</div>
       <ol>
-        <li>What wisdom is — Christ is the eternal Word, present at creation, through whom all things were made.</li>
-        <li>What wisdom has — in Christ are hidden all the treasures of wisdom and knowledge.</li>
-        <li>What wisdom requires — entry is through poverty of spirit, not achievement; Christ is the end of self-sufficiency.</li>
-        <li>What wisdom speaks — the Word became flesh, called aloud, and was largely rejected.</li>
-        <li>What wisdom gives — Christ gives life, abundantly and eternally, to all who find him.</li>
-        <li>The folly contrast — the cross defeats the works of Folly; wisdom wins at Calvary.</li>
-        <li>Wisdom across domains — Christ is Lord over every arena; the domain structure is now lived under his lordship.</li>
-        <li>Full synthesis — the tree of life, first offered in Eden, refused in Proverbs, and now restored in Revelation.</li>
+        <li>What wisdom is: Christ is the eternal Word, present at creation, through whom all things were made.</li>
+        <li>What wisdom has: in Christ are hidden all the treasures of wisdom and knowledge.</li>
+        <li>What wisdom requires: entry is through poverty of spirit, not achievement; Christ is the end of self-sufficiency.</li>
+        <li>What wisdom speaks: the Word became flesh, called aloud, and was largely rejected.</li>
+        <li>What wisdom gives: Christ gives life, abundantly and eternally, to all who find him.</li>
+        <li>The folly contrast: the cross defeats the works of Folly; wisdom wins at Calvary.</li>
+        <li>Wisdom across domains: Christ is Lord over every arena; the domain structure is now lived under his lordship.</li>
+        <li>Full synthesis: the tree of life, first offered in Eden, refused in Proverbs, and now restored in Revelation.</li>
       </ol>
     </div>
     <div class="callout callout-note">
@@ -542,7 +597,7 @@
   <button class="acc-btn" aria-expanded="false" aria-controls="body-nt" id="btn-nt">
     <span class="acc-pill">8.4</span>
     <div class="acc-title-block">
-      <span class="acc-title">NT Connections — The Full Canon</span>
+      <span class="acc-title">NT Connections: The Full Canon</span>
       <span class="acc-subtitle">Every major NT author's engagement with the wisdom tradition of Proverbs</span>
     </div>
     <span class="acc-chevron" aria-hidden="true">▼</span>
@@ -553,20 +608,20 @@
       <table>
         <thead><tr><th>NT Author / Text</th><th>Wisdom Theme Engaged</th><th>Key Passage</th></tr></thead>
         <tbody>
-          <tr><td class="label-cell">John (Gospel)</td><td>Identity of wisdom — the Word, the light, the life</td><td style="font-weight:700;color:#1F3864;">John 1:1-18; 6:35; 14:6</td></tr>
+          <tr><td class="label-cell">John (Gospel)</td><td>Identity of wisdom: the Word, the light, the life</td><td style="font-weight:700;color:#1F3864;">John 1:1-18; 6:35; 14:6</td></tr>
           <tr><td class="label-cell">Paul (1 Corinthians)</td><td>Christ as the wisdom and power of God; wisdom not of this age</td><td style="font-weight:700;color:#1F3864;">1 Cor 1:24, 30; 2:6-7</td></tr>
           <tr><td class="label-cell">Paul (Colossians)</td><td>All treasures of wisdom hidden in Christ; first-born over all creation</td><td style="font-weight:700;color:#1F3864;">Col 1:15-17; 2:2-3</td></tr>
-          <tr><td class="label-cell">Hebrews</td><td>Son as the radiance of God's glory, upholding all things — creation-by-wisdom language</td><td style="font-weight:700;color:#1F3864;">Heb 1:2-3</td></tr>
+          <tr><td class="label-cell">Hebrews</td><td>Son as the radiance of God's glory, upholding all things; creation-by-wisdom language</td><td style="font-weight:700;color:#1F3864;">Heb 1:2-3</td></tr>
           <tr><td class="label-cell">James</td><td>Wisdom from above versus earthly wisdom; the tongue; the poor</td><td style="font-weight:700;color:#1F3864;">James 1:5; 3:13-17; 2:1-6</td></tr>
-          <tr><td class="label-cell">Matthew (Sermon on the Mount)</td><td>Entry conditions for wisdom's kingdom — poverty of spirit, hunger for righteousness</td><td style="font-weight:700;color:#1F3864;">Matt 5:3-6; 7:24-27</td></tr>
-          <tr><td class="label-cell">Luke (Acts)</td><td>Jesus described as one who "grew in wisdom" — the incarnate form of wisdom's development</td><td style="font-weight:700;color:#1F3864;">Luke 2:52</td></tr>
-          <tr><td class="label-cell">Revelation</td><td>The tree of life restored — wisdom's promise fulfilled at the end of the age</td><td style="font-weight:700;color:#1F3864;">Rev 22:2, 14</td></tr>
+          <tr><td class="label-cell">Matthew (Sermon on the Mount)</td><td>Entry conditions for wisdom's kingdom: poverty of spirit, hunger for righteousness</td><td style="font-weight:700;color:#1F3864;">Matt 5:3-6; 7:24-27</td></tr>
+          <tr><td class="label-cell">Luke (Acts)</td><td>Jesus described as one who "grew in wisdom"; the incarnate form of wisdom's development</td><td style="font-weight:700;color:#1F3864;">Luke 2:52</td></tr>
+          <tr><td class="label-cell">Revelation</td><td>The tree of life restored: wisdom's promise fulfilled at the end of the age</td><td style="font-weight:700;color:#1F3864;">Rev 22:2, 14</td></tr>
         </tbody>
       </table>
     </div>
     <div class="callout callout-depth">
       <div class="callout-label">Depth</div>
-      <p>James 3:13-17 provides the clearest NT taxonomy of wisdom from above versus earthly wisdom. The characteristics of wisdom from above — pure, peaceable, gentle, willing to yield, full of mercy, without partiality or hypocrisy — are a direct expansion of Proverbs's portrait. A student who knows Proverbs well will find James immediately intelligible; a student who does not will find it puzzling. The books read each other.</p>
+      <p>James 3:13-17 provides the clearest NT taxonomy of wisdom from above versus earthly wisdom. The characteristics of wisdom from above: pure, peaceable, gentle, willing to yield, full of mercy, without partiality or hypocrisy; these are a direct expansion of Proverbs's portrait. A student who knows Proverbs well will find James immediately intelligible; a student who does not will find it puzzling. The books read each other.</p>
     </div>
     <div class="acc-body-footer">
       <button class="acc-collapse-btn" data-target="body-nt" aria-label="Minimise this section">&#9650; Minimise</button>
@@ -597,7 +652,7 @@
         <div class="kdq-question">
           <div class="kdq-num">1</div>
           <div class="kdq-body">
-            <div class="kdq-text">Paul says in Christ are hidden all the treasures of wisdom and knowledge (Colossians 2:3). Having worked through eight sections of Proverbs, what does that verse mean to you now that it did not — or could not — mean before? Be specific about which wisdom theme changed your understanding most.</div>
+            <div class="kdq-text">Paul says in Christ are hidden all the treasures of wisdom and knowledge (Colossians 2:3). Having worked through eight sections of Proverbs, what does that verse mean to you now that it did not; or could not; mean before? Be specific about which wisdom theme changed your understanding most.</div>
             <div class="fillable" contenteditable="true" data-key="wip-s8-q1" data-placeholder="Type your answer here..."></div>
           </div>
         </div>
@@ -611,14 +666,14 @@
         <div class="kdq-question">
           <div class="kdq-num">3</div>
           <div class="kdq-body">
-            <div class="kdq-text">Proverbs describes wisdom calling aloud and being rejected (1:24). John 1:11 says Christ came to his own and his own did not receive him. What does the repetition of that pattern — invitation, voice, rejection — across centuries tell you about humanity, about God, and about what it takes to actually respond?</div>
+            <div class="kdq-text">Proverbs describes wisdom calling aloud and being rejected (1:24). John 1:11 says Christ came to his own and his own did not receive him. What does the repetition of that pattern: invitation, voice, rejection; across centuries tell you about humanity, about God, and about what it takes to actually respond?</div>
             <div class="fillable" contenteditable="true" data-key="wip-s8-q3" data-placeholder="Type your answer here..."></div>
           </div>
         </div>
         <div class="kdq-question">
           <div class="kdq-num">4</div>
           <div class="kdq-body">
-            <div class="kdq-text">The series closes with the tree of life: present in Eden, promised in Proverbs, and fully restored in Revelation 22. What does it mean to you that the whole arc of wisdom ends not with good advice but with a city, a tree, and a river? What kind of wisdom is this — and does it change what you thought wisdom was when the series began?</div>
+            <div class="kdq-text">The series closes with the tree of life: present in Eden, promised in Proverbs, and fully restored in Revelation 22. What does it mean to you that the whole arc of wisdom ends not with good advice but with a city, a tree, and a river? What kind of wisdom is this; and does it change what you thought wisdom was when the series began?</div>
             <div class="fillable" contenteditable="true" data-key="wip-s8-q4" data-placeholder="Type your answer here..."></div>
           </div>
         </div>
@@ -652,10 +707,10 @@
         <div class="gdq-header-sub">Designed for open conversation. There are no correct answers, only honest ones.</div>
       </div>
       <div class="gdq-questions">
-        <div class="gdq-question"><div class="gdq-num">1</div><div class="gdq-text">The series began by asking what wisdom is, and ends by identifying wisdom with a person. How has your understanding of Jesus changed — or deepened — through studying Proverbs? Is there anything about him that you now see more clearly than you did before the series began?</div></div>
+        <div class="gdq-question"><div class="gdq-num">1</div><div class="gdq-text">The series began by asking what wisdom is, and ends by identifying wisdom with a person. How has your understanding of Jesus changed; or deepened; through studying Proverbs? Is there anything about him that you now see more clearly than you did before the series began?</div></div>
         <div class="gdq-question"><div class="gdq-num">2</div><div class="gdq-text">Paul tells the Corinthians that God chose what is foolish in the world to shame the wise (1 Corinthians 1:27). In a culture that prizes intelligence, data and expertise, what does it mean to live as a community that finds its wisdom in a crucified person? What are the practical consequences of that claim?</div></div>
         <div class="gdq-question"><div class="gdq-num">3</div><div class="gdq-text">James says wisdom from above is pure, peaceable, gentle, willing to yield, full of mercy and good fruits, without partiality and without hypocrisy (James 3:17). How does that description sit alongside what the group actually looks like week to week? Where is the distance greatest, and what would it take to close it?</div></div>
-        <div class="gdq-question"><div class="gdq-num">4</div><div class="gdq-text">The series has covered eight sections. Which single insight will you carry longest? What is one thing you will do differently because of what you have learned — not as a resolution, but as a specific, named decision?</div></div>
+        <div class="gdq-question"><div class="gdq-num">4</div><div class="gdq-text">The series has covered eight sections. Which single insight will you carry longest? What is one thing you will do differently because of what you have learned; not as a resolution, but as a specific, named decision?</div></div>
       </div>
     </div>
     <div class="acc-body-footer">
@@ -676,10 +731,10 @@
   </button>
   <div class="acc-body" id="body-app" role="region" aria-labelledby="btn-app">
     <p class="app-intro">A series is not an end; it is a beginning. These four invitations are designed to help you carry what the eight sections have built into the ordinary texture of your days.</p>
-    <div class="app-item"><div class="app-num">1</div><div class="app-body"><div class="app-title">Read 1 Corinthians 1:18-31 in light of this series</div><p class="app-desc">Read it slowly, with Proverbs 8 in mind. Identify every wisdom theme from this series that appears in the passage. When you reach verse 30 — "Christ Jesus, who became for us wisdom from God" — pause and name what "wisdom" means now that you have spent eight sections defining it.</p></div></div>
+    <div class="app-item"><div class="app-num">1</div><div class="app-body"><div class="app-title">Read 1 Corinthians 1:18-31 in light of this series</div><p class="app-desc">Read it slowly, with Proverbs 8 in mind. Identify every wisdom theme from this series that appears in the passage. When you reach verse 30: "Christ Jesus, who became for us wisdom from God"; pause and name what "wisdom" means now that you have spent eight sections defining it.</p></div></div>
     <div class="app-item"><div class="app-num">2</div><div class="app-body"><div class="app-title">Return to your opening question answer</div><p class="app-desc">Go back to your written answer to the Section 1 opening question: "When someone seems genuinely wise, what do you observe?" Compare it with what you would write now. The distance between those two answers is what this series has given you. Write the new answer down, and keep both.</p></div></div>
     <div class="app-item"><div class="app-num">3</div><div class="app-body"><div class="app-title">Carry one anchor verse from each section</div><p class="app-desc">Each section provided an anchor verse. Review all eight: Proverbs 9:10 (S1); 8:18 (S2); 3:7 (S3); 18:21 (S4); 8:35 (S5); 14:1 (S6); 3:5-6 (S7); Colossians 2:2-3 (S8). Choose the one that has most directly challenged or changed you. Memorise it word-perfect and return to it whenever a decision in that section's domain is before you.</p></div></div>
-    <div class="app-item"><div class="app-num">4</div><div class="app-body"><div class="app-title">Ask for wisdom as James instructs</div><p class="app-desc">James 1:5 says: "If any of you lacks wisdom, let him ask of God, who gives to all liberally and without reproach, and it will be given to him." This is not a formula; it is a standing invitation. Establish a habit this week of asking for wisdom specifically — not for guidance in general, but for wisdom: the capacity to perceive rightly, speak truthfully, act justly, and walk with God across every domain of your life.</p></div></div>
+    <div class="app-item"><div class="app-num">4</div><div class="app-body"><div class="app-title">Ask for wisdom as James instructs</div><p class="app-desc">James 1:5 says: "If any of you lacks wisdom, let him ask of God, who gives to all liberally and without reproach, and it will be given to him." This is not a formula; it is a standing invitation. Establish a habit this week of asking for wisdom specifically; not for guidance in general, but for wisdom: the capacity to perceive rightly, speak truthfully, act justly, and walk with God across every domain of your life.</p></div></div>
     <div class="acc-body-footer">
       <button class="acc-collapse-btn" data-target="body-app" aria-label="Minimise this section">&#9650; Minimise</button>
     </div>
@@ -694,18 +749,18 @@
   <button class="acc-btn" aria-expanded="false" aria-controls="body-scripture" id="btn-scripture">
     <span class="acc-pill">8.8</span>
     <div class="acc-title-block">
-      <span class="acc-title">Scripture Reader</span>
+      <span class="acc-title">Scripture Reader and Summary</span>
       <span class="acc-subtitle">Every verse written in full; read or listen with verse-by-verse highlighting</span>
     </div>
     <span class="acc-chevron" aria-hidden="true">▼</span>
   </button>
   <div class="acc-body" id="body-scripture" role="region" aria-labelledby="btn-scripture">
     <div class="scripture-reader-intro">
-      <p>All scriptures referenced in Section 8, written in full (NKJV). Designed for reading aloud, personal meditation or group recitation. The current verse highlights as it is read.</p>
+      <p>All scriptures referenced in Section 8, written in full. Designed for reading aloud, personal meditation or group recitation. The current verse highlights as it is read.</p>
     </div>
     <div class="scripture-group-header">
       <span class="scripture-group-label">Proverbs</span>
-      <div class="read-aloud-controls"><span class="reading-counter" id="reading-counter"></span><button class="read-aloud-btn" id="btn-read-aloud">&#9654; Read Aloud</button></div>
+      <div class="read-aloud-controls" style="gap:12px;"><span class="reading-counter" id="reading-counter"></span><button class="read-aloud-btn" id="btn-read-aloud">&#9654; Read Aloud</button><div style="display:flex;align-items:center;gap:6px;"><label for="read-aloud-speed" style="font-size:12px;font-weight:700;color:#1F3864;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;">Speed</label><select id="read-aloud-speed" aria-label="Read aloud speed" style="font-size:13px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;background:#fff;color:#1c1c1e;"><option value="0.5">0.5x</option><option value="1.0">1.0x</option><option value="1.5" selected>1.5x</option><option value="1.75">1.75x</option><option value="2.0">2.0x</option></select></div></div>
     </div>
     <div class="scripture-entry"><div class="scripture-ref">Proverbs 1:20, 24</div><div class="scripture-text" data-scripture>"Wisdom calls aloud outside; she raises her voice in the open squares. Because I have called and you refused, I have stretched out my hand and no one regarded."</div></div>
     <div class="scripture-entry"><div class="scripture-ref">Proverbs 3:18-19</div><div class="scripture-text" data-scripture>"She is a tree of life to those who take hold of her, and happy are all who retain her. The LORD by wisdom founded the earth; by understanding He established the heavens."</div></div>
@@ -726,6 +781,22 @@
     <div class="scripture-entry"><div class="scripture-ref">James 3:17</div><div class="scripture-text" data-scripture>"But the wisdom that is from above is first pure, then peaceable, gentle, willing to yield, full of mercy and good fruits, without partiality and without hypocrisy."</div></div>
     <div class="scripture-entry"><div class="scripture-ref">Colossians 3:17</div><div class="scripture-text" data-scripture>"And whatever you do in word or deed, do all in the name of the Lord Jesus, giving thanks to God the Father through Him."</div></div>
     <div class="scripture-entry"><div class="scripture-ref">Revelation 22:2</div><div class="scripture-text" data-scripture>"In the middle of its street, and on either side of the river, was the tree of life, which bore twelve fruits, each tree yielding its fruit every month. The leaves of the tree were for the healing of the nations."</div></div>
+
+    <div style="border-top:2px solid #1F3864;margin:28px 0 0;padding-top:20px;" id="scripture-summary-block">
+      <div class="wisdom-summary">
+        <div class="wisdom-summary-heading">In Summary: The Eight Themes and Christ</div>
+        <ol>
+        <li>What wisdom is: Christ is the eternal Word, present at creation, through whom all things were made.</li>
+        <li>What wisdom has: in Christ are hidden all the treasures of wisdom and knowledge.</li>
+        <li>What wisdom requires: entry is through poverty of spirit, not achievement; Christ is the end of self-sufficiency.</li>
+        <li>What wisdom speaks: the Word became flesh, called aloud, and was largely rejected.</li>
+        <li>What wisdom gives: Christ gives life, abundantly and eternally, to all who find him.</li>
+        <li>The folly contrast: the cross defeats the works of Folly; wisdom wins at Calvary.</li>
+        <li>Wisdom across domains: Christ is Lord over every arena; the domain structure is now lived under his lordship.</li>
+        <li>Full synthesis: the tree of life, first offered in Eden, refused in Proverbs, and now restored in Revelation.</li>
+      </ol>
+      </div>
+    </div>
     <div class="acc-body-footer">
       <button class="acc-collapse-btn" data-target="body-scripture" aria-label="Minimise this section">&#9650; Minimise</button>
     </div>
@@ -756,8 +827,8 @@
             <p class="fc-ref">Colossians 2:2-3</p>
           </div>
           <div class="flashcard-back">
-            <p class="fc-verse">"In whom are hidden all the treasures of wisdom and knowledge."</p>
-            <p class="fc-ref-back">Colossians 2:3 (NKJV)</p>
+            <p class="fc-verse">"in whom are hidden all the treasures of wisdom and knowledge."</p>
+            <p class="fc-ref-back">Colossians 2:3</p>
           </div>
         </div>
       </div>
@@ -769,8 +840,8 @@
             <p class="fc-ref">1 Corinthians 1:30</p>
           </div>
           <div class="flashcard-back">
-            <p class="fc-verse">"Who became for us wisdom from God, and righteousness and sanctification and redemption."</p>
-            <p class="fc-ref-back">1 Corinthians 1:30 (NKJV)</p>
+            <p class="fc-verse">"who became for us wisdom from God, and righteousness and sanctification and redemption."</p>
+            <p class="fc-ref-back">1 Corinthians 1:30</p>
           </div>
         </div>
       </div>
@@ -783,7 +854,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"All things were created through Him and for Him. And He is before all things, and in Him all things consist."</p>
-            <p class="fc-ref-back">Colossians 1:16-17 (NKJV)</p>
+            <p class="fc-ref-back">Colossians 1:16-17</p>
           </div>
         </div>
       </div>
@@ -796,7 +867,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"But the wisdom that is from above is first pure, then peaceable, gentle, willing to yield, full of mercy and good fruits, without partiality and without hypocrisy."</p>
-            <p class="fc-ref-back">James 3:17 (NKJV)</p>
+            <p class="fc-ref-back">James 3:17</p>
           </div>
         </div>
       </div>
@@ -809,7 +880,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"The leaves of the tree were for the healing of the nations."</p>
-            <p class="fc-ref-back">Revelation 22:2 (NKJV)</p>
+            <p class="fc-ref-back">Revelation 22:2</p>
           </div>
         </div>
       </div>
@@ -822,7 +893,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"Let him ask of God, who gives to all liberally and without reproach, and it will be given to him."</p>
-            <p class="fc-ref-back">James 1:5 (NKJV)</p>
+            <p class="fc-ref-back">James 1:5</p>
           </div>
         </div>
       </div>
@@ -840,7 +911,7 @@
 </div>
 
 <div class="page-footer">
-  Wisdom in Proverbs: Section 8 of 8. HiTurn Media Group. <a href="index.html">Series Index</a>.
+  Wisdom in Proverbs: Section 8 of 8.<br>Hiturn Media Group. <a href="index.html">Series Index</a>.
 </div>
 
 <!-- FLOATING TOC -->
@@ -850,7 +921,7 @@
     <a data-open="body-crib"     href="#unit-crib">8.1 Five Things to Know First<span class="toc-sub">Doctrinal anchors</span></a>
     <a data-open="body-identity" href="#unit-identity">8.2 Eight Themes and Their Fulfilment<span class="toc-sub">All sections traced to Christ</span></a>
     <a data-open="body-portrait" href="#unit-portrait">8.3 The Wisdom Arc: Proverbs 8 to John 1<span class="toc-sub">Preparation and arrival compared</span></a>
-    <a data-open="body-nt"       href="#unit-nt">8.4 NT Connections — Full Canon<span class="toc-sub">Every NT author's engagement</span></a>
+    <a data-open="body-nt"       href="#unit-nt">8.4 NT Connections: Full Canon<span class="toc-sub">Every NT author's engagement</span></a>
     <div class="toc-divider">Discussion and Application</div>
     <a data-open="body-kdq" href="#unit-kdq">8.5 Key Discovery Questions<span class="toc-sub">Type and save your answers</span></a>
     <a data-open="body-gdq" href="#unit-gdq">8.6 Group Discussion Questions<span class="toc-sub">Open group conversation</span></a>
@@ -865,6 +936,83 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  /* ── AUDIO INTRO ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var INTRO_TEXT = "Welcome to Section Eight: NT Connections. This is the section everything has been building toward. If you have worked through the previous seven, you have met wisdom as identity, as resource, as demand, as speech, as gift, as contrast and as daily practice. Proverbs planted each of those themes deliberately. The New Testament writers knew exactly what they were doing when they used the same language. In this section you will see that the person Proverbs called wisdom; present at creation, calling aloud, setting her table, offering life; is not an abstract concept that Jesus illustrates. He is the fulfilment she was pointing at. Section eight does not add a new idea. It names the one the entire series has been approaching from the beginning. It is my prayer that the God of our Lord Jesus Christ, the Father of glory, may give you the Spirit of wisdom and of revelation in the knowledge of him as you study to apply His preserved book of Wisdom.";
+    var currentRate = 1.5;
+    var isPlaying = false;
+    var isPaused = false;
+
+    var I_PLAY  = '<svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg>';
+    var I_PAUSE = '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="4" height="10" rx="0.5"/><rect x="7" y="1" width="4" height="10" rx="0.5"/></svg>';
+
+    var playBtn = document.getElementById('btn-play-intro');
+    var stopBtn = document.getElementById('btn-stop-intro');
+    var progressEl = document.getElementById('audio-progress');
+
+    if (!playBtn || !synth) return;
+
+    function updateUI() {
+      if (stopBtn) stopBtn.disabled = !isPlaying;
+      if (progressEl) {
+        if (!isPlaying) { progressEl.textContent = ''; }
+        else if (isPaused) { progressEl.textContent = 'Paused: Introduction'; }
+        else { progressEl.textContent = 'Playing: Introduction'; }
+      }
+      if (!isPlaying) {
+        playBtn.innerHTML = I_PLAY + ' Play Introduction';
+        playBtn.classList.remove('paused');
+        playBtn.setAttribute('aria-label', 'Play introduction');
+      } else if (isPaused) {
+        playBtn.innerHTML = I_PLAY + ' Resume';
+        playBtn.classList.add('paused');
+        playBtn.setAttribute('aria-label', 'Resume introduction');
+      } else {
+        playBtn.innerHTML = I_PAUSE + ' Pause';
+        playBtn.classList.remove('paused');
+        playBtn.setAttribute('aria-label', 'Pause introduction');
+      }
+    }
+
+    function speakIntro() {
+      synth.cancel();
+      isPaused = false;
+      var u = new SpeechSynthesisUtterance(INTRO_TEXT);
+      u.lang = 'en-GB';
+      u.rate = currentRate;
+      u.onend = function() { isPlaying = false; isPaused = false; updateUI(); };
+      u.onerror = function(e) { if (e.error !== 'interrupted') { isPlaying = false; isPaused = false; updateUI(); } };
+      synth.speak(u);
+    }
+
+    playBtn.addEventListener('click', function() {
+      if (!isPlaying) {
+        isPlaying = true; isPaused = false; updateUI(); speakIntro();
+      } else if (isPaused) {
+        synth.resume(); isPaused = false; updateUI();
+      } else {
+        synth.pause(); isPaused = true; updateUI();
+      }
+    });
+
+    if (stopBtn) {
+      stopBtn.addEventListener('click', function() {
+        synth.cancel(); isPlaying = false; isPaused = false; updateUI();
+      });
+    }
+
+    document.querySelectorAll('.audio-speed-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.audio-speed-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        currentRate = parseFloat(btn.dataset.rate);
+      });
+    });
+
+    updateUI();
+  })();
+
   var allBodies = ['body-crib','body-identity','body-portrait','body-nt','body-kdq','body-gdq','body-app','body-scripture','body-revision'];
 
   function openAcc(id)  { var b=document.getElementById(id),btn=document.querySelector('[aria-controls="'+id+'"]'); if(b&&btn){b.classList.add('open');btn.setAttribute('aria-expanded','true');} }
@@ -891,7 +1039,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   var scriptureMode=false, btnSO=document.getElementById('btn-scripture-only');
-  function setScriptureMode(on){ scriptureMode=on; if(on){allBodies.forEach(closeAcc);openAcc('body-scripture');setTimeout(function(){document.getElementById('unit-scripture').scrollIntoView({behavior:'smooth',block:'start'});},80);btnSO.innerHTML='✕ Exit Scripture Mode';btnSO.classList.add('scripture-active');}else{btnSO.innerHTML='&#128214; Read Scriptures Only';btnSO.classList.remove('scripture-active');} }
+  function setScriptureMode(on){ scriptureMode=on; if(on){allBodies.forEach(closeAcc);openAcc('body-scripture');setTimeout(function(){document.getElementById('unit-scripture').scrollIntoView({behavior:'smooth',block:'start'});},80);btnSO.innerHTML='✕ Exit Scripture Mode';btnSO.classList.add('scripture-active');}else{btnSO.innerHTML='&#128214; Read Scriptures and Summary';btnSO.classList.remove('scripture-active');} }
   btnSO.addEventListener('click',function(){setScriptureMode(!scriptureMode);});
 
   /* Sticky bar */
@@ -908,7 +1056,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   document.getElementById('btn-download-answers').addEventListener('click', function(){
     var questions=document.querySelectorAll('.kdq-question');
-    var lines=['Wisdom in Proverbs: Section 8 — NT Connections: Full Synthesis','Key Discovery Questions','HiTurn Media Group',''];
+    var lines=['Wisdom in Proverbs: Section 8 — NT Connections: Full Synthesis','Key Discovery Questions','Hiturn Media Group',''];
     questions.forEach(function(q,i){
       var qText=q.querySelector('.kdq-text')?q.querySelector('.kdq-text').innerText.trim():'';
       var aText=q.querySelector('.fillable')?q.querySelector('.fillable').innerText.trim():'';
@@ -934,11 +1082,12 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   /* Read Aloud */
+  var raSpeedSel=document.getElementById('read-aloud-speed');
   var reading=false,readBtn=document.getElementById('btn-read-aloud'),counter=document.getElementById('reading-counter');
   var entries=Array.from(document.querySelectorAll('.scripture-entry'));
   function clearHL(){entries.forEach(function(e){e.classList.remove('reading-active');});}
   function stopReading(){window.speechSynthesis.cancel();reading=false;clearHL();readBtn.textContent='▶ Read Aloud';readBtn.classList.remove('stop');counter.classList.remove('visible');}
-  function readEntry(idx){ if(!reading||idx>=entries.length){stopReading();return;} clearHL();entries[idx].classList.add('reading-active');entries[idx].scrollIntoView({behavior:'smooth',block:'nearest'}); counter.textContent=(idx+1)+' / '+entries.length; var ref=(entries[idx].querySelector('.scripture-ref')||{}).textContent||''; var txt=(entries[idx].querySelector('[data-scripture]')||{}).textContent||''; var utt=new SpeechSynthesisUtterance(ref+'. '+txt); utt.lang='en-GB';utt.rate=0.82; utt.onend=function(){if(reading){setTimeout(function(){readEntry(idx+1);},900);}}; window.speechSynthesis.speak(utt); }
+  function readEntry(idx){ if(!reading){stopReading();return;} if(idx>=entries.length){var _sum=document.getElementById('scripture-summary-block');if(_sum&&!_sum._wasRead){_sum._wasRead=true;_sum.classList.add('reading-active');_sum.scrollIntoView({behavior:'smooth',block:'nearest'});var _h=(_sum.querySelector('.wisdom-summary-heading')||{}).textContent||'';var _it=Array.from(_sum.querySelectorAll('li')).map(function(li,i){return (i+1)+'. '+li.textContent;}).join('. ');var _u=new SpeechSynthesisUtterance(_h+'. '+_it);_u.lang='en-GB';_u.rate=raSpeedSel?parseFloat(raSpeedSel.value):1.0;_u.onend=function(){_sum.classList.remove('reading-active');_sum._wasRead=false;stopReading();};window.speechSynthesis.speak(_u);}else{stopReading();}return;} clearHL();entries[idx].classList.add('reading-active');entries[idx].scrollIntoView({behavior:'smooth',block:'nearest'}); counter.textContent=(idx+1)+' / '+entries.length; var ref=(entries[idx].querySelector('.scripture-ref')||{}).textContent||''; var txt=(entries[idx].querySelector('[data-scripture]')||{}).textContent||''; var utt=new SpeechSynthesisUtterance(ref+'. '+txt); utt.lang='en-GB';utt.rate=raSpeedSel?parseFloat(raSpeedSel.value):1.0; utt.onend=function(){if(reading){setTimeout(function(){readEntry(idx+1);},900);}}; window.speechSynthesis.speak(utt); }
   readBtn.addEventListener('click',function(){ if(!('speechSynthesis' in window)){alert('Read Aloud is not supported in this browser. Try Chrome or Safari.');return;} if(reading){stopReading();return;} reading=true;readBtn.textContent='■ Stop';readBtn.classList.add('stop');counter.classList.add('visible');readEntry(0); });
 
   /* TOC */

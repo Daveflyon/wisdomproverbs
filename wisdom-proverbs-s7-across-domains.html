@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<title>Wisdom in Proverbs: Section 7 — Wisdom Across Domains</title>
+<title>Wisdom in Proverbs: Section 7. Wisdom Across Domains</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   body { margin: 0; padding: 0 16px; font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.6; font-weight: 400; color: #1c1c1e; background: #ffffff; }
@@ -38,7 +38,7 @@
 
   /* ── ARC BAR ── */
   .arc-bar { display: flex; gap: 5px; margin: 0 0 18px; flex-wrap: wrap; }
-  .arc-step { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.03em; }
+  .arc-step { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.03em; text-align: left; }
   .arc-step.active  { background: #1F3864; color: #ffffff; box-shadow: 0 2px 5px rgba(31,56,100,0.3); }
   .arc-step.inactive { background: #f2f2f2; color: #aaa; border: 1px solid #dddddd; cursor: not-allowed; }
   .arc-step.inactive a { color: #555; text-decoration: none; }
@@ -52,12 +52,13 @@
   }
 
   /* ── UTILITY BAR ── */
-  .util-bar { padding: 10px 14px; background: #f2f2f2; border-radius: 4px; margin: 0 0 22px; }
+  .util-bar { padding: 10px 14px; background: #f2f2f2; border-radius: 4px; margin: 0 0 18px; }
   .util-inner { display: flex; gap: 10px; align-items: flex-start; }
   .util-label { font-size: 12px; font-weight: 700; color: #666; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; padding-top: 7px; flex-shrink: 0; }
   .util-buttons { display: flex; flex-direction: column; gap: 8px; flex: 1; }
   .util-row-1 { display: flex; gap: 8px; }
   .util-row-1 .util-btn { flex: 1; }
+  .util-row-2 { display: flex; flex-direction: column; gap: 8px; }
   .util-row-2 .util-btn { width: 100%; }
   .util-btn { background: #ffffff; color: #1F3864; border: 1px solid #1F3864; padding: 6px 12px; border-radius: 4px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.15s, color 0.15s; min-height: 36px; }
   .util-btn:hover { background: #1F3864; color: #ffffff; }
@@ -80,7 +81,7 @@
   .ks-text  { font-size: 16px; font-style: italic; line-height: 1.7; color: #1c1c1e; margin: 0; }
 
   /* ── CORE TRUTH ── */
-  .core-truth-box { background: #1F3864; border-radius: 4px; padding: 20px 22px; margin: 0 0 24px; text-align: center; }
+  .core-truth-box { background: #1F3864; border-radius: 4px; padding: 20px 22px; margin: 0 0 24px; text-align: left; }
   @media (min-width: 640px) { .core-truth-box { padding: 22px 28px; } }
   .core-truth-label     { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #d97706; margin: 0 0 12px; }
   .core-truth-statement { font-size: 16px; font-weight: 700; color: #ffffff; line-height: 1.5; margin: 0; }
@@ -248,6 +249,8 @@
   .scripture-entry { padding: 12px 0 12px 10px; border-bottom: 1px solid #eeeeee; border-left: 3px solid transparent; transition: background 0.3s, border-left-color 0.3s; }
   @media (min-width: 640px) { .scripture-entry { padding: 14px 0 14px 12px; } }
   .scripture-entry:last-child { border-bottom: none; }
+  
+  #scripture-summary-block.reading-active { background: #f0f4fb; border-left: 3px solid #1F3864; padding-left: 10px; transition: background 0.3s; }
   .scripture-entry.reading-active { background: #f0f4fb; border-left-color: #1F3864; }
   .scripture-ref  { font-size: 13px; font-weight: 700; color: #1F3864; letter-spacing: 0.03em; margin-bottom: 5px; }
   .scripture-text { font-size: 15px; line-height: 1.8; color: #1c1c1e; font-style: italic; }
@@ -290,14 +293,34 @@
 
   /* ── PRINT ── */
   @media print {
-    #toc-container, .util-bar, .read-aloud-controls, .back-link, .arc-bar, .sticky-bar, .acc-body-footer, .bottom-controls, .answers-toolbar { display: none; }
+    #toc-container, .util-bar, .read-aloud-controls, .back-link, .arc-bar, .sticky-bar, .acc-body-footer, .bottom-controls, .answers-toolbar, .audio-panel { display: none; }
     .acc-body { display: block !important; }
     .acc-btn, .crib-inner, .kdq-header, .gdq-header, .core-truth-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .flashcard-front { border: 1px solid #cccccc; }
     .flashcard-back { background: #f2f2f2 !important; }
     .fc-verse, .fc-ref-back { color: #1c1c1e !important; }
   }
-</style>
+  /* ── AUDIO PANEL ── */
+  .audio-panel { background: #ffffff; border-bottom: 2px solid #1F3864; padding: 10px 14px; margin: 0 0 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 4px; }
+  .audio-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+  .audio-label { font-size: 11px; font-weight: 700; color: #1F3864; text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; }
+  .audio-btn { display: inline-flex; align-items: center; gap: 6px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700; padding: 7px 14px; border-radius: 4px; border: none; cursor: pointer; transition: background 0.15s; }
+  .audio-btn:focus { outline: 2px solid #d97706; outline-offset: 2px; }
+  .btn-play-intro { background: #1F3864; color: #ffffff; }
+  .btn-play-intro:hover { background: #2c54a0; }
+  .btn-play-intro.paused { background: #d97706; }
+  .btn-play-intro.paused:hover { background: #b45309; }
+  .btn-stop-intro { background: #f2f2f2; color: #1c1c1e; border: 1px solid #cccccc; }
+  .btn-stop-intro:hover:not(:disabled) { background: #e0e0e0; }
+  .btn-stop-intro:disabled { opacity: 0.4; cursor: default; }
+  .audio-speed-group { display: flex; gap: 2px; align-items: center; }
+  .audio-speed-label { font-size: 11px; color: #777; margin-right: 4px; }
+  .audio-speed-btn { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: 700; padding: 5px 9px; border: 1px solid #cccccc; background: #f2f2f2; color: #555; cursor: pointer; border-radius: 2px; transition: background 0.1s; }
+  .audio-speed-btn:hover { background: #e0e0e0; }
+  .audio-speed-btn.active { background: #1F3864; color: #ffffff; border-color: #1F3864; }
+  .audio-speed-btn:focus { outline: 2px solid #d97706; outline-offset: 1px; }
+  .audio-progress { font-size: 12px; color: #888; margin-left: auto; white-space: nowrap; }
+  </style>
 </head>
 <body>
 
@@ -317,7 +340,7 @@
     <span class="dl-sub">A Teaching Reference Series</span>
   </div>
   <h1>Wisdom Across Domains</h1>
-  <p class="subtitle">Section 7 of 8. Application Layer: Speech, Wealth, Work, Family, Friendship, Leadership and Governance</p>
+  <p class="subtitle">Section 7 of 8.<br>Application Layer: Speech, Wealth, Work, Family, Friendship, Leadership and Governance</p>
   <hr class="title-rule">
 </div>
 
@@ -333,6 +356,28 @@
   <span class="arc-step inactive" title="Go to Section 8"><a href="wisdom-proverbs-s8-nt-connections.html">8. NT Connections</a></span>
 </div>
 
+<!-- AUDIO PANEL -->
+<div class="audio-panel" role="region" aria-label="Audio controls">
+  <div class="audio-inner">
+    <span class="audio-label">Audio</span>
+    <button class="audio-btn btn-play-intro" id="btn-play-intro" aria-label="Play introduction">
+      <svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg>
+      Play Introduction
+    </button>
+    <button class="audio-btn btn-stop-intro" id="btn-stop-intro" aria-label="Stop playback" disabled>
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><rect width="10" height="10" rx="1"/></svg>
+      Stop
+    </button>
+    <div class="audio-speed-group" aria-label="Playback speed">
+      <span class="audio-speed-label">Speed:</span>
+      <button class="audio-speed-btn" data-rate="1" aria-label="Normal speed">1x</button>
+      <button class="audio-speed-btn active" data-rate="1.5" aria-label="1.5x speed">1.5x</button>
+      <button class="audio-speed-btn" data-rate="1.75" aria-label="1.75x speed">1.75x</button>
+      <button class="audio-speed-btn" data-rate="2" aria-label="2x speed">2x</button>
+    </div>
+    <span class="audio-progress" id="audio-progress" aria-live="polite"></span>
+  </div>
+</div>
 <!-- UTILITY BAR -->
 <div class="util-bar">
   <div class="util-inner">
@@ -342,12 +387,6 @@
         <button class="util-btn" id="btn-expand-all">Expand All</button>
         <button class="util-btn" id="btn-collapse-all">Collapse All</button>
       </div>
-      <div class="util-row-2">
-        <button class="util-btn" id="btn-scripture-only">&#128214; Read Scriptures Only</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- OPENING QUESTION -->
 <div class="opening-question" id="opening-q">
@@ -355,7 +394,7 @@
     <span class="oq-label-primary">Opening Question</span>
     <span class="oq-label-secondary">Please note your answer and read further.</span>
   </div>
-  <p class="oq-text">In which area of your daily life — your words, your money, your work, your family, your friendships, or your role of influence over others — do you find it hardest to act wisely? What makes that domain more resistant than the others?</p>
+  <p class="oq-text">In which area of your daily life: your words, your money, your work, your family, your friendships, or your role of influence over others; do you find it hardest to act wisely? What makes that domain more resistant than the others?</p>
 </div>
 
 <!-- KEY SCRIPTURE -->
@@ -368,7 +407,7 @@
 <!-- CORE TRUTH -->
 <div class="core-truth-box">
   <div class="core-truth-label">Core Truth</div>
-  <p class="core-truth-statement">Wisdom is not a Sunday category; she governs every domain of ordinary life — what you say, how you earn, what you build, whom you love, and whom you lead.</p>
+  <p class="core-truth-statement">Wisdom is not a Sunday category; she governs every domain of ordinary life: what you say, how you earn, what you build, whom you love, and whom you lead.</p>
 </div>
 
 <!-- TEACHING CONTENT GROUP -->
@@ -376,7 +415,7 @@
 
 <!-- 7.1 -->
 <div class="acc-unit" id="unit-crib">
-  <button class="acc-btn" aria-expanded="true" aria-controls="body-crib" id="btn-crib">
+  <button class="acc-btn" aria-expanded="false" aria-controls="body-crib" id="btn-crib">
     <span class="acc-pill">7.1</span>
     <div class="acc-title-block">
       <span class="acc-title">Five Things to Know First</span>
@@ -384,17 +423,32 @@
     </div>
     <span class="acc-chevron" aria-hidden="true">▼</span>
   </button>
-  <div class="acc-body open" id="body-crib" role="region" aria-labelledby="btn-crib">
+  <div class="acc-body" id="body-crib" role="region" aria-labelledby="btn-crib">
     <div class="crib-inner">
       <h3>Five Foundations</h3>
       <ol>
-        <li>Wisdom in Proverbs is never abstract. Every principle is embedded in a domain — a conversation, a transaction, a household, a friendship, a decision made under authority. The book refuses to let wisdom remain theoretical. <span class="crib-ref">(3:5-6; 4:23)</span></li>
+        <li>Wisdom in Proverbs is never abstract. Every principle is embedded in a domain: a conversation, a transaction, a household, a friendship, a decision made under authority. The book refuses to let wisdom remain theoretical. <span class="crib-ref">(3:5-6; 4:23)</span></li>
         <li>The same wisdom that created the heavens (3:19) is now asked to govern a marriage, a business dealing, and a difficult conversation. The scale changes; the principle does not. Wisdom at home is the same wisdom as wisdom at creation. <span class="crib-ref">(3:19; 14:1; 31:10-12)</span></li>
         <li>Folly does not stay in one domain either. A fool's speech betrays him (12:13), his finances ruin him (21:17), his work destroys him (10:4), and his relationships expose him (17:17). Folly is also comprehensive. <span class="crib-ref">(ch. 12; ch. 21)</span></li>
         <li>Proverbs uses the word "paths" (Hebrew: <em>derek</em>) repeatedly. It does not say "principles" or "rules." A path is something you walk every day, repeatedly, in a specific direction. Domain-level wisdom is about which direction your daily habits are heading. <span class="crib-ref">(4:18-19; 3:6)</span></li>
         <li>Section 8 will connect all seven domains to the person of Christ. Everything here anticipates that synthesis. Wisdom across domains is not merely good advice for a better life; it is the grain of a God-ordered world pressing toward its fulfilment in the Incarnate Word. <span class="crib-ref">(Col 2:2-3)</span></li>
       </ol>
     </div>
+    <div style="border-top:2px solid #1F3864;margin:28px 0 0;padding-top:20px;">
+      <div class="wisdom-summary">
+      <div class="wisdom-summary-heading">In Summary: Wisdom Across Seven Domains</div>
+      <ol>
+        <li>In speech: the tongue holds the power of death and life; wisdom guards and governs it.</li>
+        <li>In wealth: diligence, generosity and integrity build it; haste and dishonesty dissolve it.</li>
+        <li>In work: excellence is a witness; the sluggard is a warning to himself and everyone watching.</li>
+        <li>In family: formation begins at home, before any other institution reaches the child.</li>
+        <li>In friendship: companions shape character; choosing them carelessly is a wisdom failure.</li>
+        <li>In leadership: wisdom listens to counsel and refuses to be governed by flattery.</li>
+        <li>In governance: wisdom in authority is measured by its care for those with no authority.</li>
+      </ol>
+    </div>
+    </div>
+
     <div class="acc-body-footer">
       <button class="acc-collapse-btn" data-target="body-crib" aria-label="Minimise this section">&#9650; Minimise</button>
     </div>
@@ -407,7 +461,7 @@
     <span class="acc-pill">7.2</span>
     <div class="acc-title-block">
       <span class="acc-title">Wisdom Across Seven Domains</span>
-      <span class="acc-subtitle">Speech, wealth, work, family, friendship, leadership and governance — with Folly contrast and teaching note</span>
+      <span class="acc-subtitle">Speech, wealth, work, family, friendship, leadership and governance. Folly contrast and teaching note</span>
     </div>
     <span class="acc-chevron" aria-hidden="true">▼</span>
   </button>
@@ -432,7 +486,7 @@
             <td class="label-cell" data-label="Domain">Wealth (10:4; 11:24-25; 21:5)</td>
             <td class="verse-cell" data-label="Verse Snippet"><span class="verse-snippet">"The plans of the diligent lead surely to plenty, but those of everyone who is hasty, surely to poverty."</span></td>
             <td class="folly-cell" data-label="Folly Contrast">The slack hand brings poverty; ill-gotten wealth disappears (10:4; 13:11)</td>
-            <td class="note-cell" data-label="Teaching Note">Proverbs never equates wealth with blessing automatically. It consistently links prosperity to diligence, generosity and integrity — not fortune or cleverness alone.</td>
+            <td class="note-cell" data-label="Teaching Note">Proverbs never equates wealth with blessing automatically. It consistently links prosperity to diligence, generosity and integrity; not fortune or cleverness alone.</td>
           </tr>
           <tr>
             <td class="label-cell" data-label="Domain">Work (12:11; 22:29; 6:6-8)</td>
@@ -500,22 +554,22 @@
     <span class="acc-chevron" aria-hidden="true">▼</span>
   </button>
   <div class="acc-body" id="body-portrait" role="region" aria-labelledby="btn-portrait">
-    <p>Proverbs bookends its teaching with two extended portraits that show what integrated domain wisdom and domain folly look like at full scale. Proverbs 31:10-31 shows wisdom operating simultaneously across family, work, commerce, speech, generosity and governance. Proverbs 6:6-11 and 24:30-34 give the sluggard — wisdom's opposite in the work and stewardship domains — as a sustained cautionary portrait. Neither is a coincidence; they are placed deliberately to show the full span of the book's application.</p>
+    <p>Proverbs bookends its teaching with two extended portraits that show what integrated domain wisdom and domain folly look like at full scale. Proverbs 31:10-31 shows wisdom operating simultaneously across family, work, commerce, speech, generosity and governance. Proverbs 6:6-11 and 24:30-34 give the sluggard; wisdom's opposite in the work and stewardship domains; as a sustained cautionary portrait. Neither is a coincidence; they are placed deliberately to show the full span of the book's application.</p>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>The Excellent Wife (Proverbs 31) — Integrated Wisdom</th><th>The Sluggard (Proverbs 6 and 24) — Integrated Folly</th></tr></thead>
+        <thead><tr><th>The Excellent Wife (Proverbs 31): Integrated Wisdom</th><th>The Sluggard (Proverbs 6 and 24): Integrated Folly</th></tr></thead>
         <tbody>
           <tr><td>Works with her hands; her lamp does not go out at night (31:13, 18)</td><td>Folds his hands; will not plough in season; loves sleep above all else (6:9-10; 20:4)</td></tr>
           <tr><td>Considers a field and buys it; earns from her work and plants a vineyard (31:16)</td><td>His field overgrown with thorns and nettles; the wall broken down (24:31)</td></tr>
           <tr><td>Opens her mouth with wisdom; the law of kindness is on her tongue (31:26)</td><td>His poverty comes as a robber; he gives no account of where the time went (24:34)</td></tr>
-          <tr><td>Extends her hand to the poor; reaches out to the needy (31:20)</td><td>Sends the sluggard to the ant — the ant needs no overseer to do what must be done (6:6-8)</td></tr>
+          <tr><td>Extends her hand to the poor; reaches out to the needy (31:20)</td><td>Sends the sluggard to the ant; the ant needs no overseer to do what must be done (6:6-8)</td></tr>
           <tr><td>Her husband is known in the gates; she makes coverings for herself (31:22-23)</td><td>Poverty arrives without warning because preparation was never made (6:11)</td></tr>
         </tbody>
       </table>
     </div>
     <div class="callout callout-caution">
       <div class="callout-label">Caution</div>
-      <p>The Proverbs 31 portrait is not a checklist for women or a standard of domestic performance. It is a picture of integrated wisdom operating simultaneously across every major domain of life. The Hebrew poem is an acrostic — every verse beginning with a successive letter of the alphabet — which signals that this is a complete, comprehensive portrait, not a selective one. Read it as a template for whole-life wisdom, not as a domestic job description.</p>
+      <p>The Proverbs 31 portrait is not a checklist for women or a standard of domestic performance. It is a picture of integrated wisdom operating simultaneously across every major domain of life. The Hebrew poem is an acrostic; every verse beginning with a successive letter of the alphabet; which signals that this is a complete, comprehensive portrait, not a selective one. Read it as a template for whole-life wisdom, not as a domestic job description.</p>
     </div>
     <div class="acc-body-footer">
       <button class="acc-collapse-btn" data-target="body-portrait" aria-label="Minimise this section">&#9650; Minimise</button>
@@ -537,7 +591,7 @@
     <p>The NT letters that govern everyday Christian conduct are densely rooted in the wisdom tradition of Proverbs. The connections below trace the seven domains into the New Testament.</p>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Domain — Proverbs Statement</th><th>NT Echo</th><th>NT Reference</th></tr></thead>
+        <thead><tr><th>Domain: Proverbs Statement</th><th>NT Echo</th><th>NT Reference</th></tr></thead>
         <tbody>
           <tr><td class="verse-snippet">"Death and life are in the power of the tongue." (18:21)</td><td>The tongue is a fire; it defiles the whole body</td><td style="font-weight:700;color:#1F3864;white-space:nowrap;">James 3:6</td></tr>
           <tr><td class="verse-snippet">"He who has a generous eye will be blessed." (22:9)</td><td>Whoever sows generously will reap generously</td><td style="font-weight:700;color:#1F3864;white-space:nowrap;">2 Cor 9:6</td></tr>
@@ -583,14 +637,14 @@
         <div class="kdq-question">
           <div class="kdq-num">1</div>
           <div class="kdq-body">
-            <div class="kdq-text">Proverbs says "in all your ways acknowledge Him, and He shall direct your paths" (3:6). What does it mean practically to acknowledge God in a domain where you feel competent — your work, your finances, a skill you have developed? Where does the acknowledgement actually show up in your behaviour?</div>
+            <div class="kdq-text">Proverbs says "in all your ways acknowledge Him, and He shall direct your paths" (3:6). What does it mean practically to acknowledge God in a domain where you feel competent: your work, your finances, a skill you have developed? Where does the acknowledgement actually show up in your behaviour?</div>
             <div class="fillable" contenteditable="true" data-key="wip-s7-q1" data-placeholder="Type your answer here..."></div>
           </div>
         </div>
         <div class="kdq-question">
           <div class="kdq-num">2</div>
           <div class="kdq-body">
-            <div class="kdq-text">The book says a person's companions shape who they become (13:20). Looking honestly at the people you spend the most time with across your seven domains — work, family, friendship, leadership — what are they forming you into? Is that the direction you intend to go?</div>
+            <div class="kdq-text">The book says a person's companions shape who they become (13:20). Looking honestly at the people you spend the most time with across your seven domains: work, family, friendship, leadership; what are they forming you into? Is that the direction you intend to go?</div>
             <div class="fillable" contenteditable="true" data-key="wip-s7-q2" data-placeholder="Type your answer here..."></div>
           </div>
         </div>
@@ -604,7 +658,7 @@
         <div class="kdq-question">
           <div class="kdq-num">4</div>
           <div class="kdq-body">
-            <div class="kdq-text">Proverbs 31 shows wisdom as integrated and comprehensive — not strong in some domains and weak in others. Which domain of your own life is most clearly out of step with the others? What would it cost you to bring that domain into line with the wisdom you try to live in the others?</div>
+            <div class="kdq-text">Proverbs 31 shows wisdom as integrated and comprehensive; not strong in some domains and weak in others. Which domain of your own life is most clearly out of step with the others? What would it cost you to bring that domain into line with the wisdom you try to live in the others?</div>
             <div class="fillable" contenteditable="true" data-key="wip-s7-q4" data-placeholder="Type your answer here..."></div>
           </div>
         </div>
@@ -638,9 +692,9 @@
         <div class="gdq-header-sub">Designed for open conversation. There are no correct answers, only honest ones.</div>
       </div>
       <div class="gdq-questions">
-        <div class="gdq-question"><div class="gdq-num">1</div><div class="gdq-text">Proverbs says "death and life are in the power of the tongue" (18:21). If the group is honest, in which situations do our words most often tend toward death — criticism, dismissal, exaggeration, silence when we should speak? What makes those moments so hard to handle wisely?</div></div>
+        <div class="gdq-question"><div class="gdq-num">1</div><div class="gdq-text">Proverbs says "death and life are in the power of the tongue" (18:21). If the group is honest, in which situations do our words most often tend toward death: criticism, dismissal, exaggeration, silence when we should speak? What makes those moments so hard to handle wisely?</div></div>
         <div class="gdq-question"><div class="gdq-num">2</div><div class="gdq-text">The book links wealth not just to hard work but to generosity and integrity. Where does the group see the tension between what the world says wealth is for and what wisdom says it is for? How does that tension play out in the way people in this group actually handle money?</div></div>
-        <div class="gdq-question"><div class="gdq-num">3</div><div class="gdq-text">Proverbs places family as the primary formation environment — the place where wisdom or folly is first transmitted. How well does the group think the church is supporting families in that function? What is getting in the way of households actually being places where wisdom is passed on?</div></div>
+        <div class="gdq-question"><div class="gdq-num">3</div><div class="gdq-text">Proverbs places family as the primary formation environment; the place where wisdom or folly is first transmitted. How well does the group think the church is supporting families in that function? What is getting in the way of households actually being places where wisdom is passed on?</div></div>
         <div class="gdq-question"><div class="gdq-num">4</div><div class="gdq-text">Proverbs 31:8-9 connects wisdom in governance to the advocacy of those with no voice. Who in your community, workplace, or city has no advocate, no platform, and no one speaking for them? What would it look like for this group to take that verse seriously in the next month?</div></div>
       </div>
     </div>
@@ -662,9 +716,9 @@
   </button>
   <div class="acc-body" id="body-app" role="region" aria-labelledby="btn-app">
     <p class="app-intro">Wisdom across domains is tested Monday to Friday, not Sunday to Sunday. One of these taken seriously is worth more than all four noted and filed.</p>
-    <div class="app-item"><div class="app-num">1</div><div class="app-body"><div class="app-title">Audit one domain this week</div><p class="app-desc">Choose one of the seven domains — speech, wealth, work, family, friendship, leadership, or governance — and spend the week observing your own habits in that area without trying to change them yet. Simply notice what you actually do, say, and decide. Bring your observations to the group.</p></div></div>
-    <div class="app-item"><div class="app-num">2</div><div class="app-body"><div class="app-title">Read Proverbs 31:10-31 as a whole-life portrait</div><p class="app-desc">Read it slowly as the acrostic portrait it is — comprehensive, integrated, covering every domain simultaneously. For each verse, name the domain it sits in. When you have finished, ask honestly: which domain in your own life looks nothing like this portrait? Write down one change.</p></div></div>
-    <div class="app-item"><div class="app-num">3</div><div class="app-body"><div class="app-title">Apply iron-sharpens-iron deliberately</div><p class="app-desc">Identify one person in your life who makes you wiser when you spend time with them. This week, seek them out specifically — not for conversation in general, but to talk about the domain where you need most sharpening. Ask them to tell you what they honestly observe in you.</p></div></div>
+    <div class="app-item"><div class="app-num">1</div><div class="app-body"><div class="app-title">Audit one domain this week</div><p class="app-desc">Choose one of the seven domains: speech, wealth, work, family, friendship, leadership, or governance; and spend the week observing your own habits in that area without trying to change them yet. Simply notice what you actually do, say, and decide. Bring your observations to the group.</p></div></div>
+    <div class="app-item"><div class="app-num">2</div><div class="app-body"><div class="app-title">Read Proverbs 31:10-31 as a whole-life portrait</div><p class="app-desc">Read it slowly as the acrostic portrait it is; comprehensive, integrated, covering every domain simultaneously. For each verse, name the domain it sits in. When you have finished, ask honestly: which domain in your own life looks nothing like this portrait? Write down one change.</p></div></div>
+    <div class="app-item"><div class="app-num">3</div><div class="app-body"><div class="app-title">Apply iron-sharpens-iron deliberately</div><p class="app-desc">Identify one person in your life who makes you wiser when you spend time with them. This week, seek them out specifically; not for conversation in general, but to talk about the domain where you need most sharpening. Ask them to tell you what they honestly observe in you.</p></div></div>
     <div class="app-item"><div class="app-num">4</div><div class="app-body"><div class="app-title">Anchor verse: Proverbs 3:5-6</div><p class="app-desc">Commit this to memory: "Trust in the LORD with all your heart, and lean not on your own understanding; in all your ways acknowledge Him, and He shall direct your paths." The phrase "in all your ways" is the domain clause. It covers speech, work, wealth, family and every other arena. Memorise it word-perfect before Section 8.</p></div></div>
     <div class="acc-body-footer">
       <button class="acc-collapse-btn" data-target="body-app" aria-label="Minimise this section">&#9650; Minimise</button>
@@ -680,22 +734,22 @@
   <button class="acc-btn" aria-expanded="false" aria-controls="body-scripture" id="btn-scripture">
     <span class="acc-pill">7.8</span>
     <div class="acc-title-block">
-      <span class="acc-title">Scripture Reader</span>
+      <span class="acc-title">Scripture Reader and Summary</span>
       <span class="acc-subtitle">Every verse written in full; read or listen with verse-by-verse highlighting</span>
     </div>
     <span class="acc-chevron" aria-hidden="true">▼</span>
   </button>
   <div class="acc-body" id="body-scripture" role="region" aria-labelledby="btn-scripture">
     <div class="scripture-reader-intro">
-      <p>All scriptures referenced in Section 7, written in full (NKJV). Designed for reading aloud, personal meditation or group recitation. The current verse highlights as it is read.</p>
+      <p>All scriptures referenced in Section 7, written in full. Designed for reading aloud, personal meditation or group recitation. The current verse highlights as it is read.</p>
     </div>
     <div class="scripture-group-header">
       <span class="scripture-group-label">Proverbs</span>
-      <div class="read-aloud-controls"><span class="reading-counter" id="reading-counter"></span><button class="read-aloud-btn" id="btn-read-aloud">&#9654; Read Aloud</button></div>
+      <div class="read-aloud-controls" style="gap:12px;"><span class="reading-counter" id="reading-counter"></span><button class="read-aloud-btn" id="btn-read-aloud">&#9654; Read Aloud</button><div style="display:flex;align-items:center;gap:6px;"><label for="read-aloud-speed" style="font-size:12px;font-weight:700;color:#1F3864;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;">Speed</label><select id="read-aloud-speed" aria-label="Read aloud speed" style="font-size:13px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;background:#fff;color:#1c1c1e;"><option value="0.5">0.5x</option><option value="1.0">1.0x</option><option value="1.5" selected>1.5x</option><option value="1.75">1.75x</option><option value="2.0">2.0x</option></select></div></div>
     </div>
     <div class="scripture-entry"><div class="scripture-ref">Proverbs 3:5-6</div><div class="scripture-text" data-scripture>"Trust in the LORD with all your heart, and lean not on your own understanding; in all your ways acknowledge Him, and He shall direct your paths."</div></div>
     <div class="scripture-entry"><div class="scripture-ref">Proverbs 4:18-19</div><div class="scripture-text" data-scripture>"But the path of the just is like the shining sun, that shines ever brighter unto the perfect day. The way of the wicked is like darkness; they do not know what makes them stumble."</div></div>
-    <div class="scripture-entry"><div class="scripture-ref">Proverbs 6:6-11</div><div class="scripture-text" data-scripture>"Go to the ant, you sluggard! Consider her ways and be wise, which, having no captain, overseer or ruler, provides her supplies in the summer, and gathers her food in the harvest. How long will you slumber, O sluggard? When will you rise from your sleep? A little sleep, a little slumber, a little folding of the hands to sleep — so shall your poverty come on you like a prowler, and your need like an armed man."</div></div>
+    <div class="scripture-entry"><div class="scripture-ref">Proverbs 6:6-11</div><div class="scripture-text" data-scripture>"Go to the ant, you sluggard! Consider her ways and be wise, which, having no captain, overseer or ruler, provides her supplies in the summer, and gathers her food in the harvest. How long will you slumber, O sluggard? When will you rise from your sleep? A little sleep, a little slumber, a little folding of the hands to sleep; so shall your poverty come on you like a prowler, and your need like an armed man."</div></div>
     <div class="scripture-entry"><div class="scripture-ref">Proverbs 10:4</div><div class="scripture-text" data-scripture>"He who has a slack hand becomes poor, but the hand of the diligent makes rich."</div></div>
     <div class="scripture-entry"><div class="scripture-ref">Proverbs 11:14</div><div class="scripture-text" data-scripture>"Where there is no counsel, the people fall; but in the multitude of counselors there is safety."</div></div>
     <div class="scripture-entry"><div class="scripture-ref">Proverbs 11:24-25</div><div class="scripture-text" data-scripture>"There is one who scatters, yet increases more; and there is one who withholds more than is right, but it leads to poverty. The generous soul will be made rich, and he who waters will also be watered himself."</div></div>
@@ -721,6 +775,21 @@
     <div class="scripture-entry"><div class="scripture-ref">2 Corinthians 9:6</div><div class="scripture-text" data-scripture>"But this I say: He who sows sparingly will also reap sparingly, and he who sows bountifully will also reap bountifully."</div></div>
     <div class="scripture-entry"><div class="scripture-ref">Hebrews 10:25</div><div class="scripture-text" data-scripture>"Not forsaking the assembling of ourselves together, as is the manner of some, but exhorting one another, and so much the more as you see the Day approaching."</div></div>
     <div class="scripture-entry"><div class="scripture-ref">Colossians 2:2-3</div><div class="scripture-text" data-scripture>"That their hearts may be encouraged, being knit together in love, and attaining to all riches of the full assurance of understanding, to the knowledge of the mystery of God, both of the Father and of Christ, in whom are hidden all the treasures of wisdom and knowledge."</div></div>
+
+    <div style="border-top:2px solid #1F3864;margin:28px 0 0;padding-top:20px;" id="scripture-summary-block">
+      <div class="wisdom-summary">
+        <div class="wisdom-summary-heading">In Summary: Wisdom Across Seven Domains</div>
+        <ol>
+        <li>In speech: the tongue holds the power of death and life; wisdom guards and governs it.</li>
+        <li>In wealth: diligence, generosity and integrity build it; haste and dishonesty dissolve it.</li>
+        <li>In work: excellence is a witness; the sluggard is a warning to himself and everyone watching.</li>
+        <li>In family: formation begins at home, before any other institution reaches the child.</li>
+        <li>In friendship: companions shape character; choosing them carelessly is a wisdom failure.</li>
+        <li>In leadership: wisdom listens to counsel and refuses to be governed by flattery.</li>
+        <li>In governance: wisdom in authority is measured by its care for those with no authority.</li>
+      </ol>
+      </div>
+    </div>
     <div class="acc-body-footer">
       <button class="acc-collapse-btn" data-target="body-scripture" aria-label="Minimise this section">&#9650; Minimise</button>
     </div>
@@ -752,7 +821,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"In all your ways acknowledge Him, and He shall direct your paths."</p>
-            <p class="fc-ref-back">Proverbs 3:6 (NKJV)</p>
+            <p class="fc-ref-back">Proverbs 3:6</p>
           </div>
         </div>
       </div>
@@ -765,7 +834,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"Death and life are in the power of the tongue, and those who love it will eat its fruit."</p>
-            <p class="fc-ref-back">Proverbs 18:21 (NKJV)</p>
+            <p class="fc-ref-back">Proverbs 18:21</p>
           </div>
         </div>
       </div>
@@ -778,7 +847,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"Do you see a man who excels in his work? He will stand before kings; he will not stand before unknown men."</p>
-            <p class="fc-ref-back">Proverbs 22:29 (NKJV)</p>
+            <p class="fc-ref-back">Proverbs 22:29</p>
           </div>
         </div>
       </div>
@@ -791,7 +860,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"He who walks with wise men will be wise, but the companion of fools will be destroyed."</p>
-            <p class="fc-ref-back">Proverbs 13:20 (NKJV)</p>
+            <p class="fc-ref-back">Proverbs 13:20</p>
           </div>
         </div>
       </div>
@@ -804,7 +873,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"Open your mouth for the speechless, in the cause of all who are appointed to die. Open your mouth, judge righteously."</p>
-            <p class="fc-ref-back">Proverbs 31:8-9 (NKJV)</p>
+            <p class="fc-ref-back">Proverbs 31:8-9</p>
           </div>
         </div>
       </div>
@@ -817,7 +886,7 @@
           </div>
           <div class="flashcard-back">
             <p class="fc-verse">"As iron sharpens iron, so a man sharpens the countenance of his friend."</p>
-            <p class="fc-ref-back">Proverbs 27:17 (NKJV)</p>
+            <p class="fc-ref-back">Proverbs 27:17</p>
           </div>
         </div>
       </div>
@@ -835,7 +904,7 @@
 </div>
 
 <div class="page-footer">
-  Wisdom in Proverbs: Section 7 of 8. HiTurn Media Group. <a href="index.html">Series Index</a>.
+  Wisdom in Proverbs: Section 7 of 8.<br>Hiturn Media Group. <a href="index.html">Series Index</a>.
 </div>
 
 <!-- FLOATING TOC -->
@@ -860,6 +929,83 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  /* ── AUDIO INTRO ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var INTRO_TEXT = "Welcome to Section Seven: Wisdom Across Domains. Let\'s start with a simple test. Take the wisdom you have studied in the previous six sections. Now place it in front of a difficult conversation you had this week. Or a financial decision sitting unresolved. Or a relationship that is requiring more than you expected. Does it hold? That is the question this section is built on. Proverbs has always known that wisdom which cannot enter a domain is wisdom that has not yet landed. In this section you will follow wisdom into seven specific territories; speech, wealth, work, family, friendship and leadership. She does not stop at the door of any of them. Section seven is where theology becomes traction. And where you will discover which domain needs the most attention. It is my prayer that the God of our Lord Jesus Christ, the Father of glory, may give you the Spirit of wisdom and of revelation in the knowledge of him as you study to apply His preserved book of Wisdom.";
+    var currentRate = 1.5;
+    var isPlaying = false;
+    var isPaused = false;
+
+    var I_PLAY  = '<svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg>';
+    var I_PAUSE = '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="4" height="10" rx="0.5"/><rect x="7" y="1" width="4" height="10" rx="0.5"/></svg>';
+
+    var playBtn = document.getElementById('btn-play-intro');
+    var stopBtn = document.getElementById('btn-stop-intro');
+    var progressEl = document.getElementById('audio-progress');
+
+    if (!playBtn || !synth) return;
+
+    function updateUI() {
+      if (stopBtn) stopBtn.disabled = !isPlaying;
+      if (progressEl) {
+        if (!isPlaying) { progressEl.textContent = ''; }
+        else if (isPaused) { progressEl.textContent = 'Paused: Introduction'; }
+        else { progressEl.textContent = 'Playing: Introduction'; }
+      }
+      if (!isPlaying) {
+        playBtn.innerHTML = I_PLAY + ' Play Introduction';
+        playBtn.classList.remove('paused');
+        playBtn.setAttribute('aria-label', 'Play introduction');
+      } else if (isPaused) {
+        playBtn.innerHTML = I_PLAY + ' Resume';
+        playBtn.classList.add('paused');
+        playBtn.setAttribute('aria-label', 'Resume introduction');
+      } else {
+        playBtn.innerHTML = I_PAUSE + ' Pause';
+        playBtn.classList.remove('paused');
+        playBtn.setAttribute('aria-label', 'Pause introduction');
+      }
+    }
+
+    function speakIntro() {
+      synth.cancel();
+      isPaused = false;
+      var u = new SpeechSynthesisUtterance(INTRO_TEXT);
+      u.lang = 'en-GB';
+      u.rate = currentRate;
+      u.onend = function() { isPlaying = false; isPaused = false; updateUI(); };
+      u.onerror = function(e) { if (e.error !== 'interrupted') { isPlaying = false; isPaused = false; updateUI(); } };
+      synth.speak(u);
+    }
+
+    playBtn.addEventListener('click', function() {
+      if (!isPlaying) {
+        isPlaying = true; isPaused = false; updateUI(); speakIntro();
+      } else if (isPaused) {
+        synth.resume(); isPaused = false; updateUI();
+      } else {
+        synth.pause(); isPaused = true; updateUI();
+      }
+    });
+
+    if (stopBtn) {
+      stopBtn.addEventListener('click', function() {
+        synth.cancel(); isPlaying = false; isPaused = false; updateUI();
+      });
+    }
+
+    document.querySelectorAll('.audio-speed-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.audio-speed-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        currentRate = parseFloat(btn.dataset.rate);
+      });
+    });
+
+    updateUI();
+  })();
+
   var allBodies = ['body-crib','body-identity','body-portrait','body-nt','body-kdq','body-gdq','body-app','body-scripture','body-revision'];
 
   function openAcc(id)  { var b=document.getElementById(id),btn=document.querySelector('[aria-controls="'+id+'"]'); if(b&&btn){b.classList.add('open');btn.setAttribute('aria-expanded','true');} }
@@ -886,7 +1032,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   var scriptureMode=false, btnSO=document.getElementById('btn-scripture-only');
-  function setScriptureMode(on){ scriptureMode=on; if(on){allBodies.forEach(closeAcc);openAcc('body-scripture');setTimeout(function(){document.getElementById('unit-scripture').scrollIntoView({behavior:'smooth',block:'start'});},80);btnSO.innerHTML='✕ Exit Scripture Mode';btnSO.classList.add('scripture-active');}else{btnSO.innerHTML='&#128214; Read Scriptures Only';btnSO.classList.remove('scripture-active');} }
+  function setScriptureMode(on){ scriptureMode=on; if(on){allBodies.forEach(closeAcc);openAcc('body-scripture');setTimeout(function(){document.getElementById('unit-scripture').scrollIntoView({behavior:'smooth',block:'start'});},80);btnSO.innerHTML='✕ Exit Scripture Mode';btnSO.classList.add('scripture-active');}else{btnSO.innerHTML='&#128214; Read Scriptures and Summary';btnSO.classList.remove('scripture-active');} }
   btnSO.addEventListener('click',function(){setScriptureMode(!scriptureMode);});
 
   /* Sticky bar */
@@ -903,7 +1049,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   document.getElementById('btn-download-answers').addEventListener('click', function(){
     var questions=document.querySelectorAll('.kdq-question');
-    var lines=['Wisdom in Proverbs: Section 7 — Wisdom Across Domains','Key Discovery Questions','HiTurn Media Group',''];
+    var lines=['Wisdom in Proverbs: Section 7 — Wisdom Across Domains','Key Discovery Questions','Hiturn Media Group',''];
     questions.forEach(function(q,i){
       var qText=q.querySelector('.kdq-text')?q.querySelector('.kdq-text').innerText.trim():'';
       var aText=q.querySelector('.fillable')?q.querySelector('.fillable').innerText.trim():'';
@@ -929,11 +1075,12 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   /* Read Aloud */
+  var raSpeedSel=document.getElementById('read-aloud-speed');
   var reading=false,readBtn=document.getElementById('btn-read-aloud'),counter=document.getElementById('reading-counter');
   var entries=Array.from(document.querySelectorAll('.scripture-entry'));
   function clearHL(){entries.forEach(function(e){e.classList.remove('reading-active');});}
   function stopReading(){window.speechSynthesis.cancel();reading=false;clearHL();readBtn.textContent='▶ Read Aloud';readBtn.classList.remove('stop');counter.classList.remove('visible');}
-  function readEntry(idx){ if(!reading||idx>=entries.length){stopReading();return;} clearHL();entries[idx].classList.add('reading-active');entries[idx].scrollIntoView({behavior:'smooth',block:'nearest'}); counter.textContent=(idx+1)+' / '+entries.length; var ref=(entries[idx].querySelector('.scripture-ref')||{}).textContent||''; var txt=(entries[idx].querySelector('[data-scripture]')||{}).textContent||''; var utt=new SpeechSynthesisUtterance(ref+'. '+txt); utt.lang='en-GB';utt.rate=0.82; utt.onend=function(){if(reading){setTimeout(function(){readEntry(idx+1);},900);}}; window.speechSynthesis.speak(utt); }
+  function readEntry(idx){ if(!reading){stopReading();return;} if(idx>=entries.length){var _sum=document.getElementById('scripture-summary-block');if(_sum&&!_sum._wasRead){_sum._wasRead=true;_sum.classList.add('reading-active');_sum.scrollIntoView({behavior:'smooth',block:'nearest'});var _h=(_sum.querySelector('.wisdom-summary-heading')||{}).textContent||'';var _it=Array.from(_sum.querySelectorAll('li')).map(function(li,i){return (i+1)+'. '+li.textContent;}).join('. ');var _u=new SpeechSynthesisUtterance(_h+'. '+_it);_u.lang='en-GB';_u.rate=raSpeedSel?parseFloat(raSpeedSel.value):1.0;_u.onend=function(){_sum.classList.remove('reading-active');_sum._wasRead=false;stopReading();};window.speechSynthesis.speak(_u);}else{stopReading();}return;} clearHL();entries[idx].classList.add('reading-active');entries[idx].scrollIntoView({behavior:'smooth',block:'nearest'}); counter.textContent=(idx+1)+' / '+entries.length; var ref=(entries[idx].querySelector('.scripture-ref')||{}).textContent||''; var txt=(entries[idx].querySelector('[data-scripture]')||{}).textContent||''; var utt=new SpeechSynthesisUtterance(ref+'. '+txt); utt.lang='en-GB';utt.rate=raSpeedSel?parseFloat(raSpeedSel.value):1.0; utt.onend=function(){if(reading){setTimeout(function(){readEntry(idx+1);},900);}}; window.speechSynthesis.speak(utt); }
   readBtn.addEventListener('click',function(){ if(!('speechSynthesis' in window)){alert('Read Aloud is not supported in this browser. Try Chrome or Safari.');return;} if(reading){stopReading();return;} reading=true;readBtn.textContent='■ Stop';readBtn.classList.add('stop');counter.classList.add('visible');readEntry(0); });
 
   /* TOC */

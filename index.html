@@ -36,14 +36,13 @@
 
   /* Key verse block */
   .key-verse {
-    text-align: center;
-    padding: 28px 16px;
+    padding: 20px 20px 20px 24px;
     margin: 24px 0 0;
-    background: #f7f9fc;
-    border-top: 1px solid #cccccc;
-    border-bottom: 1px solid #cccccc;
+    background: #f2f2f2;
+    border-left: 4px solid #1F3864;
+    border-radius: 0 4px 4px 0;
   }
-  @media (min-width: 640px) { .key-verse { padding: 32px 40px; } }
+  @media (min-width: 640px) { .key-verse { padding: 24px 28px; } }
   .kv-text {
     font-size: 15px;
     line-height: 1.85;
@@ -52,7 +51,7 @@
     margin: 0 0 14px;
     text-align: left;
   }
-  @media (min-width: 640px) { .kv-text { font-size: 17px; text-align: center; } }
+  @media (min-width: 640px) { .kv-text { font-size: 17px; } }
   .kv-ref {
     font-size: 13px;
     font-weight: 700;
@@ -204,13 +203,14 @@
     .accordion-btn, .pf-question-block, .group-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .key-verse { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
+    #pf-toggle[aria-expanded="true"] #pf-chevron { transform: rotate(180deg); }
 </style>
 </head>
 <body>
 
 <!-- TITLE BLOCK -->
 <div class="title-block">
-  <p class="series-label">HiTurn Media Group Presents</p>
+  <p class="series-label">Hiturn Media Group Presents</p>
   <h1>Wisdom in Proverbs</h1>
   <p class="part-label">A Teaching Series from the Book of Proverbs</p>
 </div>
@@ -219,17 +219,22 @@
 <!-- KEY VERSE BLOCK -->
 <div class="key-verse">
   <p class="kv-text">"Wisdom is the principal thing; therefore get wisdom. And in all your getting, get understanding."</p>
-  <p class="kv-text">"Exalt her, and she will promote you; she will bring you honor, when you embrace her. She will place on your head an ornament of grace; a crown of glory she will deliver to you."</p>
+  <p class="kv-text">"Exalt her, and she will promote you; She will bring you honor, when you embrace her. She will place on your head an ornament of grace; a crown of glory she will deliver to you."</p>
   <p class="kv-ref">Proverbs 4:7-9 (NKJV)</p>
 </div>
 
 <!-- WHAT IS A PROVERB -->
 <div class="proverb-feature" style="margin-top:24px;">
-  <div class="pf-question-block">
-    <div class="pf-label">The Question That Opens Everything</div>
-    <p class="pf-question">What is a Proverb?</p>
-  </div>
-  <div class="pf-definition">
+  <button class="pf-question-block" id="pf-toggle" aria-expanded="false" aria-controls="pf-body" style="width:100%;text-align:left;cursor:pointer;border:none;font-family:Arial,Helvetica,sans-serif;border-radius:4px 4px 0 0;">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div class="pf-label">The Question That Opens Everything</div>
+        <p class="pf-question" style="margin:0;">What is a Proverb?</p>
+      </div>
+      <span id="pf-chevron" style="font-size:18px;color:#ffffff;padding-left:12px;flex-shrink:0;transition:transform 0.25s ease;display:inline-block;">▼</span>
+    </div>
+  </button>
+  <div class="pf-definition" id="pf-body" style="display:none;">
     <p>"A proverb is 'a short pithy saying in frequent and widespread use that expresses a basic truth or practical precept' (American Heritage Dictionary). It is a pithy saying with much more meaning than meets the eye. These proverbs are unchangeable truths that transcend time and culture and should be used by all of us today as benchmarks for conduct and beliefs."</p>
     <cite>Andrew Wommack's Living Commentary</cite>
   </div>
@@ -285,7 +290,7 @@
     <li><strong>Scripture Reader:</strong> All referenced verses written in full with verse-by-verse Read Aloud.</li>
   </ul>
 
-  <div class="attribution-note">This series is an original teaching reference developed for HiTurn Media Group. It draws from selected themes in Proverbs and is not a verse-by-verse survey of the book. The proverb definition is drawn from Andrew Wommack's Living Commentary, used here for teaching purposes. All scripture NKJV.</div>
+  <div class="attribution-note">This series is an original teaching reference developed by Hiturn Media Group. It draws from selected themes in Proverbs and is not a verse-by-verse survey of the book. The proverb definition is drawn from Andrew Wommack's Living Commentary, used here for teaching purposes. All scripture NKJV.</div>
 
   <hr style="border:none; border-top:1px solid #cccccc; margin:20px 0 16px;">
   <h4 style="margin-top:0; color:#1F3864;">Who this Series is Not For</h4>
@@ -403,7 +408,7 @@
 
 <!-- FOOTER -->
 <div class="page-footer">
-  <p>Wisdom in Proverbs: A Teaching Series from the Book of Proverbs.<br>HiTurn Media Group.</p>
+  <p>Wisdom in Proverbs<br>A Teaching Series from the Book of Proverbs. Hiturn Media Group.</p>
 </div>
 
 <script>
@@ -423,6 +428,17 @@
         setTimeout(function () { btn.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
       });
     }
+    /* What is a Proverb? toggle */
+    var pfToggle=document.getElementById('pf-toggle');
+    var pfBody=document.getElementById('pf-body');
+    var pfChevron=document.getElementById('pf-chevron');
+    if(pfToggle&&pfBody){
+      pfToggle.addEventListener('click',function(){
+        var open=pfBody.style.display!=='none';
+        pfBody.style.display=open?'none':'block';
+        pfToggle.setAttribute('aria-expanded',String(!open));
+      });
+    }
   });
 </script>
-</body>                                                
+</body>    
