@@ -232,6 +232,7 @@
   .btn-stop:disabled { opacity: 0.4; cursor: default; }
   .audio-speed-group { display: flex; gap: 2px; align-items: center; }
   .audio-speed-label { font-size: 11px; color: #777; margin-right: 4px; }
+  .audio-speed-all { font-weight: 700; color: #1F3864; letter-spacing: 0.04em; }
   .audio-speed-btn { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: 700;
     padding: 5px 9px; border: 1px solid #cccccc; background: #f2f2f2; color: #555;
     cursor: pointer; border-radius: 2px; transition: background 0.1s; }
@@ -364,13 +365,13 @@
       <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><rect width="10" height="10" rx="1"/></svg>
       Stop
     </button>
-    <div class="audio-speed-group" aria-label="Playback speed">
-      <span class="audio-speed-label">Speed:</span>
-      <button class="audio-speed-btn active" data-rate="1" aria-label="Normal speed">1x</button>
-      <button class="audio-speed-btn" data-rate="1.25" aria-label="1.25x speed">1.25x</button>
-      <button class="audio-speed-btn" data-rate="1.5" aria-label="1.5x speed">1.5x</button>
-      <button class="audio-speed-btn" data-rate="1.75" aria-label="1.75x speed">1.75x</button>
-      <button class="audio-speed-btn" data-rate="2" aria-label="2x speed">2x</button>
+    <div class="audio-speed-group" aria-label="Playback speed for all pages">
+      <span class="audio-speed-label">Speed <span class="audio-speed-all">All</span>:</span>
+      <button class="audio-speed-btn active" data-rate="1" aria-label="Normal speed for all pages">1x</button>
+      <button class="audio-speed-btn" data-rate="1.25" aria-label="1.25x speed for all pages">1.25x</button>
+      <button class="audio-speed-btn" data-rate="1.5" aria-label="1.5x speed for all pages">1.5x</button>
+      <button class="audio-speed-btn" data-rate="1.75" aria-label="1.75x speed for all pages">1.75x</button>
+      <button class="audio-speed-btn" data-rate="2" aria-label="2x speed for all pages">2x</button>
     </div>
     <span class="audio-progress" id="audio-progress" aria-live="polite"></span>
   </div>

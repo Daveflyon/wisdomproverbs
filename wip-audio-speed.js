@@ -58,6 +58,16 @@
     return rate;
   }
 
+  function clearAllPageOverrides() {
+    if (!storageOK()) return;
+    var keys = [];
+    for (var i = 0; i < localStorage.length; i++) {
+      var key = localStorage.key(i);
+      if (key && key.indexOf(PAGE_KEY_PREFIX) === 0) keys.push(key);
+    }
+    keys.forEach(function (key) { localStorage.removeItem(key); });
+  }
+
   function getEffectiveRate(pageId, isIndex) {
     pageId = pageId || pageIdFromLocation();
     if (!isIndex) {
@@ -73,6 +83,7 @@
     var pageId = opts.pageId || pageIdFromLocation();
     var isIndex = opts.isIndex != null ? opts.isIndex : pageId === 'index';
     if (isIndex) {
+      clearAllPageOverrides();
       setGlobal(rate);
     } else {
       setPageOverride(pageId, rate);
@@ -145,6 +156,7 @@
     getGlobal: getGlobal,
     setGlobal: setGlobal,
     getPageOverride: getPageOverride,
+    clearAllPageOverrides: clearAllPageOverrides,
     getEffectiveRate: getEffectiveRate,
     setRate: setRate,
     syncButtons: syncButtons,
