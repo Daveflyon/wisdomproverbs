@@ -367,6 +367,7 @@
     <div class="audio-speed-group" aria-label="Playback speed">
       <span class="audio-speed-label">Speed:</span>
       <button class="audio-speed-btn" data-rate="1" aria-label="Normal speed">1x</button>
+      <button class="audio-speed-btn" data-rate="1.25" aria-label="1.25x speed">1.25x</button>
       <button class="audio-speed-btn active" data-rate="1.5" aria-label="1.5x speed">1.5x</button>
       <button class="audio-speed-btn" data-rate="1.75" aria-label="1.75x speed">1.75x</button>
       <button class="audio-speed-btn" data-rate="2" aria-label="2x speed">2x</button>
@@ -514,12 +515,14 @@
   });
 
 </script>
+<script src="wip-tts.js"></script>
 <script src="wip-media-session.js"></script>
 <script>
   /* -- AUDIO: Index page Play All + per-section Listen -- */
   (function(){
     var synth = window.speechSynthesis;
     if (!synth) return;
+    if (window.WipTTS) WipTTS.prime(synth);
 
     var SERIES_INTRO = 'Welcome to Wisdom in Proverbs, a teaching series from the Book of Proverbs, produced by Hiturn Media Group. This series works through eight foundational themes drawn from Proverbs. Each section stands alone as a study unit and links forward across the arc from wisdom's identity through to its full New Testament fulfilment in Christ.';
 
@@ -606,14 +609,18 @@
     }
 
     function speakText(text, onEnd) {
-      synth.cancel();
       isPaused = false;
-      var u = new SpeechSynthesisUtterance(text);
-      u.lang = 'en-GB';
-      u.rate = currentRate;
-      u.onend = function() { if (onEnd) onEnd(); };
-      u.onerror = function(e) { if (e.error !== 'interrupted' && onEnd) onEnd(); };
-      synth.speak(u);
+      if (window.WipTTS) {
+        WipTTS.speak(synth, text, { rate: currentRate, onEnd: onEnd });
+      } else {
+        synth.cancel();
+        var u = new SpeechSynthesisUtterance(text);
+        u.lang = 'en-GB';
+        u.rate = currentRate;
+        u.onend = function() { if (onEnd) onEnd(); };
+        u.onerror = function(e) { if (e.error !== 'interrupted' && onEnd) onEnd(); };
+        synth.speak(u);
+      }
     }
 
     function pauseResume() {
@@ -680,10 +687,12 @@
           listenBtn.addEventListener('click', function() {
             if (currentSec === s) { pauseResume(); }
             else {
-              stopAll();
-              setTimeout(function() {
-                playSection(s, function() { currentSec = null; updateAllUI(); });
-              }, 60);
+              synth.cancel();
+              playAllActive = false;
+              isPaused = false;
+              currentSec = null;
+              playAllIndex = 0;
+              playSection(s, function() { currentSec = null; updateAllUI(); });
             }
           });
         })(sec);
@@ -697,8 +706,12 @@
         } else if (playAllActive && isPaused) {
           pauseResume();
         } else {
-          stopAll();
-          setTimeout(function() { playAllActive = true; playAllIndex = 0; playNext(); }, 60);
+          synth.cancel();
+          playAllActive = true;
+          playAllIndex = 0;
+          isPaused = false;
+          currentSec = null;
+          playNext();
         }
       });
     }

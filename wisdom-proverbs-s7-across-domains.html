@@ -388,6 +388,7 @@
     <div class="audio-speed-group" aria-label="Playback speed">
       <span class="audio-speed-label">Speed:</span>
       <button class="audio-speed-btn" data-rate="1" aria-label="Normal speed">1x</button>
+      <button class="audio-speed-btn" data-rate="1.25" aria-label="1.25x speed">1.25x</button>
       <button class="audio-speed-btn active" data-rate="1.5" aria-label="1.5x speed">1.5x</button>
       <button class="audio-speed-btn" data-rate="1.75" aria-label="1.75x speed">1.75x</button>
       <button class="audio-speed-btn" data-rate="2" aria-label="2x speed">2x</button>
@@ -768,7 +769,7 @@
     </div>
     <div class="scripture-group-header">
       <span class="scripture-group-label">Proverbs</span>
-      <div class="read-aloud-controls" style="gap:12px;"><span class="reading-counter" id="reading-counter"></span><button class="read-aloud-btn" id="btn-read-aloud"><svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg> Play Scriptures</button><div style="display:flex;align-items:center;gap:6px;"><label for="read-aloud-speed" style="font-size:12px;font-weight:700;color:#1F3864;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;">Speed</label><select id="read-aloud-speed" aria-label="Read aloud speed" style="font-size:13px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;background:#fff;color:#1c1c1e;"><option value="0.5">0.5x</option><option value="1.0">1.0x</option><option value="1.5" selected>1.5x</option><option value="1.75">1.75x</option><option value="2.0">2.0x</option></select></div></div>
+      <div class="read-aloud-controls" style="gap:12px;"><span class="reading-counter" id="reading-counter"></span><button class="read-aloud-btn" id="btn-read-aloud"><svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg> Play Scriptures</button><div style="display:flex;align-items:center;gap:6px;"><label for="read-aloud-speed" style="font-size:12px;font-weight:700;color:#1F3864;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;">Speed</label><select id="read-aloud-speed" aria-label="Read aloud speed" style="font-size:13px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;background:#fff;color:#1c1c1e;"><option value="0.5">0.5x</option><option value="1.0">1.0x</option><option value="1.25">1.25x</option><option value="1.5" selected>1.5x</option><option value="1.75">1.75x</option><option value="2.0">2.0x</option></select></div></div>
     </div>
     <div class="scripture-entry"><div class="scripture-ref">Proverbs 3:5-6</div><div class="scripture-text" data-scripture>"Trust in the LORD with all your heart, and lean not on your own understanding; in all your ways acknowledge Him, and He shall direct your paths."</div></div>
     <div class="scripture-entry"><div class="scripture-ref">Proverbs 4:18-19</div><div class="scripture-text" data-scripture>"But the path of the just is like the shining sun, that shines ever brighter unto the perfect day. The way of the wicked is like darkness; they do not know what makes them stumble."</div></div>
@@ -950,12 +951,14 @@
   <button id="toc-toggle" aria-expanded="false">Contents &#9650;</button>
 </div>
 
+<script src="wip-tts.js"></script>
 <script src="wip-media-session.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   /* -- AUDIO: Play All + per-section Listen -- */
   (function(){
     var synth = window.speechSynthesis;
+    if (window.WipTTS) WipTTS.prime(synth);
     var INTRO_TEXT = "Welcome to Section Seven: Wisdom Across Domains. Let\'s start with a simple test. Take the wisdom you have studied in the previous six sections. Now place it in front of a difficult conversation you had this week. Or a financial decision sitting unresolved. Or a relationship that is requiring more than you expected. Does it hold? That is the question this section is built on. Proverbs has always known that wisdom which cannot enter a domain is wisdom that has not yet landed. In this section you will follow wisdom into seven specific territories; speech, wealth, work, family, friendship and leadership. She does not stop at the door of any of them. Section seven is where theology becomes traction. And where you will discover which domain needs the most attention. It is my prayer that the God of our Lord Jesus Christ, the Father of glory, may give you the Spirit of wisdom and of revelation in the knowledge of him as you study to apply His preserved book of Wisdom.";
     var currentRate = 1.5;
     var allSections = [];
@@ -1043,14 +1046,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function speakText(text, onEnd) {
-      synth.cancel();
       isPaused = false;
-      var u = new SpeechSynthesisUtterance(text);
-      u.lang = 'en-GB';
-      u.rate = currentRate;
-      u.onend = function() { if (onEnd) onEnd(); };
-      u.onerror = function(e) { if (e.error !== 'interrupted' && onEnd) onEnd(); };
-      synth.speak(u);
+      if (window.WipTTS) {
+        WipTTS.speak(synth, text, { rate: currentRate, onEnd: onEnd });
+      } else {
+        synth.cancel();
+        var u = new SpeechSynthesisUtterance(text);
+        u.lang = 'en-GB';
+        u.rate = currentRate;
+        u.onend = function() { if (onEnd) onEnd(); };
+        u.onerror = function(e) { if (e.error !== 'interrupted' && onEnd) onEnd(); };
+        synth.speak(u);
+      }
     }
 
     function openSection(unit) {
@@ -1148,10 +1155,12 @@ document.addEventListener('DOMContentLoaded', function () {
               function handlePlay() {
                 if (currentSec === s) { pauseResume(); }
                 else {
-                  stopAll();
-                  setTimeout(function() {
-                    playSection(s, function() { currentSec = null; updateAllUI(); });
-                  }, 60);
+                  synth.cancel();
+                  playAllActive = false;
+                  isPaused = false;
+                  currentSec = null;
+                  playAllIndex = 0;
+                  playSection(s, function() { currentSec = null; updateAllUI(); });
                 }
               }
               hBtn.addEventListener('click', handlePlay);
@@ -1166,10 +1175,12 @@ document.addEventListener('DOMContentLoaded', function () {
             listenBtn.addEventListener('click', function() {
               if (currentSec === s) { pauseResume(); }
               else {
-                stopAll();
-                setTimeout(function() {
-                  playSection(s, function() { currentSec = null; updateAllUI(); });
-                }, 60);
+                synth.cancel();
+                playAllActive = false;
+                isPaused = false;
+                currentSec = null;
+                playAllIndex = 0;
+                playSection(s, function() { currentSec = null; updateAllUI(); });
               }
             });
           })(sec);
@@ -1185,8 +1196,12 @@ document.addEventListener('DOMContentLoaded', function () {
           } else if (playAllActive && isPaused) {
             pauseResume();
           } else {
-            stopAll();
-            setTimeout(function() { playAllActive = true; playAllIndex = 0; playNext(); }, 60);
+            synth.cancel();
+            playAllActive = true;
+            playAllIndex = 0;
+            isPaused = false;
+            currentSec = null;
+            playNext();
           }
         });
       }
