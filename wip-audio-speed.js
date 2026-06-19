@@ -1,8 +1,10 @@
-/* Wisdom in Proverbs — shared audio speed (global from index + per-page overrides) */
+/* Wisdom in Proverbs — shared audio speed (index sets global; sections may override until index changes) */
 (function (global) {
   'use strict';
 
   var GLOBAL_KEY = 'wip-audio-speed-global';
+  var GLOBAL_EPOCH_KEY = 'wip-audio-speed-global-epoch';
+  var PAGES_KEY = 'wip-audio-speed-pages';
   var PAGE_KEY_PREFIX = 'wip-audio-speed-page-';
   var DEFAULT_RATE = 1;
   var VALID_RATES = [0.5, 1, 1.25, 1.5, 1.75, 2];
@@ -34,31 +36,45 @@
     return path.replace(/\.html$/i, '');
   }
 
+  function getGlobalEpoch() {
+    if (!storageOK()) return 0;
+    var n = parseInt(localStorage.getItem(GLOBAL_EPOCH_KEY) || '0', 10);
+    return isFinite(n) && n >= 0 ? n : 0;
+  }
+
+  function bumpGlobalEpoch() {
+    if (!storageOK()) return 0;
+    var next = getGlobalEpoch() + 1;
+    localStorage.setItem(GLOBAL_EPOCH_KEY, String(next));
+    return next;
+  }
+
   function getGlobal() {
     if (!storageOK()) return DEFAULT_RATE;
     var v = localStorage.getItem(GLOBAL_KEY);
     return v ? normalizeRate(v) : DEFAULT_RATE;
   }
 
-  function setGlobal(rate) {
-    rate = normalizeRate(rate);
-    if (storageOK()) localStorage.setItem(GLOBAL_KEY, String(rate));
-    return rate;
+  function readPagesMap() {
+    if (!storageOK()) return {};
+    try {
+      var raw = localStorage.getItem(PAGES_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
   }
 
-  function getPageOverride(pageId) {
-    if (!storageOK()) return null;
-    var v = localStorage.getItem(PAGE_KEY_PREFIX + pageId);
-    return v ? normalizeRate(v) : null;
+  function writePagesMap(map) {
+    if (!storageOK()) return;
+    if (!map || !Object.keys(map).length) {
+      localStorage.removeItem(PAGES_KEY);
+    } else {
+      localStorage.setItem(PAGES_KEY, JSON.stringify(map));
+    }
   }
 
-  function setPageOverride(pageId, rate) {
-    rate = normalizeRate(rate);
-    if (storageOK()) localStorage.setItem(PAGE_KEY_PREFIX + pageId, String(rate));
-    return rate;
-  }
-
-  function clearAllPageOverrides() {
+  function removeLegacyPageKeys() {
     if (!storageOK()) return;
     var keys = [];
     for (var i = 0; i < localStorage.length; i++) {
@@ -66,6 +82,59 @@
       if (key && key.indexOf(PAGE_KEY_PREFIX) === 0) keys.push(key);
     }
     keys.forEach(function (key) { localStorage.removeItem(key); });
+  }
+
+  function migrateLegacyOverrides(map) {
+    if (!storageOK()) return map;
+    var changed = false;
+    for (var i = 0; i < localStorage.length; i++) {
+      var key = localStorage.key(i);
+      if (!key || key.indexOf(PAGE_KEY_PREFIX) !== 0) continue;
+      var pageId = key.slice(PAGE_KEY_PREFIX.length);
+      if (!pageId || map[pageId]) continue;
+      var v = localStorage.getItem(key);
+      if (v == null) continue;
+      map[pageId] = { rate: normalizeRate(v), epoch: getGlobalEpoch() };
+      changed = true;
+    }
+    if (changed) writePagesMap(map);
+    removeLegacyPageKeys();
+    return map;
+  }
+
+  function clearAllPageOverrides() {
+    if (!storageOK()) return;
+    localStorage.removeItem(PAGES_KEY);
+    removeLegacyPageKeys();
+  }
+
+  function setGlobal(rate, bumpEpoch) {
+    rate = normalizeRate(rate);
+    if (storageOK()) {
+      localStorage.setItem(GLOBAL_KEY, String(rate));
+      if (bumpEpoch !== false) bumpGlobalEpoch();
+    }
+    return rate;
+  }
+
+  function getPageOverride(pageId) {
+    if (!storageOK()) return null;
+    var map = migrateLegacyOverrides(readPagesMap());
+    var entry = map[pageId];
+    if (!entry) return null;
+    var rate = normalizeRate(entry.rate != null ? entry.rate : entry);
+    var epoch = entry.epoch != null ? entry.epoch : 0;
+    if (epoch < getGlobalEpoch()) return null;
+    return rate;
+  }
+
+  function setPageOverride(pageId, rate) {
+    rate = normalizeRate(rate);
+    if (!storageOK()) return rate;
+    var map = migrateLegacyOverrides(readPagesMap());
+    map[pageId] = { rate: rate, epoch: getGlobalEpoch() };
+    writePagesMap(map);
+    return rate;
   }
 
   function getEffectiveRate(pageId, isIndex) {
@@ -83,8 +152,9 @@
     var pageId = opts.pageId || pageIdFromLocation();
     var isIndex = opts.isIndex != null ? opts.isIndex : pageId === 'index';
     if (isIndex) {
+      setGlobal(rate, false);
       clearAllPageOverrides();
-      setGlobal(rate);
+      bumpGlobalEpoch();
     } else {
       setPageOverride(pageId, rate);
     }
@@ -124,36 +194,61 @@
     var syncReadAloud = opts.syncReadAloud !== false;
     var setRateLocal = opts.setRate || function () {};
 
-    function apply(rate) {
-      rate = normalizeRate(rate);
+    function apply(rate, fromStorage) {
+      if (fromStorage) {
+        rate = getEffectiveRate(pageId, isIndex);
+      } else {
+        rate = normalizeRate(rate);
+      }
       setRateLocal(rate);
       syncButtons(rate);
       if (syncReadAloud) syncSelect(rate);
       return rate;
     }
 
-    var initial = getEffectiveRate(pageId, isIndex);
-    apply(initial);
+    apply(null, true);
 
     document.querySelectorAll('.audio-speed-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        apply(setRate(parseFloat(btn.dataset.rate), { pageId: pageId, isIndex: isIndex }));
+        var chosen = parseFloat(btn.dataset.rate);
+        if (isIndex) {
+          apply(setRate(chosen, { pageId: pageId, isIndex: true }));
+        } else {
+          apply(setRate(chosen, { pageId: pageId, isIndex: false }));
+        }
       });
     });
 
     var raSel = document.getElementById('read-aloud-speed');
     if (raSel && syncReadAloud) {
       raSel.addEventListener('change', function () {
-        apply(setRate(parseFloat(raSel.value), { pageId: pageId, isIndex: isIndex }));
+        var chosen = parseFloat(raSel.value);
+        if (isIndex) {
+          apply(setRate(chosen, { pageId: pageId, isIndex: true }));
+        } else {
+          apply(setRate(chosen, { pageId: pageId, isIndex: false }));
+        }
       });
     }
 
-    return initial;
+    global.addEventListener('pageshow', function (e) {
+      if (e.persisted) apply(null, true);
+    });
+
+    global.addEventListener('storage', function (e) {
+      if (!e.key) return;
+      if (e.key === GLOBAL_KEY || e.key === PAGES_KEY || e.key === GLOBAL_EPOCH_KEY || e.key.indexOf(PAGE_KEY_PREFIX) === 0) {
+        apply(null, true);
+      }
+    });
+
+    return getEffectiveRate(pageId, isIndex);
   }
 
   global.WipAudioSpeed = {
     DEFAULT_RATE: DEFAULT_RATE,
     getGlobal: getGlobal,
+    getGlobalEpoch: getGlobalEpoch,
     setGlobal: setGlobal,
     getPageOverride: getPageOverride,
     clearAllPageOverrides: clearAllPageOverrides,
