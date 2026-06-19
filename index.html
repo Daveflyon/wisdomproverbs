@@ -366,9 +366,9 @@
     </button>
     <div class="audio-speed-group" aria-label="Playback speed">
       <span class="audio-speed-label">Speed:</span>
-      <button class="audio-speed-btn" data-rate="1" aria-label="Normal speed">1x</button>
+      <button class="audio-speed-btn active" data-rate="1" aria-label="Normal speed">1x</button>
       <button class="audio-speed-btn" data-rate="1.25" aria-label="1.25x speed">1.25x</button>
-      <button class="audio-speed-btn active" data-rate="1.5" aria-label="1.5x speed">1.5x</button>
+      <button class="audio-speed-btn" data-rate="1.5" aria-label="1.5x speed">1.5x</button>
       <button class="audio-speed-btn" data-rate="1.75" aria-label="1.75x speed">1.75x</button>
       <button class="audio-speed-btn" data-rate="2" aria-label="2x speed">2x</button>
     </div>
@@ -515,6 +515,7 @@
   });
 
 </script>
+<script src="wip-audio-speed.js"></script>
 <script src="wip-tts.js"></script>
 <script src="wip-media-session.js"></script>
 <script>
@@ -538,7 +539,7 @@
       { title: 'Section 8: NT Connections', text: "Section 8: NT Connections: Full Synthesis. All eight themes connected to Christ; wisdom's fulfilment in the New Testament.", item: null }
     ];
 
-    var currentRate = 1.5;
+    var currentRate = 1;
     var currentSec = null;
     var playAllActive = false;
     var playAllIndex = 0;
@@ -720,13 +721,21 @@
       stopBtn.addEventListener('click', function() { stopAll(); });
     }
 
-    document.querySelectorAll('.audio-speed-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.audio-speed-btn').forEach(function(b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-        currentRate = parseFloat(btn.dataset.rate);
-      });
-    });
+    if (window.WipAudioSpeed) {
+        WipAudioSpeed.wirePanel({
+          isIndex: true,
+          syncReadAloud: false,
+          setRate: function(r) { currentRate = r; }
+        });
+      } else {
+        document.querySelectorAll('.audio-speed-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            document.querySelectorAll('.audio-speed-btn').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            currentRate = parseFloat(btn.dataset.rate);
+          });
+        });
+      }
 
     linkItems();
     injectListenButtons();

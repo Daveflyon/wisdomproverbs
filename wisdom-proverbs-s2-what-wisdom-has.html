@@ -386,9 +386,9 @@
     </button>
     <div class="audio-speed-group" aria-label="Playback speed">
       <span class="audio-speed-label">Speed:</span>
-      <button class="audio-speed-btn" data-rate="1" aria-label="Normal speed">1x</button>
+      <button class="audio-speed-btn active" data-rate="1" aria-label="Normal speed">1x</button>
       <button class="audio-speed-btn" data-rate="1.25" aria-label="1.25x speed">1.25x</button>
-      <button class="audio-speed-btn active" data-rate="1.5" aria-label="1.5x speed">1.5x</button>
+      <button class="audio-speed-btn" data-rate="1.5" aria-label="1.5x speed">1.5x</button>
       <button class="audio-speed-btn" data-rate="1.75" aria-label="1.75x speed">1.75x</button>
       <button class="audio-speed-btn" data-rate="2" aria-label="2x speed">2x</button>
     </div>
@@ -774,7 +774,7 @@
     </div>
     <div class="scripture-group-header">
       <span class="scripture-group-label">Proverbs</span>
-      <div class="read-aloud-controls" style="gap:12px;"><span class="reading-counter" id="reading-counter"></span><button class="read-aloud-btn" id="btn-read-aloud"><svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg> Play Scriptures</button><div style="display:flex;align-items:center;gap:6px;"><label for="read-aloud-speed" style="font-size:12px;font-weight:700;color:#1F3864;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;">Speed</label><select id="read-aloud-speed" aria-label="Read aloud speed" style="font-size:13px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;background:#fff;color:#1c1c1e;"><option value="0.5">0.5x</option><option value="1.0">1.0x</option><option value="1.25">1.25x</option><option value="1.5" selected>1.5x</option><option value="1.75">1.75x</option><option value="2.0">2.0x</option></select></div></div>
+      <div class="read-aloud-controls" style="gap:12px;"><span class="reading-counter" id="reading-counter"></span><button class="read-aloud-btn" id="btn-read-aloud"><svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg> Play Scriptures</button><div style="display:flex;align-items:center;gap:6px;"><label for="read-aloud-speed" style="font-size:12px;font-weight:700;color:#1F3864;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;">Speed</label><select id="read-aloud-speed" aria-label="Read aloud speed" style="font-size:13px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;background:#fff;color:#1c1c1e;"><option value="0.5">0.5x</option><option value="1.0" selected>1.0x</option><option value="1.25">1.25x</option><option value="1.5">1.5x</option><option value="1.75">1.75x</option><option value="2.0">2.0x</option></select></div></div>
     </div>
     <div class="scripture-entry"><div class="scripture-ref">Proverbs 3:16</div><div class="scripture-text" data-scripture>"Length of days is in her right hand, In her left hand riches and honor."</div></div>
     <div class="scripture-entry"><div class="scripture-ref">Proverbs 3:17</div><div class="scripture-text" data-scripture>"Her ways are ways of pleasantness, And all her paths are peace."</div></div>
@@ -956,6 +956,7 @@
   <button id="toc-toggle" aria-expanded="false">Contents &#9650;</button>
 </div>
 
+<script src="wip-audio-speed.js"></script>
 <script src="wip-tts.js"></script>
 <script src="wip-media-session.js"></script>
 <script>
@@ -965,7 +966,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var synth = window.speechSynthesis;
     if (window.WipTTS) WipTTS.prime(synth);
     var INTRO_TEXT = "Welcome to Section Two: What Wisdom Has. Let\'s start with a question you may not have considered before. When you think about strategic resources like power, counsel, wealth and authority, do you think of them as belonging to wisdom, or as belonging to the world? Most of us have learned to separate them. Spiritual things on one side. Practical resources on the other. Proverbs collapses that separation completely. In this section you will discover that wisdom is not simply a spiritual quality. She is the proprietor. She holds the counsel, the sound wisdom, the durable wealth and the authority that rulers depend on. Not as a metaphor. As a structural reality. Before any throne was established on the earth, wisdom already held the resources that throne would need. Section two will change what you think wisdom owns. It is my prayer that the God of our Lord Jesus Christ, the Father of glory, may give you the Spirit of wisdom and of revelation in the knowledge of him as you study to apply His preserved book of Wisdom.";
-    var currentRate = 1.5;
+    var currentRate = 1;
     var allSections = [];
     var currentSec = null;
     var playAllActive = false;
@@ -1214,13 +1215,19 @@ document.addEventListener('DOMContentLoaded', function () {
         stopBtn.addEventListener('click', function() { stopAll(); });
       }
 
-      document.querySelectorAll('.audio-speed-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('.audio-speed-btn').forEach(function(b) { b.classList.remove('active'); });
-          btn.classList.add('active');
-          currentRate = parseFloat(btn.dataset.rate);
+      if (window.WipAudioSpeed) {
+        WipAudioSpeed.wirePanel({
+          setRate: function(r) { currentRate = r; }
         });
-      });
+      } else {
+        document.querySelectorAll('.audio-speed-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            document.querySelectorAll('.audio-speed-btn').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            currentRate = parseFloat(btn.dataset.rate);
+          });
+        });
+      }
     }
 
     if (!window.speechSynthesis) {
