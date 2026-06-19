@@ -36,30 +36,33 @@
 
   /* Key verse block */
   .key-verse {
-    padding: 24px;
+    padding: 32px;
     margin: 24px 0 24px;
-    background: #f4f7fa;
-    border-left: 6px solid #1F3864;
-    border-radius: 0 4px 4px 0;
+    background: #1F3864;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
   .kv-text {
-    font-size: 18px;
+    font-family: Georgia, serif;
+    font-size: 20px;
     line-height: 1.6;
     font-style: normal;
-    color: #1c1c1e;
+    color: #ffffff;
     margin: 0;
     text-align: left;
   }
   .kv-text + .kv-text {
-    margin-top: 16px;
+    margin-top: 20px;
   }
   .kv-ref {
-    font-size: 14px;
+    font-family: Georgia, serif;
+    font-size: 15px;
     font-weight: 400;
     font-style: italic;
-    color: #555555;
+    color: #d4af37;
     text-align: right;
-    margin: 0;
+    margin: 20px 0 0;
   }
 
   /* Proverb feature block */
@@ -258,11 +261,11 @@
 <hr class="title-rule">
 
 <!-- KEY VERSE BLOCK -->
-<div class="key-verse">
+<blockquote class="key-verse" cite="Proverbs 4:7-9">
   <p class="kv-text">"Wisdom is the principal thing; therefore get wisdom. And in all your getting, get understanding."</p>
   <p class="kv-text">"Exalt her, and she will promote you; She will bring you honor, when you embrace her. She will place on your head an ornament of grace; a crown of glory she will deliver to you."</p>
-  <p class="kv-ref">Proverbs 4:7-9 (NKJV)</p>
-</div>
+  <footer class="kv-ref">Proverbs 4:7-9 (NKJV)</footer>
+</blockquote>
 
 <!-- WHAT IS A PROVERB -->
 <div class="proverb-feature" style="margin-top:24px;">
