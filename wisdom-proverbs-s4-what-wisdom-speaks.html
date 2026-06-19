@@ -370,6 +370,7 @@
 
 <!-- AUDIO PANEL -->
 <div class="audio-panel" role="region" aria-label="Audio controls">
+  <audio id="wip-media-anchor" playsinline loop preload="none" hidden aria-hidden="true"></audio>
   <div class="audio-inner">
     <span class="audio-label">Audio</span>
     <button class="audio-btn btn-play-all" id="btn-play-all" aria-label="Play all sections">
@@ -910,6 +911,7 @@
   <button id="toc-toggle" aria-expanded="false">Contents &#9650;</button>
 </div>
 
+<script src="wip-media-session.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   /* -- AUDIO: Play All + per-section Listen -- */
@@ -929,6 +931,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var playAllBtn = document.getElementById('btn-play-all');
     var stopBtn    = document.getElementById('btn-stop-intro');
     var progressEl = document.getElementById('audio-progress');
+    var mediaSessionUI = { sync: function() {} };
 
     function getBodyText(unit) {
       var body = unit ? unit.querySelector('.acc-body') : null;
@@ -997,6 +1000,7 @@ document.addEventListener('DOMContentLoaded', function () {
           if (sec.unit) sec.unit.classList.remove('section-playing');
         }
       });
+      mediaSessionUI.sync();
     }
 
     function speakText(text, onEnd) {
@@ -1036,6 +1040,21 @@ document.addEventListener('DOMContentLoaded', function () {
       currentSec = null;
       playAllIndex = 0;
       updateAllUI();
+    }
+
+
+    if (window.WipMediaSession) {
+      mediaSessionUI = WipMediaSession.bind({
+        isActive: function() { return !!currentSec; },
+        isPaused: function() { return isPaused; },
+        getMetadata: function() {
+          if (!currentSec) return null;
+          return { title: currentSec.title, artist: 'Hiturn Media Group', album: 'Wisdom in Proverbs' };
+        },
+        onPlay: function() { if (currentSec && isPaused) pauseResume(); },
+        onPause: function() { if (currentSec && !isPaused) pauseResume(); },
+        onStop: function() { stopAll(); }
+      });
     }
 
     function playSection(sec, onDone) {

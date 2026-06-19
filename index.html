@@ -346,6 +346,7 @@
 
 <!-- AUDIO PANEL -->
 <div class="audio-panel" role="region" aria-label="Audio controls" style="margin-top:28px;">
+  <audio id="wip-media-anchor" playsinline loop preload="none" hidden aria-hidden="true"></audio>
   <div class="audio-inner">
     <span class="audio-label">Audio</span>
     <button class="audio-btn btn-play-all" id="btn-play-all" aria-label="Play all sections">
@@ -505,6 +506,9 @@
     }
   });
 
+</script>
+<script src="wip-media-session.js"></script>
+<script>
   /* -- AUDIO: Index page Play All + per-section Listen -- */
   (function(){
     var synth = window.speechSynthesis;
@@ -536,6 +540,7 @@
     var playAllBtn = document.getElementById('btn-play-all');
     var stopBtn    = document.getElementById('btn-stop');
     var progressEl = document.getElementById('audio-progress');
+    var mediaSessionUI = { sync: function() {} };
 
     // Wire up section items to SECTIONS[1..8]
     function linkItems() {
@@ -590,6 +595,7 @@
           if (sec.item) sec.item.classList.remove('sec-playing');
         }
       });
+      mediaSessionUI.sync();
     }
 
     function speakText(text, onEnd) {
@@ -617,6 +623,20 @@
       currentSec = null;
       playAllIndex = 0;
       updateAllUI();
+    }
+
+    if (window.WipMediaSession) {
+      mediaSessionUI = WipMediaSession.bind({
+        isActive: function() { return !!currentSec; },
+        isPaused: function() { return isPaused; },
+        getMetadata: function() {
+          if (!currentSec) return null;
+          return { title: currentSec.title, artist: 'Hiturn Media Group', album: 'Wisdom in Proverbs — Series Index' };
+        },
+        onPlay: function() { if (currentSec && isPaused) pauseResume(); },
+        onPause: function() { if (currentSec && !isPaused) pauseResume(); },
+        onStop: function() { stopAll(); }
+      });
     }
 
     function playSection(sec, onDone) {
