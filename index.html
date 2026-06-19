@@ -36,27 +36,29 @@
 
   /* Key verse block */
   .key-verse {
-    padding: 20px 20px 20px 24px;
-    margin: 24px 0 0;
-    background: #f2f2f2;
-    border-left: 4px solid #1F3864;
+    padding: 24px;
+    margin: 24px 0 24px;
+    background: #f4f7fa;
+    border-left: 6px solid #1F3864;
     border-radius: 0 4px 4px 0;
   }
-  @media (min-width: 640px) { .key-verse { padding: 24px 28px; } }
   .kv-text {
-    font-size: 15px;
-    line-height: 1.85;
-    font-style: italic;
+    font-size: 18px;
+    line-height: 1.6;
+    font-style: normal;
     color: #1c1c1e;
-    margin: 0 0 14px;
+    margin: 0;
     text-align: left;
   }
-  @media (min-width: 640px) { .kv-text { font-size: 17px; } }
+  .kv-text + .kv-text {
+    margin-top: 16px;
+  }
   .kv-ref {
-    font-size: 13px;
-    font-weight: 700;
-    color: #1F3864;
-    letter-spacing: 0.04em;
+    font-size: 14px;
+    font-weight: 400;
+    font-style: italic;
+    color: #555555;
+    text-align: right;
     margin: 0;
   }
 
