@@ -292,21 +292,6 @@
   /* ── FOOTER ── */
   .page-footer { font-size: 13px; color: #888; border-top: 1px solid #cccccc; padding: 18px 0 36px; margin-top: 32px; }
 
-
-  /* -- PER-SECTION LISTEN BUTTONS -- */
-  .acc-head-row { display: flex; gap: 6px; align-items: stretch; margin-bottom: 2px; }
-  .acc-head-row .acc-btn { flex: 1; margin-bottom: 0; }
-  .acc-listen-btn { display: inline-flex; align-items: center; justify-content: center; gap: 5px;
-    background: rgba(255,255,255,0.15); color: #ffffff; border: 1.5px solid rgba(255,255,255,0.35);
-    border-radius: 4px; padding: 0 12px; font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap;
-    flex-shrink: 0; transition: background 0.15s; min-height: 52px; min-width: 72px; }
-  .acc-listen-btn:hover { background: rgba(255,255,255,0.28); }
-  .acc-listen-btn.btn-active { background: #d97706; border-color: #d97706; }
-  .acc-listen-btn:focus { outline: 2px solid #d97706; outline-offset: 2px; }
-  .acc-unit.section-playing .acc-head-row { box-shadow: 0 0 0 3px #d97706; border-radius: 4px; }
-  .btn-play-all.paused { background: #d97706; }
-
   /* ── PRINT ── */
   @media print {
     #toc-container, .util-bar, .read-aloud-controls, .back-link, .arc-bar, .sticky-bar, .acc-body-footer, .bottom-controls, .answers-toolbar, .audio-panel { display: none; }
@@ -316,27 +301,13 @@
     .flashcard-back { background: #f2f2f2 !important; }
     .fc-verse, .fc-ref-back { color: #1c1c1e !important; }
   }
-  /* ── AUDIO PANEL ── */
+  /* -- AUDIO PANEL -- */
   .audio-panel { background: #ffffff; border-bottom: 2px solid #1F3864; padding: 10px 14px; margin: 0 0 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 4px; }
-  .audio-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
-  .audio-label { font-size: 11px; font-weight: 700; color: #1F3864; text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; }
+  .audio-inner { display: flex; align-items: center; }
   .audio-btn { display: inline-flex; align-items: center; gap: 6px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700; padding: 7px 14px; border-radius: 4px; border: none; cursor: pointer; transition: background 0.15s; }
   .audio-btn:focus { outline: 2px solid #d97706; outline-offset: 2px; }
-  .btn-play-all { background: #1F3864; color: #ffffff; }
-  .btn-play-all:hover { background: #2c54a0; }
-  .btn-play-all.paused { background: #d97706; }
-  .btn-play-all.paused:hover { background: #b45309; }
-  .btn-stop-intro { background: #f2f2f2; color: #1c1c1e; border: 1px solid #cccccc; }
-  .btn-stop-intro:hover:not(:disabled) { background: #e0e0e0; }
-  .btn-stop-intro:disabled { opacity: 0.4; cursor: default; }
-  .audio-speed-group { display: flex; gap: 2px; align-items: center; }
-  .audio-speed-label { font-size: 11px; color: #777; margin-right: 4px; }
-  .audio-speed-btn { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: 700; padding: 5px 9px; border: 1px solid #cccccc; background: #f2f2f2; color: #555; cursor: pointer; border-radius: 2px; transition: background 0.1s; }
-  .audio-speed-btn:hover { background: #e0e0e0; }
-  .audio-speed-btn.active { background: #1F3864; color: #ffffff; border-color: #1F3864; }
-  .audio-speed-btn:focus { outline: 2px solid #d97706; outline-offset: 1px; }
-  .audio-progress { font-size: 12px; color: #888; margin-left: auto; white-space: nowrap; }
   </style>
+<link rel="stylesheet" href="wip-page-audio.css">
 </head>
 <body>
 
@@ -375,25 +346,27 @@
 <!-- AUDIO PANEL -->
 <div class="audio-panel" role="region" aria-label="Audio controls">
   <audio id="wip-media-anchor" playsinline loop preload="none" hidden aria-hidden="true"></audio>
-  <div class="audio-inner">
-    <span class="audio-label">Audio</span>
-    <button class="audio-btn btn-play-all" id="btn-play-all" aria-label="Play all sections">
+  <div class="audio-inner audio-row">
+    <button class="audio-btn btn-play-main" id="btn-play-main" type="button" aria-label="Play Section">
       <svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg>
-      Play All
+      Play Section
     </button>
-    <button class="audio-btn btn-stop-intro" id="btn-stop-intro" aria-label="Stop playback" disabled>
+    <div class="audio-speed-dropdown" id="audio-speed-dropdown">
+      <button type="button" class="audio-speed-drop-btn" id="audio-speed-drop-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Playback speed">
+        <span class="audio-speed-face" id="audio-speed-face">1.0x</span><span class="audio-speed-caret" aria-hidden="true">&#9660;</span>
+      </button>
+      <ul class="audio-speed-menu" id="audio-speed-menu" role="listbox" tabindex="-1" hidden>
+        <li role="option" data-rate="1" aria-selected="true">1.0x</li>
+        <li role="option" data-rate="1.25">1.25x</li>
+        <li role="option" data-rate="1.5">1.5x</li>
+        <li role="option" data-rate="1.75">1.75x</li>
+        <li role="option" data-rate="2">2.0x</li>
+      </ul>
+    </div>
+    <button class="audio-btn btn-stop" id="btn-stop-main" type="button" aria-label="Stop playback" disabled>
       <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><rect width="10" height="10" rx="1"/></svg>
       Stop
     </button>
-    <div class="audio-speed-group" aria-label="Playback speed">
-      <span class="audio-speed-label">Speed:</span>
-      <button class="audio-speed-btn active" data-rate="1" aria-label="Normal speed">1x</button>
-      <button class="audio-speed-btn" data-rate="1.25" aria-label="1.25x speed">1.25x</button>
-      <button class="audio-speed-btn" data-rate="1.5" aria-label="1.5x speed">1.5x</button>
-      <button class="audio-speed-btn" data-rate="1.75" aria-label="1.75x speed">1.75x</button>
-      <button class="audio-speed-btn" data-rate="2" aria-label="2x speed">2x</button>
-    </div>
-    <span class="audio-progress" id="audio-progress" aria-live="polite"></span>
   </div>
 </div>
 <!-- UTILITY BAR -->
@@ -954,294 +927,9 @@
 <script src="wip-audio-speed.js"></script>
 <script src="wip-tts.js"></script>
 <script src="wip-media-session.js"></script>
+<script src="wip-page-audio.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  /* -- AUDIO: Play All + per-section Listen -- */
-  (function(){
-    var synth = window.speechSynthesis;
-    if (window.WipTTS) WipTTS.prime(synth);
-    var INTRO_TEXT = "Welcome to Section Seven: Wisdom Across Domains. Let\'s start with a simple test. Take the wisdom you have studied in the previous six sections. Now place it in front of a difficult conversation you had this week. Or a financial decision sitting unresolved. Or a relationship that is requiring more than you expected. Does it hold? That is the question this section is built on. Proverbs has always known that wisdom which cannot enter a domain is wisdom that has not yet landed. In this section you will follow wisdom into seven specific territories; speech, wealth, work, family, friendship and leadership. She does not stop at the door of any of them. Section seven is where theology becomes traction. And where you will discover which domain needs the most attention. It is my prayer that the God of our Lord Jesus Christ, the Father of glory, may give you the Spirit of wisdom and of revelation in the knowledge of him as you study to apply His preserved book of Wisdom.";
-    var currentRate = 1;
-    var allSections = [];
-    var currentSec = null;
-    var playAllActive = false;
-    var playAllIndex = 0;
-    var isPaused = false;
-
-    var I_PLAY  = '<svg width="10" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><polygon points="2,1 11,6 2,11"/></svg>';
-    var I_PAUSE = '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="4" height="10" rx="0.5"/><rect x="7" y="1" width="4" height="10" rx="0.5"/></svg>';
-
-    var playAllBtn = document.getElementById('btn-play-all');
-    var stopBtn    = document.getElementById('btn-stop-intro');
-    var progressEl = document.getElementById('audio-progress');
-    var mediaSessionUI = { sync: function() {} };
-
-    function getBodyText(unit) {
-      var body = unit ? unit.querySelector('.acc-body') : null;
-      if (!body) return '';
-      var clone = body.cloneNode(true);
-      clone.querySelectorAll('button, select, input, .acc-body-footer, .answers-toolbar, .answers-note, .read-aloud-controls, .flashcard-back, .flashcard-hint').forEach(function(el) { el.remove(); });
-      var txt = (clone.textContent || clone.innerText || '').replace(/\s+/g, ' ').trim();
-      return txt.length > 4000 ? txt.substring(0, 4000) + '.' : txt;
-    }
-
-    function buildSections() {
-      allSections = [{ title: 'Introduction', getText: function() { return INTRO_TEXT; }, unit: null, listenBtn: null }];
-      document.querySelectorAll('.acc-unit').forEach(function(unit) {
-        var titleEl = unit.querySelector('.acc-title');
-        var t = titleEl ? titleEl.textContent.trim() : 'Section';
-        (function(u, title) {
-          allSections.push({ title: title, getText: function() { return getBodyText(u); }, unit: u, listenBtn: null });
-        })(unit, t);
-      });
-    }
-
-    function updateAllUI() {
-      var isActive = !!currentSec;
-      if (stopBtn) stopBtn.disabled = !isActive;
-
-      if (playAllBtn) {
-        if (!isActive) {
-          playAllBtn.innerHTML = I_PLAY + ' Play All';
-          playAllBtn.classList.remove('paused');
-          playAllBtn.setAttribute('aria-label', 'Play all sections');
-        } else if (playAllActive && !isPaused) {
-          playAllBtn.innerHTML = I_PAUSE + ' Pause';
-          playAllBtn.classList.remove('paused');
-          playAllBtn.setAttribute('aria-label', 'Pause');
-        } else if (playAllActive && isPaused) {
-          playAllBtn.innerHTML = I_PLAY + ' Resume';
-          playAllBtn.classList.add('paused');
-          playAllBtn.setAttribute('aria-label', 'Resume');
-        } else {
-          playAllBtn.innerHTML = I_PLAY + ' Play All';
-          playAllBtn.classList.remove('paused');
-          playAllBtn.setAttribute('aria-label', 'Play all sections');
-        }
-      }
-
-      if (progressEl) {
-        if (!isActive) { progressEl.textContent = ''; }
-        else {
-          var idx = allSections.indexOf(currentSec);
-          var base = playAllActive
-            ? (idx + 1) + ' of ' + allSections.length
-            : currentSec.title;
-          progressEl.textContent = isPaused ? 'Paused: ' + base : 'Playing: ' + base;
-        }
-      }
-
-      allSections.forEach(function(sec) {
-        if (currentSec === sec) {
-          var label = isPaused ? (I_PLAY + ' Resume') : (I_PAUSE + ' Pause');
-          if (sec.listenBtn) { sec.listenBtn.innerHTML = label; sec.listenBtn.classList.add('btn-active'); }
-          if (sec.bodyPlayBtn) { sec.bodyPlayBtn.innerHTML = label; sec.bodyPlayBtn.classList.add('btn-active'); }
-          if (sec.unit) sec.unit.classList.add('section-playing');
-        } else {
-          if (sec.listenBtn) { sec.listenBtn.innerHTML = I_PLAY + ' Listen'; sec.listenBtn.classList.remove('btn-active'); }
-          if (sec.bodyPlayBtn) { sec.bodyPlayBtn.innerHTML = I_PLAY + ' Play this section'; sec.bodyPlayBtn.classList.remove('btn-active'); }
-          if (sec.unit) sec.unit.classList.remove('section-playing');
-        }
-      });
-      mediaSessionUI.sync();
-    }
-
-    function speakText(text, onEnd) {
-      isPaused = false;
-      if (window.WipTTS) {
-        WipTTS.speak(synth, text, { rate: currentRate, onEnd: onEnd });
-      } else {
-        synth.cancel();
-        var u = new SpeechSynthesisUtterance(text);
-        u.lang = 'en-GB';
-        u.rate = currentRate;
-        u.onend = function() { if (onEnd) onEnd(); };
-        u.onerror = function(e) { if (e.error !== 'interrupted' && onEnd) onEnd(); };
-        synth.speak(u);
-      }
-    }
-
-    function openSection(unit) {
-      if (!unit) return;
-      var btn = unit.querySelector('.acc-btn');
-      var bodyId = btn ? btn.getAttribute('aria-controls') : null;
-      if (!bodyId) return;
-      var body = document.getElementById(bodyId);
-      if (body && !body.classList.contains('open')) {
-        body.classList.add('open');
-        if (btn) btn.setAttribute('aria-expanded', 'true');
-      }
-    }
-
-    function pauseResume() {
-      if (!currentSec) return;
-      if (isPaused) { synth.resume(); isPaused = false; }
-      else { synth.pause(); isPaused = true; }
-      updateAllUI();
-    }
-
-    function stopAll() {
-      synth.cancel();
-      playAllActive = false;
-      isPaused = false;
-      currentSec = null;
-      playAllIndex = 0;
-      updateAllUI();
-    }
-
-
-    if (window.WipMediaSession) {
-      mediaSessionUI = WipMediaSession.bind({
-        isActive: function() { return !!currentSec; },
-        isPaused: function() { return isPaused; },
-        getMetadata: function() {
-          if (!currentSec) return null;
-          return { title: currentSec.title, artist: 'Hiturn Media Group', album: 'Wisdom in Proverbs' };
-        },
-        onPlay: function() { if (currentSec && isPaused) pauseResume(); },
-        onPause: function() { if (currentSec && !isPaused) pauseResume(); },
-        onStop: function() { stopAll(); }
-      });
-    }
-
-    function playSection(sec, onDone) {
-      currentSec = sec;
-      if (sec.unit) {
-        openSection(sec.unit);
-        setTimeout(function() { sec.unit.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 80);
-      }
-      updateAllUI();
-      speakText(sec.getText(), function() {
-        if (!playAllActive) { currentSec = null; updateAllUI(); }
-        if (onDone) onDone();
-      });
-    }
-
-    function playNext() {
-      if (!playAllActive || playAllIndex >= allSections.length) { stopAll(); return; }
-      var sec = allSections[playAllIndex];
-      playAllIndex++;
-      playSection(sec, function() {
-        if (playAllActive && !isPaused) setTimeout(playNext, 600);
-      });
-    }
-
-    function injectListenButtons() {
-      document.querySelectorAll('.acc-unit').forEach(function(unit, i) {
-        var accBtn = unit.querySelector('.acc-btn');
-        if (!accBtn || unit.querySelector('.acc-head-row')) return;
-
-        // Wrap header button with listen button alongside it
-        var wrapper = document.createElement('div');
-        wrapper.className = 'acc-head-row';
-        unit.insertBefore(wrapper, accBtn);
-        wrapper.appendChild(accBtn);
-
-        var listenBtn = document.createElement('button');
-        listenBtn.className = 'acc-listen-btn';
-        var sec = allSections[i + 1];
-        listenBtn.setAttribute('aria-label', 'Listen to ' + (sec ? sec.title : 'section'));
-        listenBtn.innerHTML = I_PLAY + ' Listen';
-        wrapper.appendChild(listenBtn);
-
-        // Also inject a play button inside the acc-body (top, before content)
-        var body = unit.querySelector('.acc-body');
-        if (body && !body.querySelector('.body-play-btn')) {
-          var bodyPlayBtn = document.createElement('button');
-          bodyPlayBtn.className = 'body-play-btn';
-          bodyPlayBtn.innerHTML = I_PLAY + ' Play this section';
-          body.insertBefore(bodyPlayBtn, body.firstChild);
-          if (sec) {
-            (function(s, hBtn, bBtn) {
-              function handlePlay() {
-                if (currentSec === s) { pauseResume(); }
-                else {
-                  synth.cancel();
-                  playAllActive = false;
-                  isPaused = false;
-                  currentSec = null;
-                  playAllIndex = 0;
-                  playSection(s, function() { currentSec = null; updateAllUI(); });
-                }
-              }
-              hBtn.addEventListener('click', handlePlay);
-              bBtn.addEventListener('click', handlePlay);
-            })(sec, listenBtn, bodyPlayBtn);
-            sec.listenBtn = listenBtn;
-            sec.bodyPlayBtn = bodyPlayBtn;
-          }
-        } else if (sec) {
-          sec.listenBtn = listenBtn;
-          (function(s) {
-            listenBtn.addEventListener('click', function() {
-              if (currentSec === s) { pauseResume(); }
-              else {
-                synth.cancel();
-                playAllActive = false;
-                isPaused = false;
-                currentSec = null;
-                playAllIndex = 0;
-                playSection(s, function() { currentSec = null; updateAllUI(); });
-              }
-            });
-          })(sec);
-        }
-      });
-    }
-
-    function initControls() {
-      if (playAllBtn) {
-        playAllBtn.addEventListener('click', function() {
-          if (playAllActive && !isPaused) {
-            pauseResume();
-          } else if (playAllActive && isPaused) {
-            pauseResume();
-          } else {
-            synth.cancel();
-            playAllActive = true;
-            playAllIndex = 0;
-            isPaused = false;
-            currentSec = null;
-            playNext();
-          }
-        });
-      }
-
-      if (stopBtn) {
-        stopBtn.addEventListener('click', function() { stopAll(); });
-      }
-
-      if (window.WipAudioSpeed) {
-        WipAudioSpeed.wirePanel({
-          setRate: function(r) { currentRate = r; }
-        });
-      } else {
-        document.querySelectorAll('.audio-speed-btn').forEach(function(btn) {
-          btn.addEventListener('click', function() {
-            document.querySelectorAll('.audio-speed-btn').forEach(function(b) { b.classList.remove('active'); });
-            btn.classList.add('active');
-            currentRate = parseFloat(btn.dataset.rate);
-          });
-        });
-      }
-    }
-
-    if (!window.speechSynthesis) {
-      var inner = document.querySelector('.audio-inner');
-      if (inner) {
-        var note = document.createElement('p');
-        note.style.cssText = 'font-size:12px;color:#8b0000;margin:0 0 0 auto;';
-        note.textContent = 'Audio not supported. Try Chrome or Edge.';
-        inner.appendChild(note);
-      }
-      return;
-    }
-
-    buildSections();
-    injectListenButtons();
-    initControls();
-    updateAllUI();
-  })();
 
   var allBodies = ['body-crib','body-identity','body-portrait','body-nt','body-kdq','body-gdq','body-app','body-scripture','body-revision'];
 

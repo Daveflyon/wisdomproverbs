@@ -8,6 +8,13 @@
   var PAGE_KEY_PREFIX = 'wip-audio-speed-page-';
   var DEFAULT_RATE = 1;
   var VALID_RATES = [0.5, 1, 1.25, 1.5, 1.75, 2];
+  var PANEL_RATES = [1, 1.25, 1.5, 1.75, 2];
+
+  function formatRateLabel(rate) {
+    var r = normalizeRate(rate);
+    if (Math.abs(r - Math.round(r)) < 0.001) return r.toFixed(1) + 'x';
+    return r + 'x';
+  }
 
   function storageOK() {
     try {
@@ -187,6 +194,67 @@
     }
   }
 
+  function closeSpeedMenu(menu, btn) {
+    if (!menu) return;
+    menu.hidden = true;
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  }
+
+  function syncDropdown(rate) {
+    var face = document.getElementById('audio-speed-face');
+    var menu = document.getElementById('audio-speed-menu');
+    if (face) face.textContent = formatRateLabel(rate);
+    if (!menu) return;
+    var matched = false;
+    menu.querySelectorAll('[data-rate]').forEach(function (item) {
+      var itemRate = parseFloat(item.dataset.rate);
+      var active = Math.abs(itemRate - rate) < 0.01;
+      item.setAttribute('aria-selected', active ? 'true' : 'false');
+      if (active) matched = true;
+    });
+    if (!matched) {
+      menu.querySelectorAll('[data-rate]').forEach(function (item) {
+        item.setAttribute('aria-selected', 'false');
+      });
+    }
+  }
+
+  function wireSpeedDropdown(opts, apply) {
+    var dropBtn = document.getElementById('audio-speed-drop-btn');
+    var menu = document.getElementById('audio-speed-menu');
+    if (!dropBtn || !menu) return false;
+
+    function toggleMenu(open) {
+      var isOpen = open != null ? open : menu.hidden;
+      menu.hidden = !isOpen;
+      dropBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+
+    dropBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      toggleMenu(menu.hidden);
+    });
+
+    menu.querySelectorAll('[data-rate]').forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var chosen = parseFloat(item.dataset.rate);
+        apply(chosen, false);
+        closeSpeedMenu(menu, dropBtn);
+      });
+    });
+
+    document.addEventListener('click', function () {
+      closeSpeedMenu(menu, dropBtn);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeSpeedMenu(menu, dropBtn);
+    });
+
+    return true;
+  }
+
   function wirePanel(opts) {
     opts = opts || {};
     var pageId = opts.pageId || pageIdFromLocation();
@@ -201,6 +269,7 @@
         rate = normalizeRate(rate);
       }
       setRateLocal(rate);
+      syncDropdown(rate);
       syncButtons(rate);
       if (syncReadAloud) syncSelect(rate);
       return rate;
@@ -208,16 +277,26 @@
 
     apply(null, true);
 
-    document.querySelectorAll('.audio-speed-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var chosen = parseFloat(btn.dataset.rate);
-        if (isIndex) {
-          apply(setRate(chosen, { pageId: pageId, isIndex: true }));
-        } else {
-          apply(setRate(chosen, { pageId: pageId, isIndex: false }));
-        }
-      });
+    var hasDropdown = wireSpeedDropdown(opts, function (chosen) {
+      if (isIndex) {
+        apply(setRate(chosen, { pageId: pageId, isIndex: true }));
+      } else {
+        apply(setRate(chosen, { pageId: pageId, isIndex: false }));
+      }
     });
+
+    if (!hasDropdown) {
+      document.querySelectorAll('.audio-speed-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var chosen = parseFloat(btn.dataset.rate);
+          if (isIndex) {
+            apply(setRate(chosen, { pageId: pageId, isIndex: true }));
+          } else {
+            apply(setRate(chosen, { pageId: pageId, isIndex: false }));
+          }
+        });
+      });
+    }
 
     var raSel = document.getElementById('read-aloud-speed');
     if (raSel && syncReadAloud) {
@@ -255,7 +334,10 @@
     getEffectiveRate: getEffectiveRate,
     setRate: setRate,
     syncButtons: syncButtons,
+    syncDropdown: syncDropdown,
     syncSelect: syncSelect,
+    formatRateLabel: formatRateLabel,
+    PANEL_RATES: PANEL_RATES,
     wirePanel: wirePanel,
     pageIdFromLocation: pageIdFromLocation
   };
