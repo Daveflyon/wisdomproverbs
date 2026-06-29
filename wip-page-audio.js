@@ -1,4 +1,4 @@
-/* Wisdom in Proverbs — page-level Play Overview / Play Section + per-block Play Block */
+/* Wisdom in Proverbs — Play Overview / Play Lesson / Play Section (scope = label) */
 (function (global) {
   'use strict';
 
@@ -25,8 +25,8 @@
     var clone = el.cloneNode(true);
     clone.querySelectorAll(
       'button, select, input, .acc-body-footer, .answers-toolbar, .answers-note, ' +
-      '.read-aloud-controls, .flashcard-back, .flashcard-hint, .block-play-btn, ' +
-      '.sec-listen-btn, .acc-listen-btn, .body-play-btn'
+      '.read-aloud-controls, .flashcard-back, .flashcard-hint, .section-play-btn, ' +
+      '.sec-listen-btn, .acc-listen-btn, .body-play-btn, .back-link, .page-footer'
     ).forEach(function (node) { node.remove(); });
     return (clone.textContent || '').replace(/\s+/g, ' ').trim();
   }
@@ -71,7 +71,7 @@
       try { if (synth.paused) synth.resume(); } catch (e) {}
       synth.cancel();
     }
-    document.querySelectorAll('.block-play-btn.playing').forEach(function (b) {
+    document.querySelectorAll('.section-play-btn.playing').forEach(function (b) {
       b.classList.remove('playing');
     });
     updateUI();
@@ -121,18 +121,23 @@
     next();
   }
 
-  function playChunks(chunks, activeBlockBtn) {
-    document.querySelectorAll('.block-play-btn.playing').forEach(function (b) {
+  function playChunks(chunks, activeSectionBtn) {
+    document.querySelectorAll('.section-play-btn.playing').forEach(function (b) {
       b.classList.remove('playing');
     });
-    if (activeBlockBtn) activeBlockBtn.classList.add('playing');
+    if (activeSectionBtn) activeSectionBtn.classList.add('playing');
     speakSequence(flattenChunks(chunks), function () {
-      if (activeBlockBtn) activeBlockBtn.classList.remove('playing');
+      if (activeSectionBtn) activeSectionBtn.classList.remove('playing');
     });
   }
 
-  function buildSectionChunks() {
+  function buildLessonChunks() {
     var chunks = [];
+    var titleBlock = document.querySelector('.title-block');
+    if (titleBlock) {
+      var t = cleanText(titleBlock);
+      if (t) chunks.push(t);
+    }
     ['#opening-q', '.key-scripture', '.core-truth-box'].forEach(function (sel) {
       var el = document.querySelector(sel);
       if (!el) return;
@@ -141,12 +146,8 @@
     });
     document.querySelectorAll('.acc-unit').forEach(function (unit) {
       if (unit.id === 'unit-scripture') return;
-      var titleEl = unit.querySelector('.acc-title');
-      var body = unit.querySelector('.acc-body');
-      var title = titleEl ? titleEl.textContent.trim() : '';
-      var bodyText = cleanText(body);
-      var combined = (title ? title + '. ' : '') + bodyText;
-      if (combined.trim()) chunks.push(combined.trim());
+      var text = getSectionText(unit);
+      if (text) chunks.push(text);
     });
     return chunks;
   }
@@ -162,24 +163,28 @@
     return chunks;
   }
 
-  function injectBlockPlayButtons() {
+  function getSectionText(unit) {
+    var titleEl = unit.querySelector('.acc-title');
+    var body = unit.querySelector('.acc-body');
+    var title = titleEl ? titleEl.textContent.trim() : '';
+    var bodyText = cleanText(body);
+    return ((title ? title + '. ' : '') + bodyText).trim();
+  }
+
+  function injectSectionPlayButtons() {
     document.querySelectorAll('.acc-unit').forEach(function (unit) {
       if (unit.id === 'unit-scripture') return;
       var body = unit.querySelector('.acc-body');
-      if (!body || body.querySelector('.block-play-btn')) return;
+      if (!body || body.querySelector('.section-play-btn')) return;
       var btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'block-play-btn';
-      btn.setAttribute('aria-label', 'Play this block');
-      btn.innerHTML = I_PLAY + ' Play Block';
+      btn.className = 'section-play-btn';
+      btn.setAttribute('aria-label', 'Play this section');
+      btn.innerHTML = I_PLAY + ' Play Section';
       body.insertBefore(btn, body.firstChild);
       btn.addEventListener('click', function () {
-        var titleEl = unit.querySelector('.acc-title');
-        var title = titleEl ? titleEl.textContent.trim() : '';
-        var bodyText = cleanText(body);
-        var combined = (title ? title + '. ' : '') + bodyText;
         stop();
-        playChunks([combined], btn);
+        playChunks([getSectionText(unit)], btn);
       });
     });
   }
@@ -187,12 +192,12 @@
   function wireControls(isIndex) {
     playBtn = document.getElementById('btn-play-main');
     stopBtn = document.getElementById('btn-stop-main');
-    playLabel = isIndex ? 'Play Overview' : 'Play Section';
+    playLabel = isIndex ? 'Play Overview' : 'Play Lesson';
     if (!playBtn || !stopBtn) return false;
 
     playBtn.addEventListener('click', function () {
       stop();
-      var chunks = isIndex ? buildIndexChunks() : buildSectionChunks();
+      var chunks = isIndex ? buildIndexChunks() : buildLessonChunks();
       playChunks(chunks, null);
     });
 
@@ -213,7 +218,7 @@
         getMetadata: function () {
           if (!playing) return null;
           return {
-            title: isIndex ? 'Series Overview' : (document.querySelector('h1') || {}).textContent || 'Section',
+            title: isIndex ? 'Series Overview' : (document.querySelector('h1') || {}).textContent || 'Lesson',
             artist: 'Hiturn Media Group',
             album: 'Wisdom in Proverbs'
           };
@@ -244,7 +249,7 @@
     }
     if (global.WipTTS) global.WipTTS.prime(synth);
     if (!wireControls(isIndex)) return;
-    if (!isIndex) injectBlockPlayButtons();
+    if (!isIndex) injectSectionPlayButtons();
   }
 
   function initIndex() { initCommon(true); }

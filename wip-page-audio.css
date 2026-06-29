@@ -1,4 +1,4 @@
-/* Wisdom in Proverbs — standard page-level audio row + per-block Play Block */
+/* Wisdom in Proverbs — standard page-level audio row + per-section Play Section */
 .audio-inner.audio-row {
   display: flex;
   flex-wrap: nowrap;
@@ -78,7 +78,7 @@
   background: #1F3864;
   color: #ffffff;
 }
-.block-play-btn {
+.section-play-btn {
   display: none;
   align-items: center;
   gap: 5px;
@@ -95,10 +95,10 @@
   transition: background 0.15s;
   min-height: 34px;
 }
-.block-play-btn:hover { background: #2c54a0; }
-.block-play-btn:focus { outline: 2px solid #d97706; outline-offset: 2px; }
-.block-play-btn.playing { background: #d97706; }
-.acc-body.open > .block-play-btn { display: inline-flex; }
+.section-play-btn:hover { background: #2c54a0; }
+.section-play-btn:focus { outline: 2px solid #d97706; outline-offset: 2px; }
+.section-play-btn.playing { background: #d97706; }
+.acc-body.open > .section-play-btn { display: inline-flex; }
 @media print {
-  .block-play-btn { display: none !important; }
+  .section-play-btn { display: none !important; }
 }
